@@ -20,7 +20,14 @@ def Editar():
     return
 
 def Eliminar():
+    print("="*26)
+    empleadoEliminar = int(input("Escriba el id del empleado o escriba \"Lista\" para obtener la planilla"))
+    if empleadoEliminar == "Lista":
+        print("Lista de empleados:")
+    else:
+        del empleados[empleadoEliminar]
     return
+
 def Menu():
     print("="*26)
     print('| 1. Registrar empleado  | ')
