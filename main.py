@@ -37,5 +37,7 @@ def Menu():
     print('| 5. Salir               | ')
     print("="*26)
 
+#Programa principal
+if __name__ == "__main__":
 
-Menu()
+    Menu()
