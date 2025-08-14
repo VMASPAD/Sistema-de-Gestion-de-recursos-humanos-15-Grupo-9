@@ -26,7 +26,7 @@ def Eliminar():
         print("Lista de empleados:")
     else:
         del empleados[empleadoEliminar]
-    return
+    return ''
 
 def Menu():
     print("="*26)
