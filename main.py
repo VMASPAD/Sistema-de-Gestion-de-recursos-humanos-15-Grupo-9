@@ -7,6 +7,7 @@ justificaciones = []
 #id, nombre y apellido, telefono, area, estado, fecha de ingreso, fecha de nacimiento
 empleados = []
 
+# region FACU
 def Registrar():
 
     return
