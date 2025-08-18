@@ -1,0 +1,16 @@
+ID	Justificación	Tipo
+1	Enfermedad común	Médicas
+2	Accidente laboral	Médicas
+3	Accidente no laboral	Médicas
+4	Consulta médica	Médicas
+5	Internación	Médicas
+6	Vacaciones	Personales / Legales
+7	Asuntos personales	Personales / Legales
+8	Trámite oficial	Personales / Legales
+9	Examen académico	Personales / Legales
+10	Jornada electoral	Personales / Legales
+11	Fallecimiento familiar directo	Fallecimiento
+12	Fallecimiento familiar no directo	Fallecimiento
+13	Nacimiento de hijo	Familiar
+14	Paternidad	Familiar
+15	Adopción	Familiar
