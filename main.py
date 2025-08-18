@@ -8,9 +8,18 @@ justificaciones = []
 empleados = []
 
 # region FACU
-def Registrar():
-
-    return
+def Registrar(emp):
+    empleado = []
+    nombre_empleado = input("Ingrese el nombre del empleado: ")
+    apellido_empleado = input("Ingrese el apellido del empleado: ")
+    telefono_empleado = int(input("Ingrese el telefono del empleado: "))
+    num_area_empleado = int(input("Ingrese el número area del empleado: "))
+    estado_empleado = int(input("Ingrese el estado del empleado: "))
+    fecha_ingreso_empleado = int(input("Ingrese la fecha de ingreso del empleado: "))
+    fecha_nacimiento_empleado = int(input("Ingrese la fecha de nacimiento del empleado: "))
+    empleado.extend(nombre_empleado,apellido_empleado,telefono_empleado,num_area_empleado,estado_empleado,fecha_ingreso_empleado,fecha_nacimiento_empleado)
+    emp.append(empleado)
+    return emp
 
 def Buscador():
 
@@ -39,6 +48,7 @@ def Menu():
     print("="*26)
 
 #Programa principal
-if __name__ == "__main__":
-
-    Menu()
+#if __name__ == "__main__":
+empleados=Registrar(empleados)
+print(empleados)
+    # Menu()
