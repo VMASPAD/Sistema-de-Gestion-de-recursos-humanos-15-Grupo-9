@@ -1,14 +1,16 @@
+
+#id, nombre, cantidad
 areas = [
-    [1, "Produccion"],
-    [2, "Mantenimiento"],
-    [3, "Calidad"],
-    [4, "Logística y Depósito"],
-    [5, "Administración y Finanzas"],
-    [6, "Compras"],
-    [7 ,"Ingeniería y Desarrollo"], 
-    [8, "Recursos Humanos"],
-    [9, "Ventas y Atención al Cliente"],
-    [10, "Dirección General"]
+    [1, "Produccion", 0],
+    [2, "Mantenimiento", 0],
+    [3, "Calidad", 0],
+    [4, "Logística y Depósito", 0],
+    [5, "Administración y Finanzas", 0],
+    [6, "Compras", 0],
+    [7 ,"Ingeniería y Desarrollo",0], 
+    [8, "Recursos Humanos",0],
+    [9, "Ventas y Atención al Cliente",0],
+    [10, "Dirección General",0]
 ]
 #id, id_empleado, fecha, id_justificacion
 licencias = [
