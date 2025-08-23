@@ -9,25 +9,66 @@ def Imprimir_Opciones(matriz, columna):
 
 def Imprimir_Encabezados(fila):
     encabezados = [
-        ["id",	"Nombre y Apellido", "Telefono", "Posición", "id_Area", "Estado", "Fecha_ingreso", "Fecha_nacimiento"], # Empleados 
+        ["id",	"Nombre y Ape..", "Telefono", "Posición", "id_Area", "Estado", "Fecha_ingreso", "Fecha_nacimiento"], # Empleados 
         ["Id", "Nombre", "Cantidad"], # Areas
         ["Id", "Id_Empleado", "Fecha","ID_Justificacion"], # Licencias
         ["Id", "Justificación", "Tipo"] # Justificaciones 
         ]
     for i in encabezados[fila]:
-        print(i, end= "    ")
+        i = i.ljust(15)
+        print(i, end= "\t")
     print()
     return
 
-def Imprimir_matriz(matriz):
+def Acotar(nombre):
+    nombre = nombre.split()
+    cort = []
+    cort.append(nombre[0])
+    for n in nombre[1:]:
+        n = n[:2] + ".."
+        cort.append(n)
+    cort = " ".join(cort)
+    return cort
+
+def Rellenar(nombre):
+    nombre = str(nombre)
+    nombre = nombre.ljust(8)
+    return nombre
+
+def Formato(nombre):
+    nombre = str(nombre)
+    if len(nombre) > 7:
+        nombre = nombre.split()
+        cort = []
+        cort.append(nombre[0])
+        for n in nombre[1:]:
+            if len(n) > 3:
+                n = n[:3] + ".."
+            cort.append(n)
+        cort = " ".join(cort)
+        nombre = cort
+          
+    elif len(str(nombre)) < 8:
+        nombre = Rellenar(nombre)  
+    
+    nombre = nombre.ljust(15)
+    return nombre
+
+def Imprimir_Matriz_Ordenada(matriz, llave):
     filas = len(matriz)
     columnas = len(matriz[0])
 
+    matriz.sort(key=llave)
+    print("="*130)
+    Imprimir_Encabezados(0)
+    print("-"*130)
     for i in range(filas):
         for j in range(columnas):
+            matriz[i][j] = Formato(matriz[i][j]) 
             print(matriz[i][j], end="\t")
         print()
-    print("="*26)
+        print("-"*130)
+    print("="*130)
     print()
     return
 
@@ -57,6 +98,7 @@ def Buscador(empleados, areas):
     print("1 - Id")
     print("2 - Nombre/Apellido")
     print("3 - Area")
+    print("4 - Mostrar empleados")
     print("5 - xxx")
     opcion = int(input("Ingrese la opcion de busqueda: "))
     match opcion: 
@@ -71,6 +113,24 @@ def Buscador(empleados, areas):
             Imprimir_Opciones(areas, 1)
             busqueda = int(input("Ingrese el Area a buscar: "))
             Encontrar(busqueda, empleados, 4, 0)
+        case 4:
+            print("="*26)
+            print("Opciones a mostrar de manera ascendente: ")
+            print("1 - Id")
+            print("2 - Area")
+            print("3 - Apellido")
+            print("4 - xxxx")
+            opcion = int(input("Ingrese la opcion de ordenado: "))
+            match opcion :
+                case 1:
+                    key = lambda col : col[0]
+                    Imprimir_Matriz_Ordenada(empleados, key)
+                case 2:
+                    key = lambda col : col[4]
+                    Imprimir_Matriz_Ordenada(empleados, key)
+                case 3: 
+                    key = lambda fila: fila[1].rsplit(" ", 1)[-1]
+                    Imprimir_Matriz_Ordenada(empleados, key)
 
     return
 
