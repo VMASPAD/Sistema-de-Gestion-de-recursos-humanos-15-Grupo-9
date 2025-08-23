@@ -50,20 +50,20 @@ justificaciones = [
     [15, "Adopcion", "Familiar"]
 ]
 
-# id, nombre, apellido, telefono, posicion, area, estado, fecha de ingreso, fecha de nacimiento
+# id, nombre y apellido, telefono, posicion, area, estado, fecha de ingreso, fecha de nacimiento
 empleados = [
-    [1, "Juan", "Perez", "1123456789", "Operario", 1, "Activo", "2019-03-15", "1987-06-12"],
-    [2, "Maria", "Gonzalez", "1165432109", "Tecnica", 2, "Activo", "2020-07-01", "1991-04-23"],
-    [3, "Lucas", "Fernandez", "1132123456", "Analista", 3, "Activo", "2021-01-10", "1995-09-18"],
-    [4, "Carla", "Rodriguez", "1145678910", "Administrativa", 5, "Activo", "2018-11-05", "1989-11-02"],
-    [5, "Martin", "Sosa", "1176543210", "Operario", 4, "Activo", "2022-02-20", "1994-01-30"],
-    [6, "Florencia", "Castro", "1198765432", "Ingeniera", 7, "Activo", "2017-06-12", "1985-07-19"],
-    [7, "Santiago", "Lopez", "1123987654", "Jefe de area", 1, "Activo", "2015-08-01", "1982-03-11"],
-    [8, "Jazmin", "Romero", "1154321890", "Recepcionista", 8, "Activo", "2023-04-01", "2000-05-07"],
-    [9, "Nicolas", "Herrera", "1167894321", "Tecnico", 2, "Activo", "2020-10-22", "1992-08-14"],
-    [10, "Valeria", "Nunez", "1134765890", "Contadora", 5, "Activo", "2016-09-12", "1988-12-05"],
-    [11, "Pablo", "Ruiz", "1143217654", "Chofer", 4, "Activo", "2021-12-03", "1990-06-25"],
-    [12, "Antonella", "Benitez", "1176549870", "Especialista", 3, "Activo", "2019-01-14", "1993-02-28"],
-    [13, "Julian", "Medina", "1134567890", "Encargado", 6, "Activo", "2018-05-22", "1986-10-10"],
-    [14, "Camila", "Torres", "1123897654", "HR Generalist", 8, "Activo", "2022-08-08", "1997-03-03"]
+    [1, "Juan Perez", "1123456789", "Operario", 1, "Activo", "2019-03-15", "1987-06-12"],
+    [2, "Maria Gonzalez", "1165432109", "Tecnica", 2, "Activo", "2020-07-01", "1991-04-23"],
+    [3, "Lucas Fernandez", "1132123456", "Analista", 3, "Activo", "2021-01-10", "1995-09-18"],
+    [4, "Carla Rodriguez", "1145678910", "Administrativa", 5, "Activo", "2018-11-05", "1989-11-02"],
+    [5, "Martin Sosa", "1176543210", "Operario", 4, "Activo", "2022-02-20", "1994-01-30"],
+    [6, "Florencia Castro", "1198765432", "Ingeniera", 7, "Activo", "2017-06-12", "1985-07-19"],
+    [7, "Santiago Lopez", "1123987654", "Jefe de area", 1, "Activo", "2015-08-01", "1982-03-11"],
+    [8, "Jazmin Romero", "1154321890", "Recepcionista", 8, "Activo", "2023-04-01", "2000-05-07"],
+    [9, "Nicolas Herrera", "1167894321", "Tecnico", 2, "Activo", "2020-10-22", "1992-08-14"],
+    [10, "Valeria Nunez", "1134765890", "Contadora", 5, "Activo", "2016-09-12", "1988-12-05"],
+    [11, "Pablo Ruiz", "1143217654", "Chofer", 4, "Activo", "2021-12-03", "1990-06-25"],
+    [12, "Antonella Benitez", "1176549870", "Especialista", 3, "Activo", "2019-01-14", "1993-02-28"],
+    [13, "Julian Medina", "1134567890", "Encargado", 6, "Activo", "2018-05-22", "1986-10-10"],
+    [14, "Camila Torres", "1123897654", "HR Generalist", 8, "Activo", "2022-08-08", "1997-03-03"]
 ]
