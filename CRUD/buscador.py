@@ -9,7 +9,7 @@ def Imprimir_Opciones(matriz, columna):
 
 def Imprimir_Encabezados(fila):
     encabezados = [
-        ["id",	"Nombre", "Apellido", "Telefono", "Posición", "id_Area", "Estado", "Fecha_ingreso", "Fecha_nacimiento"], # Empleados 
+        ["id",	"Nombre y Apellido", "Telefono", "Posición", "id_Area", "Estado", "Fecha_ingreso", "Fecha_nacimiento"], # Empleados 
         ["Id", "Nombre", "Cantidad"], # Areas
         ["Id", "Id_Empleado", "Fecha","ID_Justificacion"], # Licencias
         ["Id", "Justificación", "Tipo"] # Justificaciones 
@@ -35,7 +35,12 @@ def Encontrar(valor, matriz, columna, encabezado):
     existe = False
     Imprimir_Encabezados(encabezado)
     for i in range(len(matriz)):
-        if matriz[i][columna] == valor:
+        valor = str(valor)
+        busqueda = matriz[i][columna]
+        if valor.isnumeric():
+            valor = int(valor)
+            busqueda = [matriz[i][columna]]
+        if valor in busqueda:
             #mejorar impresion 
             for j in matriz[i]:
                 print(j, end= "\t")
@@ -50,9 +55,8 @@ def Buscador(empleados, areas):
     
     print("Opciones: ")
     print("1 - Id")
-    print("2 - Nombre")
-    print("3 - Apellido")
-    print("4 - Area")
+    print("2 - Nombre/Apellido")
+    print("3 - Area")
     print("5 - xxx")
     opcion = int(input("Ingrese la opcion de busqueda: "))
     match opcion: 
@@ -60,17 +64,13 @@ def Buscador(empleados, areas):
             busqueda = int(input("Ingrese el Id a buscar: "))
             Encontrar(busqueda, empleados, 0, 0)
         case 2:
-            busqueda = input("Ingrese el nombre a buscar: ")
+            busqueda = input("Ingrese el nombre o apellido a buscar: ")
             busqueda = busqueda.lower()
             Encontrar(busqueda, empleados, 1, 0)
-        case 3:
-            busqueda = input("Ingrese el apellido a buscar: ")
-            busqueda = busqueda.lower()
-            Encontrar(busqueda, empleados, 2, 0)
-        case 4: 
+        case 3: 
             Imprimir_Opciones(areas, 1)
             busqueda = int(input("Ingrese el Area a buscar: "))
-            Encontrar(busqueda, empleados, 5, 0)
+            Encontrar(busqueda, empleados, 4, 0)
 
     return
 
