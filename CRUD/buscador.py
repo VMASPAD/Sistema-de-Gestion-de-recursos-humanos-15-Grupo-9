@@ -64,8 +64,8 @@ def Imprimir_Matriz_Ordenada(matriz, llave):
     print("-"*130)
     for i in range(filas):
         for j in range(columnas):
-            matriz[i][j] = Formato(matriz[i][j]) 
-            print(matriz[i][j], end="\t")
+            impresion = Formato(matriz[i][j]) 
+            print(impresion, end="\t")
         print()
         print("-"*130)
     print("="*130)
@@ -74,6 +74,7 @@ def Imprimir_Matriz_Ordenada(matriz, llave):
 
 def Encontrar(valor, matriz, columna, encabezado):
     existe = False
+    print("="*130)
     Imprimir_Encabezados(encabezado)
     for i in range(len(matriz)):
         valor = str(valor)
@@ -84,10 +85,11 @@ def Encontrar(valor, matriz, columna, encabezado):
         if valor in busqueda:
             #mejorar impresion 
             for j in matriz[i]:
-                print(j, end= "\t")
+                print(str(j).ljust(15), end= "\t")
             existe = True
             print() 
     if not existe: print("No se encontro")
+    print("="*130)
 
 def Buscador(empleados, areas):
     for i in range(len(empleados)):
