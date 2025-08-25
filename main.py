@@ -33,6 +33,8 @@ def Menu():
                     print('| 3. Empleado                    |')
                     tipo = int(input("Seleccione una opcion: "))
                     eliminar.Eliminar(tipo)
+                userLog(user, password)
+                opcion = int(input("Seleccione una opcion: "))
         case 1:
             opcion = int(input("Seleccione una opcion: "))
             while opcion != 5: 
@@ -48,11 +50,15 @@ def Menu():
                     editar.Editar(tipo)
                 if opcion == 4:
                     eliminar.Eliminar(3)
+                userLog(user, password)
+                opcion = int(input("Seleccione una opcion: "))
         case 0:
             opcion = int(input("Seleccione una opcion: "))
             while opcion != 2:
                 if opcion == 1:
                     buscador.Buscador(empleados, areas)
+                userLog(user, password)
+                opcion = int(input("Seleccione una opcion: "))
     print("-"*26)
     return 0
                 

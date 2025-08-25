@@ -93,8 +93,7 @@ def Encontrar(valor, matriz, columna, encabezado):
 
 def Buscador(empleados, areas):
     for i in range(len(empleados)):
-        for j in range(1, 3):
-            empleados[i][j] =  empleados[i][j].lower()
+        empleados[i][1] =  empleados[i][1].lower()
     
     print("Opciones: ")
     print("1 - Id")
@@ -125,10 +124,10 @@ def Buscador(empleados, areas):
             opcion = int(input("Ingrese la opcion de ordenado: "))
             match opcion :
                 case 1:
-                    key = lambda col : col[0]
+                    key = lambda fila : fila[0]
                     Imprimir_Matriz_Ordenada(empleados, key)
                 case 2:
-                    key = lambda col : col[4]
+                    key = lambda fila : fila[4]
                     Imprimir_Matriz_Ordenada(empleados, key)
                 case 3: 
                     key = lambda fila: fila[1].rsplit(" ", 1)[-1]
