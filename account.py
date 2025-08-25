@@ -1,22 +1,31 @@
-# return nivel de acceso
-def userOptionAcces(level):
-    if level == 2:
-        return 2
-    elif level == 1:
-        return 1
-    elif level == 0:
-        return 0
-
 def userLog(user, password):
     if user == "admin" and password == "admin":
         print("Bienvenido al sistema de gestion de recursos humanos")
         print("="*26)
         print('| Seleccione operacion   | ')
-        print('| 1. Gestionar Area      | ')
-        print('| 2. Gestionar Licencias | ')
-        print('| 3. Gestionar Empleados | ')
-        print('| 4. Salir               | ')
+        print('| 1. Registrar Elemento  | ')
+        print('| 2. Buscador Elementos  | ')
+        print('| 3. Editar Elementos    | ')
+        print('| 4. Eliminar Elementos  | ')
+        print('| 5. Salir               | ')
         print("="*26)
         return 2
-
-    
+    elif user == "user" and password == "user":
+        print("Bienvenido al sistema de gestion de recursos humanos")
+        print("="*26)
+        print('| Seleccione operacion   | ')
+        print('| 1. Registrar Empleado  | ')
+        print('| 2. Buscador Elementos  | ')
+        print('| 3. Editar Elementos    | ')
+        print('| 4. Eliminar Empleado  | ')
+        print('| 5. Salir               | ')
+        print("="*26)
+        return 1
+    elif user == "guest" and password == "guest":
+        print("Bienvenido al sistema de gestion de recursos humanos")
+        print("="*26)
+        print('| Seleccione operacion   | ')
+        print('| 1. Buscador Elementos  | ')
+        print('| 2. Salir               | ')
+        print("="*26)
+        return 0

@@ -1,9 +1,5 @@
 from dataset import empleados, areas
 
-<<<<<<< HEAD
-def Buscador():
-    return
-=======
 #Funciones 
 def Imprimir_Opciones(matriz, columna):
     print()
@@ -144,4 +140,3 @@ def Buscador(empleados, areas):
 
 if __name__ == "__main__":
     Buscador(empleados, areas)
->>>>>>> 9b295bdc7aa57fdc92ef648149524e45852a55de

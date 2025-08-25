@@ -1,6 +1,17 @@
 from dataset import empleados, areas, licencias
 
-def Eliminar():
+def Eliminar(index):
+    match index:
+        case 1:
+            EliminarArea()
+        case 2:
+            EliminarLicencia()
+        case 3:
+            EliminarEmpleado()
+        case _:
+            print("Opcion no valida")
+
+def EliminarEmpleado():
     print("="*26)
     empleadoEliminar = int(input("Escriba el id del empleado o escriba \"Lista\" para obtener la planilla"))
     if empleadoEliminar == "Lista":

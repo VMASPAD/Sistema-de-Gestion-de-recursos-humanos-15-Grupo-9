@@ -1,5 +1,6 @@
 # id, nombre, cantidad
 areas = [
+    [0, "Staff", 0],
     [1, "Produccion", 0],
     [2, "Mantenimiento", 0],
     [3, "Calidad", 0],
@@ -14,6 +15,7 @@ areas = [
 
 # id, id_empleado, fecha, id_justificacion
 licencias = [
+    [0, 1, "2024-23-2", 1],
     [1, 1, "2024-03-12", 1],   # Juan Pérez - Enfermedad común
     [2, 2, "2024-05-10", 4],   # María González - Consulta médica
     [3, 3, "2024-06-15", 3],   # Lucas Fernández - Accidente no laboral
@@ -33,6 +35,7 @@ licencias = [
 
 # id, justificacion, tipo
 justificaciones = [
+    [0, "No enfermedad", "-"],
     [1, "Enfermedad comun", "Medicas"],
     [2, "Accidente laboral", "Medicas"],
     [3, "Accidente no laboral", "Medicas"],
@@ -52,6 +55,7 @@ justificaciones = [
 
 # id, nombre y apellido, telefono, posicion, area, estado, fecha de ingreso, fecha de nacimiento
 empleados = [
+    [0, "Juanceto01", "43872744", "Operario", 1, "Activo", "2019-03-15", "1987-06-12"],
     [1, "Juan Perez", "1123456789", "Operario", 1, "Activo", "2019-03-15", "1987-06-12"],
     [2, "Maria Gonzalez", "1165432109", "Tecnica", 2, "Activo", "2020-07-01", "1991-04-23"],
     [3, "Lucas Fernandez", "1132123456", "Analista", 3, "Activo", "2021-01-10", "1995-09-18"],

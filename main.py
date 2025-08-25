@@ -12,42 +12,47 @@ def Menu():
             opcion = int(input("Seleccione una opcion: "))
             while opcion != 5: 
                 if opcion == 1:
-                    registrar.Registrar()
+                    print('| Que elemento quiere Registrar? |')
+                    print('| 1. Area                        |')
+                    print('| 2. Empleado                    |')
+                    tipo = int(input("Seleccione una opcion: "))
+                    registrar.Registrar(tipo)
                 if opcion == 2:
                     buscador.Buscador(empleados, areas)
                 if opcion == 3:
-                    editar.Editar()
+                    print('| Que elemento quiere editar?    |')
+                    print('| 1. Area                        |')
+                    print('| 2. Licencia                    |')
+                    print('| 3. Empleado                    |')
+                    tipo = int(input("Seleccione una opcion: "))
+                    editar.Editar(tipo)
                 if opcion == 4:
-                    eliminar.Eliminar()
-                # if opcion == 5:
-                #     print("-"*26)
-                #     return 0
-                userLog(user, password)
-                opcion = int(input("Seleccione una opcion: "))
+                    print('| Que elemento quiere eliminar?  |')
+                    print('| 1. Area                        |')
+                    print('| 2. Licencia                    |')
+                    print('| 3. Empleado                    |')
+                    tipo = int(input("Seleccione una opcion: "))
+                    eliminar.Eliminar(tipo)
         case 1:
             opcion = int(input("Seleccione una opcion: "))
-            while opcion != 4:
+            while opcion != 5: 
                 if opcion == 1:
-                    registrar.Registrar()
+                    registrar.Registrar(2)
                 if opcion == 2:
                     buscador.Buscador(empleados, areas)
                 if opcion == 3:
-                    editar.Editar()
-                # if opcion == 4:
-                #     print("-"*26)
-                #     return 0
-                userLog(user, password)
-                opcion = int(input("Seleccione una opcion: "))
+                    print('| Que elemento quiere editar?    |')
+                    print('| 2. Licencia                    |')
+                    print('| 3. Empleado                    |')
+                    tipo = int(input("Seleccione una opcion: "))
+                    editar.Editar(tipo)
+                if opcion == 4:
+                    eliminar.Eliminar(3)
         case 0:
             opcion = int(input("Seleccione una opcion: "))
             while opcion != 2:
                 if opcion == 1:
                     buscador.Buscador(empleados, areas)
-                # if opcion == 2:
-                #     print("-"*26)
-                #     return 0
-                userLog(user, password)
-                opcion = int(input("Seleccione una opcion: "))
     print("-"*26)
     return 0
                 
