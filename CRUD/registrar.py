@@ -6,9 +6,12 @@ def Registrar(tipo):
         RegistrarEmpleado(empleados)
     elif tipo == 1:
         RegistrarArea(areas)
+    elif tipo == 3:
+        return 0
     else:
         print("Tipo no valido")
-    return 0
+        print()
+        return 0
 
 def RegistrarEmpleado(empleados):
     empleado = []

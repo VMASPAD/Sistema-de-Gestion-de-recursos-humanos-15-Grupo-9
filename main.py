@@ -9,14 +9,21 @@ def Menu():
     nivel_acceso = userLog(user, password)
     match nivel_acceso:
         case 2:
+
             opcion = int(input("Seleccione una opcion: "))
             while opcion != 5: 
+                
+                if opcion == 0:
+                    opcion = int(input("Seleccione una opcion xx: "))
+
                 if opcion == 1:
                     print('| Que elemento quiere Registrar? |')
                     print('| 1. Area                        |')
                     print('| 2. Empleado                    |')
+                    print('| 3. Volver                      |')
                     tipo = int(input("Seleccione una opcion: "))
                     registrar.Registrar(tipo)
+
                 if opcion == 2:
                     buscador.Buscador(empleados, areas)
                 if opcion == 3:
@@ -24,6 +31,7 @@ def Menu():
                     print('| 1. Area                        |')
                     print('| 2. Licencia                    |')
                     print('| 3. Empleado                    |')
+                    print('| 4. Volver                      |')
                     tipo = int(input("Seleccione una opcion: "))
                     editar.Editar(tipo)
                 if opcion == 4:
@@ -31,6 +39,7 @@ def Menu():
                     print('| 1. Area                        |')
                     print('| 2. Licencia                    |')
                     print('| 3. Empleado                    |')
+                    print('| 4. Volver                      |')
                     tipo = int(input("Seleccione una opcion: "))
                     eliminar.Eliminar(tipo)
                 userLog(user, password)
@@ -46,6 +55,7 @@ def Menu():
                     print('| Que elemento quiere editar?    |')
                     print('| 2. Licencia                    |')
                     print('| 3. Empleado                    |')
+                    print('| 4. Volver                      |')
                     tipo = int(input("Seleccione una opcion: "))
                     editar.Editar(tipo)
                 if opcion == 4:

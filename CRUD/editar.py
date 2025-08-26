@@ -8,10 +8,12 @@ def Editar(tipo):
         case 2:
             EditarLicencias()
         case 3:
-            index = int(input("Escriba el id del empleado a editar o ejecute \"Ver\" para obtener toda la lista"))
+            index = (input("Escriba el id del empleado a editar o ejecute \"Ver\" para obtener toda la lista "))
             if index == "Ver":
                 print("Lista de empleados:")
+
             else:
+                index = int(index)
                 if index < len(empleados):
                     empleado = empleados[index]
                     print(f"Empleado encontrado: {empleado}")
@@ -29,6 +31,12 @@ def Editar(tipo):
                     print("Empleado actualizado:", empleado)
                 else:
                     print("Empleado no encontrado.")
+        case 4:
+            return 0
+        case _:
+            print("Opcion no valida")
+            print()
+            return 0
 
 
 def EditarArea():

@@ -8,8 +8,12 @@ def Eliminar(index):
             EliminarLicencia()
         case 3:
             EliminarEmpleado()
+        case 4:
+            return 0
         case _:
             print("Opcion no valida")
+            print()
+            return 0
 
 def EliminarEmpleado():
     print("="*26)
