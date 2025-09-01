@@ -17,14 +17,15 @@ def Eliminar(index):
 
 def EliminarEmpleado():
     print("="*26)
-    empleadoEliminar = input("Escriba el nombre y apellido del empleado o escriba \"Lista\" para obtener la planilla: ")
-    if empleadoEliminar == "Lista":
+    empleadoEliminar = input("Escriba el nombre y apellido del empleado o escriba \"Lista\" para obtener la planilla: ").lower()
+    if empleadoEliminar == "lista":
         print("Lista de empleados:")
         Imprimir_Matriz_Ordenada(empleados, lambda fila: fila[0])
-    elif empleadoEliminar in [empleado[1] for empleado in empleados]:
-        posicion_empleados = empleados[[empleado[1] for empleado in empleados].index(empleadoEliminar)]
+    elif empleadoEliminar in [empleado[1].lower() for empleado in empleados]:
+        posicion_empleados = empleados[[empleado[1].lower() for empleado in empleados].index(empleadoEliminar)]
         # print(posicion_empleados)
         empleados[posicion_empleados[0]][5] = "Inactivo"
+        Eliminar_ClaveForanea(posicion_empleados[0], licencias)
         print(f"Empleado {empleadoEliminar} eliminado.")
     else:
         print(f"Empleado {empleadoEliminar} no encontrado.")
@@ -48,6 +49,12 @@ def EliminarLicencia():
         del licencias[licenciaEliminar]
         print(f"Licencia con id {licenciaEliminar} eliminada.")
 
+def Eliminar_ClaveForanea(id, matriz):
+    for i in range(len(matriz)):
+        if id in matriz[i]:
+            posicion = matriz[i].index("Activo")
+            matriz[i][posicion] = "Inactivo"
+    return matriz
 
 if __name__ == "__main__":
     Eliminar(3)
