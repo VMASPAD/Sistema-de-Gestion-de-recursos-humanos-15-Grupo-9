@@ -59,7 +59,9 @@ def Imprimir_Matriz_Ordenada(matriz, encabezado, llave):
     for i in range(filas):
         if "Inactivo" not in matriz[i]:
             for j in range(columnas):
-                impresion = Formato(matriz[i][j]) 
+                impresion = matriz[i][j]
+                impresion = Reemplazo_Id_Valor(impresion, j)
+                impresion = Formato(impresion)
                 print(impresion, end="\t")
             print()
             print("-"*130)
@@ -81,16 +83,45 @@ def Encontrar(valor, matriz, columna, encabezado):
         else:
             busqueda = busqueda.lower()
         if valor in busqueda:
-            #mejorar impresion 
-            for j in matriz[i]:
-                print(str(j).ljust(15), end= "\t")
+            
+            #mejorar impresion
+            for j in range(len(matriz[i])):
+                impresion = Reemplazo_Id_Valor(matriz[i][j], j)
+                print(str(impresion).ljust(15), end= "\t")
             existe = True
             print()
             print("-"*130)
     if not existe: print("No se encontro"), print("-"*130)
     print("="*130)
 
-def Buscador(empleados, areas):
+def Encontrar_Id_Empleado(empleados, empleado):
+    id = list(filter(lambda x: empleado in x[1].lower(), empleados))    
+    if id:
+        return id[0][0]
+    else:
+        print("Empleado no encontrado") 
+        return False
+
+def Reemplazo_Id_Valor(id, reemplazar):
+    id = str(id)
+    if id.isnumeric():
+        id = int(id)
+        columna = reemplazar
+        match columna:
+            case 1:
+                valor = empleados[id][1]
+            case 3:
+                valor = justificaciones[id][1]
+            case 4:
+                valor = areas[id][1]
+            case _:
+                valor = id
+
+        return valor
+    else:
+        return id
+
+def Buscador(empleados, areas, licencias):
     print()
     print("MENU PRINCIPAL -> BUSCADOR")
     print("="*34)
@@ -173,9 +204,40 @@ def Buscador(empleados, areas):
                             key = lambda fila: fila[1].rsplit(" ", 1)[-1]
                             Imprimir_Matriz_Ordenada(empleados, 0,  key)
 
+        case 3:  
+            print("MENU PRINCIPAL -> BUSCADOR -> LICENCIAS")
+            print("="*34)
+            print("| Opciones:".ljust(33) + "|")
+            print("| 1 - Id".ljust(33) + "|")
+            print("| 2 - Empleado".ljust(33) + "|")
+            print("| 3 - Fecha".ljust(33) + "|")
+            print("| 4 - Mostrar licencias".ljust(33) + "|")
+            print("| 5 - Volver".ljust(33) + "|")
+            print("="*34)
+            opcion = int(input("Ingrese la opcion de busqueda: "))
+            print()
+            match opcion:
+                case 1:
+                    busqueda = int(input("Ingrese el Id a buscar: "))
+                    Encontrar(busqueda, licencias, 0, 2)
+                case 2:
+                    busqueda = input("Ingrese el nombre y apellido del empleado a buscar: ")
+                    busqueda = busqueda.lower()
+                    busqueda = Encontrar_Id_Empleado(empleados, busqueda)
+                    if busqueda:
+                        Encontrar(busqueda, licencias, 1, 2)
+                case 3:
+                    busqueda = input("Ingrese la fecha a buscar (AAAA-MM-DD): ")
+                    Encontrar(busqueda, licencias, 2, 2)
+                case 4:
+                    key = lambda fila : fila[0]
+                    Imprimir_Matriz_Ordenada(licencias, 2, key)
+                case 5:
+                    return
+
     return
 
 
 
 if __name__ == "__main__":
-    Buscador(empleados, areas)
+    Buscador(empleados, areas, licencias)
