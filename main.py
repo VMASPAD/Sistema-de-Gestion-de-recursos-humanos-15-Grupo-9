@@ -1,6 +1,6 @@
 from account import userLog
 from CRUD import registrar, buscador, editar, eliminar
-from dataset import empleados, areas, licencias
+from dataset import empleados, areas
 #region Menu
 def Menu():
     user = input("Ingrese su usuario: ")
@@ -29,7 +29,7 @@ def Menu():
                     registrar.Registrar(tipo)
 
                 if opcion == 2:
-                    buscador.Buscador(empleados, areas, licencias)
+                    buscador.Buscador(empleados, areas)
                 if opcion == 3:
                     print()
                     print("MENU PRINCIPAL -> EDITAR")
@@ -62,7 +62,7 @@ def Menu():
                 if opcion == 1:
                     registrar.Registrar(2)
                 if opcion == 2:
-                    buscador.Buscador(empleados, areas, licencias)
+                    buscador.Buscador(empleados, areas)
                 if opcion == 3:
                     print()
                     print("MENU PRINCIPAL -> EDITAR")
@@ -82,7 +82,7 @@ def Menu():
             opcion = int(input("Seleccione una opcion: "))
             while opcion != 2:
                 if opcion == 1:
-                    buscador.Buscador(empleados, areas, licencias)
+                    buscador.Buscador(empleados, areas)
                 userLog(user, password)
                 opcion = int(input("Seleccione una opcion: "))
     print("-"*26)
@@ -90,5 +90,5 @@ def Menu():
                 
 #Programa principal
 if __name__ == "__main__":
-    
+
     Menu()

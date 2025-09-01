@@ -15,17 +15,17 @@ areas = [
 
 # id, id_empleado, fecha, id_justificacion, Activo
 licencias = [
-    [0, 1, "2024-23-2", 1, "Activo"],    # Juan Pérez - Enfermedad común
+    [0, 1, "2024-23-2", 1, "Activo"],
     [1, 1, "2024-03-12", 1, "Activo"],   # Juan Pérez - Enfermedad común
     [2, 2, "2024-05-10", 4, "Activo"],   # María González - Consulta médica
     [3, 3, "2024-06-15", 3, "Activo"],   # Lucas Fernández - Accidente no laboral
     [4, 5, "2024-01-20", 6, "Activo"],   # Martín Sosa - Vacaciones
     [5, 4, "2024-03-05", 7, "Activo"],   # Carla Rodríguez - Asuntos personales
-    [6, 6, "2024-02-14", 2, "Activo"],   # Florencia Castro - Accidente laboral
-    [7, 7, "2024-04-22", 10, "Activo"],  # Santiago López - Jornada electoral
-    [8, 8, "2024-07-01", 8, "Activo"],   # Jazmín Romero - Trámite oficial
-    [9, 9, "2024-06-28", 1, "Activo"],   # Nicolás Herrera - Enfermedad común
-    [10, 10, "2024-02-02", 5, "Activo"], # Valeria Núñez - Internación
+    [6, 6, "2024-02-14", 2, "Activo"], # Florencia Castro - Accidente laboral
+    [7, 7, "2024-04-22", 10, "Activo"],# Santiago López - Jornada electoral
+    [8, 8, "2024-07-01", 8, "Activo"], # Jazmín Romero - Trámite oficial
+    [9, 9, "2024-06-28", 1, "Activo"], # Nicolás Herrera - Enfermedad común
+    [10, 10, "2024-02-02", 5, "Activo"],# Valeria Núñez - Internación
     [11, 11, "2024-03-08", 11, "Activo"],# Pablo Ruiz - Fallecimiento familiar directo
     [12, 12, "2024-04-17", 9, "Activo"], # Antonella Benítez - Examen académico
     [13, 13, "2024-01-11", 13, "Activo"],# Julián Medina - Nacimiento de hijo
