@@ -54,20 +54,21 @@ def Formato(nombre):
     nombre = nombre.ljust(15)
     return nombre
 
-def Imprimir_Matriz_Ordenada(matriz, llave):
+def Imprimir_Matriz_Ordenada(matriz, encabezado, llave):
     filas = len(matriz)
     columnas = len(matriz[0])
 
     matriz.sort(key=llave)
     print("="*130)
-    Imprimir_Encabezados(0)
+    Imprimir_Encabezados(encabezado)
     print("-"*130)
     for i in range(filas):
-        for j in range(columnas):
-            impresion = Formato(matriz[i][j]) 
-            print(impresion, end="\t")
-        print()
-        print("-"*130)
+        if matriz[i][5] != "Inactivo":
+            for j in range(columnas):
+                impresion = Formato(matriz[i][j]) 
+                print(impresion, end="\t")
+            print()
+            print("-"*130)
     print("="*130)
     print()
     return
@@ -125,13 +126,13 @@ def Buscador(empleados, areas):
             match opcion :
                 case 1:
                     key = lambda fila : fila[0]
-                    Imprimir_Matriz_Ordenada(empleados, key)
+                    Imprimir_Matriz_Ordenada(empleados, 0,  key)
                 case 2:
                     key = lambda fila : fila[4]
-                    Imprimir_Matriz_Ordenada(empleados, key)
+                    Imprimir_Matriz_Ordenada(empleados, 0,  key)
                 case 3: 
                     key = lambda fila: fila[1].rsplit(" ", 1)[-1]
-                    Imprimir_Matriz_Ordenada(empleados, key)
+                    Imprimir_Matriz_Ordenada(empleados, 0,  key)
 
     return
 

@@ -1,5 +1,5 @@
 from dataset import empleados, areas, licencias
-
+from CRUD.buscador import Imprimir_Matriz_Ordenada
 def Eliminar(index):
     match index:
         case 1:
@@ -17,18 +17,24 @@ def Eliminar(index):
 
 def EliminarEmpleado():
     print("="*26)
-    empleadoEliminar = int(input("Escriba el id del empleado o escriba \"Lista\" para obtener la planilla"))
+    empleadoEliminar = input("Escriba el nombre y apellido del empleado o escriba \"Lista\" para obtener la planilla: ")
     if empleadoEliminar == "Lista":
         print("Lista de empleados:")
+        Imprimir_Matriz_Ordenada(empleados, lambda fila: fila[0])
+    elif empleadoEliminar in [empleado[1] for empleado in empleados]:
+        posicion_empleados = empleados[[empleado[1] for empleado in empleados].index(empleadoEliminar)]
+        # print(posicion_empleados)
+        empleados[posicion_empleados[0]][5] = "Inactivo"
+        print(f"Empleado {empleadoEliminar} eliminado.")
     else:
-        del empleados[empleadoEliminar]
-        print(f"Empleado con id {empleadoEliminar} eliminado.")
+        print(f"Empleado {empleadoEliminar} no encontrado.")
 
 def EliminarArea():
     print("="*26)
-    areaEliminar = int(input("Escriba el id del area o escriba \"Lista\" para obtener la planilla"))
+    areaEliminar = int(input("Escriba el id del area o escriba Lista para obtener la planilla: "))
     if areaEliminar == "Lista":
         print("Lista de areas:")
+        Imprimir_Matriz_Ordenada(areas, 0, lambda fila: fila[0])
     else:
         del areas[areaEliminar]
         print(f"Area con id {areaEliminar} eliminada.")
@@ -41,3 +47,7 @@ def EliminarLicencia():
     else:
         del licencias[licenciaEliminar]
         print(f"Licencia con id {licenciaEliminar} eliminada.")
+
+
+if __name__ == "__main__":
+    Eliminar(3)
