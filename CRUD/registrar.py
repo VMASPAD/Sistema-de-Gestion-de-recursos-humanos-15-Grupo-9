@@ -34,3 +34,13 @@ def RegistrarArea(areas):
     nueva_area.extend(A)
     areas.append(nueva_area)
     return areas
+
+def RegistrarLicencia(licencias):
+    nueva_licencia = []
+    id_empleado = int(input("Ingrese el id del empleado: "))
+    fecha = input("Ingrese la fecha de la licencia (AAAA-MM-DD): ")
+    motivo = input("Ingrese el motivo de la licencia: ")
+    A = [generar_id(), id_empleado, fecha, motivo, "Activo"]
+    nueva_licencia.extend(A)
+    licencias.append(nueva_licencia)
+    return licencias
