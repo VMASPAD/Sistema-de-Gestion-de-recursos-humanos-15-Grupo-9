@@ -20,10 +20,9 @@ def RegistrarEmpleado(empleados):
     telefono_empleado = int(input("Ingrese el telefono del empleado: "))
     posicion_empleado = input("Ingrese la posicion del empleado: ")
     num_area_empleado = int(input("Ingrese el número area del empleado: "))
-    estado_empleado = int(input("Ingrese el estado del empleado: "))
     fecha_ingreso_empleado = input("Ingrese la fecha de ingreso del empleado: ")
     fecha_nacimiento_empleado = input("Ingrese la fecha de nacimiento del empleado: ")
-    A = [generar_id(),nombre_empleado + " " + apellido_empleado, telefono_empleado, posicion_empleado,num_area_empleado,estado_empleado,fecha_ingreso_empleado,fecha_nacimiento_empleado]
+    A = [generar_id(),nombre_empleado + " " + apellido_empleado, telefono_empleado, posicion_empleado,num_area_empleado,"Activo",fecha_ingreso_empleado,fecha_nacimiento_empleado]
     empleado.extend(A)
     empleados.append(empleado)
     return empleados

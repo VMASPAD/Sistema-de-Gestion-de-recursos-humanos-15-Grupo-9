@@ -95,14 +95,18 @@ def Encontrar(valor, matriz, columna, encabezado):
 def Buscador(empleados, areas):
     for i in range(len(empleados)):
         empleados[i][1] =  empleados[i][1].lower()
-    
-    print("Opciones: ")
-    print("1 - Id")
-    print("2 - Nombre/Apellido")
-    print("3 - Area")
-    print("4 - Mostrar empleados")
-    print("5 - xxx")
+    print()
+    print("MENU PRINCIPAL -> BUSCADOR")
+    print("="*34)
+    print("| Opciones:".ljust(33) + "|")
+    print("| 1 - Id".ljust(33) + "|")
+    print("| 2 - Nombre/Apellido".ljust(33) + "|")
+    print("| 3 - Area".ljust(33) + "|")
+    print("| 4 - Mostrar empleados".ljust(33) + "|")
+    print("| 5 - xxx".ljust(33) + "|")
+    print("="*34)
     opcion = int(input("Ingrese la opcion de busqueda: "))
+    print()
     match opcion: 
         case 1:
             busqueda = int(input("Ingrese el Id a buscar: "))
@@ -116,13 +120,15 @@ def Buscador(empleados, areas):
             busqueda = int(input("Ingrese el Area a buscar: "))
             Encontrar(busqueda, empleados, 4, 0)
         case 4:
-            print("="*26)
-            print("Opciones a mostrar de manera ascendente: ")
-            print("1 - Id")
-            print("2 - Area")
-            print("3 - Apellido")
-            print("4 - xxxx")
+            print("="*34)
+            print("| Opciones ascendentemente:".ljust(33) + "|")
+            print("| 1 - Id".ljust(33) + "|")
+            print("| 2 - Area".ljust(33) + "|")
+            print("| 3 - Apellido".ljust(33) + "|")
+            print("| 4 - xxxx".ljust(33) + "|")
+            print("="*34)   
             opcion = int(input("Ingrese la opcion de ordenado: "))
+            print()
             match opcion :
                 case 1:
                     key = lambda fila : fila[0]

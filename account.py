@@ -1,6 +1,8 @@
 def userLog(user, password):
     if user == "admin" and password == "admin":
         print("Bienvenido al sistema de gestion de recursos humanos")
+        print()
+        print("MENU PRINCIPAL")
         print("="*26)
         print('| Seleccione operacion   | ')
         print('| 1. Registrar Elemento  | ')
@@ -12,6 +14,8 @@ def userLog(user, password):
         return 2
     elif user == "user" and password == "user":
         print("Bienvenido al sistema de gestion de recursos humanos")
+        print()
+        print("MENU PRINCIPAL")
         print("="*26)
         print('| Seleccione operacion   | ')
         print('| 1. Registrar Empleado  | ')
@@ -23,6 +27,8 @@ def userLog(user, password):
         return 1
     elif user == "guest" and password == "guest":
         print("Bienvenido al sistema de gestion de recursos humanos")
+        print()
+        print("MENU PRINCIPAL")
         print("="*26)
         print('| Seleccione operacion   | ')
         print('| 1. Buscador Elementos  | ')

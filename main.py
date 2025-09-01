@@ -17,29 +17,41 @@ def Menu():
                     opcion = int(input("Seleccione una opcion xx: "))
 
                 if opcion == 1:
+                    print()
+                    print("MENU PRINCIPAL -> REGISTRAR")
+                    print("="*34)
                     print('| Que elemento quiere Registrar? |')
                     print('| 1. Area                        |')
                     print('| 2. Empleado                    |')
                     print('| 3. Volver                      |')
+                    print("="*34)
                     tipo = int(input("Seleccione una opcion: "))
                     registrar.Registrar(tipo)
 
                 if opcion == 2:
                     buscador.Buscador(empleados, areas)
                 if opcion == 3:
+                    print()
+                    print("MENU PRINCIPAL -> EDITAR")
+                    print("="*34)
                     print('| Que elemento quiere editar?    |')
                     print('| 1. Area                        |')
                     print('| 2. Licencia                    |')
                     print('| 3. Empleado                    |')
                     print('| 4. Volver                      |')
+                    print("="*34)
                     tipo = int(input("Seleccione una opcion: "))
                     editar.Editar(tipo)
                 if opcion == 4:
+                    print()
+                    print("MENU PRINCIPAL -> ELIMINAR")
+                    print("="*34)
                     print('| Que elemento quiere eliminar?  |')
                     print('| 1. Area                        |')
                     print('| 2. Licencia                    |')
                     print('| 3. Empleado                    |')
                     print('| 4. Volver                      |')
+                    print("="*34)
                     tipo = int(input("Seleccione una opcion: "))
                     eliminar.Eliminar(tipo)
                 userLog(user, password)
@@ -52,10 +64,14 @@ def Menu():
                 if opcion == 2:
                     buscador.Buscador(empleados, areas)
                 if opcion == 3:
+                    print()
+                    print("MENU PRINCIPAL -> EDITAR")
+                    print("="*34)
                     print('| Que elemento quiere editar?    |')
                     print('| 2. Licencia                    |')
                     print('| 3. Empleado                    |')
                     print('| 4. Volver                      |')
+                    print("="*34)
                     tipo = int(input("Seleccione una opcion: "))
                     editar.Editar(tipo)
                 if opcion == 4:
