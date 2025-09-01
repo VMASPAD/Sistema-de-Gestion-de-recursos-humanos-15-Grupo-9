@@ -44,15 +44,21 @@ def EliminarArea():
         for empleado_id in id_empleados_afectados:
             Eliminar_ClaveForanea(empleado_id, licencias, 1)
         print(f"Area con id {areaEliminar} eliminada.")
+    else:
+        print(f"Area {areaEliminar} no encontrada.")
 
 def EliminarLicencia():
     print("="*26)
-    licenciaEliminar = int(input("Escriba el id de la licencia a eliminar del empleado o escriba \"Lista\" para obtener la planilla"))
+    licenciaEliminar = input("Escriba el id de la licencia a eliminar del empleado o escriba \"Lista\" para obtener la planilla: ")
     if licenciaEliminar == "Lista":
         print("Lista de licencias:")
+        Imprimir_Matriz_Ordenada(licencias, 2, lambda fila: fila[0])
+    elif licenciaEliminar in [str(licencia[0]) for licencia in licencias]:
+        posicion_licencia = licencias[[str(licencia[0]) for licencia in licencias].index(licenciaEliminar)]
+        licencias[posicion_licencia[0]][4] = "Inactivo"
+        print(f"Licencia con id {licenciaEliminar} de la persona {empleados[posicion_licencia[1]][1]} eliminada.")
     else:
-        del licencias[licenciaEliminar]
-        print(f"Licencia con id {licenciaEliminar} eliminada.")
+        print(f"Licencia con id {licenciaEliminar} no encontrada.")
 
 def Eliminar_ClaveForanea(id, matriz, columna):
     for i in range(len(matriz)):
