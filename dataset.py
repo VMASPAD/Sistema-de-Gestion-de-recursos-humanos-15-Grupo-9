@@ -71,3 +71,22 @@ empleados = [
     [13, "Julian Medina", "1134567890", "Encargado", 6, "Activo", "2018-05-22", "1986-10-10"],
     [14, "Camila Torres", "1123897654", "HR Generalist", 8, "Activo", "2022-08-08", "1997-03-03"]
 ]
+
+#id, usuario, contraseña, DNI, nivel de acceso
+usuarios = [
+    [0, "juanp", "jp1234", "40123456", "admin"],
+    [1, "maria.g", "mg2024", "38987456", "user"],
+    [2, "lucasf", "lfpass", "42111444", "guest"],
+    [3, "c.rodriguez", "cro2025", "40998877", "user"],
+    [4, "martins", "mssecure", "37123987", "admin"],
+    [5, "florcastro", "florc99", "43111822", "user"],
+    [6, "slopez", "slpass01", "39100234", "guest"],
+    [7, "jazminr", "jrpass23", "45122119", "user"],
+    [8, "nicolas.h", "nh4567", "36123455", "user"],
+    [9, "valenunez", "vnpass77", "38122345", "guest"],
+    [10, "pablor", "prpass33", "40123345", "user"],
+    [11, "antonella.b", "abpass22", "42110999", "user"],
+    [12, "julianm", "jmsecure", "37111777", "admin"],
+    [13, "cami.t", "ctpass44", "45122000", "guest"],
+    [14, "sofia.l", "slkey55", "38122999", "user"]
+]

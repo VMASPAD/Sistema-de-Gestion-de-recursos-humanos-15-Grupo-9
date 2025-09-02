@@ -1,12 +1,12 @@
 from account import userLog
 from CRUD import registrar, buscador, editar, eliminar
-from dataset import empleados, areas, licencias
+from dataset import empleados, areas, licencias, usuarios
 #region Menu
 def Menu():
     user = input("Ingrese su usuario: ")
     password = input("Ingrese su contraseña: ")
     print()
-    nivel_acceso = userLog(user, password)
+    nivel_acceso = userLog(user, password, usuarios)
     match nivel_acceso:
         case 2:
 

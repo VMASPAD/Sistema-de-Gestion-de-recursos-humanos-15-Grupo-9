@@ -1,5 +1,16 @@
-def userLog(user, password):
-    if user == "admin" and password == "admin":
+from dataset import usuarios
+
+def userLog(user, password, usuarios):
+    for i in range(len(usuarios)):
+        if user == usuarios[i][1]:
+            if password == usuarios [i][2]:
+                nivel_acceso=usuarios[i][4]
+            else: print("El usuario no coincide con la contraseña")        
+    if not nivel_acceso:
+        print ("No se encontró el usuario.")
+        return 0    
+
+    if nivel_acceso=="admin":
         print("Bienvenido al sistema de gestion de recursos humanos")
         print()
         print("MENU PRINCIPAL")
@@ -12,7 +23,7 @@ def userLog(user, password):
         print('| 5. Salir               | ')
         print("="*26)
         return 2
-    elif user == "user" and password == "user":
+    elif nivel_acceso=="user":
         print("Bienvenido al sistema de gestion de recursos humanos")
         print()
         print("MENU PRINCIPAL")
@@ -25,7 +36,7 @@ def userLog(user, password):
         print('| 5. Salir               | ')
         print("="*26)
         return 1
-    elif user == "guest" and password == "guest":
+    elif nivel_acceso == "guest":
         print("Bienvenido al sistema de gestion de recursos humanos")
         print()
         print("MENU PRINCIPAL")
