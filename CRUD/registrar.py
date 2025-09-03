@@ -15,8 +15,8 @@ def Registrar(tipo):
 
 def RegistrarEmpleado(empleados):
     empleado = []
-    nombre_empleado = input("Ingrese el nombre del empleado: ").lower()
-    apellido_empleado = input("Ingrese el apellido del empleado: ").lower()
+    nombre_empleado = input("Ingrese el nombre del empleado: ")
+    apellido_empleado = input("Ingrese el apellido del empleado: ")
     telefono_empleado = int(input("Ingrese el telefono del empleado: "))
     posicion_empleado = input("Ingrese la posicion del empleado: ")
     num_area_empleado = int(input("Ingrese el número area del empleado: "))
@@ -30,17 +30,8 @@ def RegistrarEmpleado(empleados):
 def RegistrarArea(areas):
     nueva_area = []
     nombre_area = input("Ingrese el nombre del área: ")
-    A = [generar_id(), nombre_area, 0]
+    cantidad_empleados = int(input("Ingrese la cantidad de empleados en el área: "))
+    A = [generar_id(), nombre_area, cantidad_empleados]
     nueva_area.extend(A)
     areas.append(nueva_area)
     return areas
-
-def RegistrarLicencia(licencias):
-    nueva_licencia = []
-    id_empleado = int(input("Ingrese el id del empleado: "))
-    fecha = input("Ingrese la fecha de la licencia (AAAA-MM-DD): ")
-    motivo = input("Ingrese el motivo de la licencia: ")
-    A = [generar_id(), id_empleado, fecha, motivo, "Activo"]
-    nueva_licencia.extend(A)
-    licencias.append(nueva_licencia)
-    return licencias

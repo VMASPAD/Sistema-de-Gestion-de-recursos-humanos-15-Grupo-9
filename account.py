@@ -10,7 +10,7 @@ def userLog(user, password, usuarios):
         print ("No se encontró el usuario.")
         return 0    
 
-    if nivel_acceso=="admin":
+    if nivel_acceso=="admin": #user: juanp, pass: jp1234, DNI:40123456
         print("Bienvenido al sistema de gestion de recursos humanos")
         print()
         print("MENU PRINCIPAL")
@@ -23,7 +23,7 @@ def userLog(user, password, usuarios):
         print('| 5. Salir               | ')
         print("="*26)
         return 2
-    elif nivel_acceso=="user":
+    elif nivel_acceso=="user": #user: maria.g, pass: mg2024, DNI:38987456
         print("Bienvenido al sistema de gestion de recursos humanos")
         print()
         print("MENU PRINCIPAL")
@@ -36,7 +36,7 @@ def userLog(user, password, usuarios):
         print('| 5. Salir               | ')
         print("="*26)
         return 1
-    elif nivel_acceso == "guest":
+    elif nivel_acceso == "guest": #user: lucasf, pass: lfpass, DNI:42111444
         print("Bienvenido al sistema de gestion de recursos humanos")
         print()
         print("MENU PRINCIPAL")

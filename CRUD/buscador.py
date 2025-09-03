@@ -20,6 +20,16 @@ def Imprimir_Encabezados(fila):
     print()
     return
 
+def Acotar(nombre):
+    nombre = nombre.split()
+    cort = []
+    cort.append(nombre[0])
+    for n in nombre[1:]:
+        n = n[:2] + ".."
+        cort.append(n)
+    cort = " ".join(cort)
+    return cort
+
 def Rellenar(nombre):
     nombre = str(nombre)
     nombre = nombre.ljust(8)
