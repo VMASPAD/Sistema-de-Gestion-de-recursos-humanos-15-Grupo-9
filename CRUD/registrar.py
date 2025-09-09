@@ -1,37 +1,23 @@
 from idGenerator import generar_id
-from dataset import areas, empleados
+from dataset import justificaciones
 
-def Registrar(tipo):
-    if tipo == 2:
-        RegistrarEmpleado(empleados)
-    elif tipo == 1:
-        RegistrarArea(areas)
-    elif tipo == 3:
-        return 0
-    else:
-        print("Tipo no valido")
-        print()
-        return 0
+#Funciones
+def Eleccion_Justificacion():
+    print("Seleccione una justificacion:")
+    for justificacion in justificaciones:
+        print(f"{justificacion[0]} - {justificacion[1]}")
+    opcion = int(input("Ingrese la opcion: "))
+    return opcion
 
-def RegistrarEmpleado(empleados):
-    empleado = []
-    nombre_empleado = input("Ingrese el nombre del empleado: ")
-    apellido_empleado = input("Ingrese el apellido del empleado: ")
-    telefono_empleado = int(input("Ingrese el telefono del empleado: "))
-    posicion_empleado = input("Ingrese la posicion del empleado: ")
-    num_area_empleado = int(input("Ingrese el número area del empleado: "))
-    fecha_ingreso_empleado = input("Ingrese la fecha de ingreso del empleado: ")
-    fecha_nacimiento_empleado = input("Ingrese la fecha de nacimiento del empleado: ")
-    A = [generar_id(),nombre_empleado + " " + apellido_empleado, telefono_empleado, posicion_empleado,num_area_empleado,"Activo",fecha_ingreso_empleado,fecha_nacimiento_empleado]
-    empleado.extend(A)
-    empleados.append(empleado)
-    return empleados
+def Ingresar_Fecha(asunto):
+    dia = int(input(f"Ingrese el dia (DD) de {asunto}: "))
+    mes = int(input(f"Ingrese el mes (MM) de {asunto}: "))
+    año = int(input(f"Ingrese el año (AAAA) de {asunto}: "))
+    return f"{año}-{mes}-{dia}"
 
-def RegistrarArea(areas):
-    nueva_area = []
-    nombre_area = input("Ingrese el nombre del área: ")
-    cantidad_empleados = int(input("Ingrese la cantidad de empleados en el área: "))
-    A = [generar_id(), nombre_area, cantidad_empleados]
-    nueva_area.extend(A)
-    areas.append(nueva_area)
-    return areas
+def Calcular_cantidad_empleados(empleados, area_id):
+    cantidad = 0
+    for empleado in empleados:
+        if empleado[4] == area_id and empleado[5] == "Activo":
+            cantidad += 1
+    return cantidad

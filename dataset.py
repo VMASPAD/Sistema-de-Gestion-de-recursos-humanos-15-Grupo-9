@@ -1,14 +1,14 @@
 # id, nombre, cantidad, Activo
 areas = [
     [0, "Staff", 0, "Activo"],
-    [1, "Produccion", 0, "Activo"],
-    [2, "Mantenimiento", 0, "Activo"],
-    [3, "Calidad", 0, "Activo"],
-    [4, "Logistica y Deposito", 0, "Activo"],
-    [5, "Administracion y Finanzas", 0, "Activo"],
-    [6, "Compras", 0, "Activo"],
-    [7, "Ingenieria y Desarrollo", 0, "Activo"],
-    [8, "Recursos Humanos", 0, "Activo"],
+    [1, "Produccion", 2, "Activo"],               # Juanceto01, Juan Perez
+    [2, "Mantenimiento", 2, "Activo"],            # Maria Gonzalez, Nicolas Herrera
+    [3, "Calidad", 2, "Activo"],                  # Lucas Fernandez, Antonella Benitez
+    [4, "Logistica y Deposito", 2, "Activo"],     # Martin Sosa, Pablo Ruiz
+    [5, "Administracion y Finanzas", 2, "Activo"],# Carla Rodriguez, Valeria Nunez
+    [6, "Compras", 1, "Activo"],                  # Julian Medina
+    [7, "Ingenieria y Desarrollo", 1, "Activo"],  # Florencia Castro
+    [8, "Recursos Humanos", 2, "Activo"],         # Jazmin Romero, Camila Torres
     [9, "Ventas y Atencion al Cliente", 0, "Activo"],
     [10, "Direccion General", 0, "Activo"]
 ]
@@ -72,21 +72,21 @@ empleados = [
     [14, "Camila Torres", "1123897654", "HR Generalist", 8, "Activo", "2022-08-08", "1997-03-03"]
 ]
 
-#id, usuario, contraseña, DNI, nivel de acceso
+# id, username, password, dni, nivel_acceso, email
 usuarios = [
-    [0, "juanp", "jp1234", "40123456", "admin"],
-    [1, "maria.g", "mg2024", "38987456", "user"],
-    [2, "lucasf", "lfpass", "42111444", "guest"],
-    [3, "c.rodriguez", "cro2025", "40998877", "user"],
-    [4, "martins", "mssecure", "37123987", "admin"],
-    [5, "florcastro", "florc99", "43111822", "user"],
-    [6, "slopez", "slpass01", "39100234", "guest"],
-    [7, "jazminr", "jrpass23", "45122119", "user"],
-    [8, "nicolas.h", "nh4567", "36123455", "user"],
-    [9, "valenunez", "vnpass77", "38122345", "guest"],
-    [10, "pablor", "prpass33", "40123345", "user"],
-    [11, "antonella.b", "abpass22", "42110999", "user"],
-    [12, "julianm", "jmsecure", "37111777", "admin"],
-    [13, "cami.t", "ctpass44", "45122000", "guest"],
-    [14, "sofia.l", "slkey55", "38122999", "user"]
+    {id: 0, "username": "juanp", "password": "jp1234", "dni": "40123456", "nivel_acceso": "admin", "email": "juanp@empresa.com"},
+    {id: 1, "username": "maria.g", "password": "mg2024", "dni": "38987456", "nivel_acceso": "user", "email": "maria.g@empresa.com"},
+    {id: 2, "username": "lucasf", "password": "lfpass", "dni": "42111444", "nivel_acceso": "guest", "email": "lucasf@empresa.com"},
+    {id: 3, "username": "c.rodriguez", "password": "cro2025", "dni": "40998877", "nivel_acceso": "user", "email": "c.rodriguez@empresa.com"},
+    {id: 4, "username": "martins", "password": "mssecure", "dni": "37123987", "nivel_acceso": "admin", "email": "martins@empresa.com"},
+    {id: 5, "username": "florcastro", "password": "florc99", "dni": "43111822", "nivel_acceso": "user", "email": "florcastro@empresa.com"},
+    {id: 6, "username": "slopez", "password": "slpass01", "dni": "39100234", "nivel_acceso": "guest", "email": "slopez@empresa.com"},
+    {id: 7, "username": "jazminr", "password": "jrpass23", "dni": "45122119", "nivel_acceso": "user", "email": "jazminr@empresa.com"},
+    {id: 8, "username": "nicolas.h", "password": "nh4567", "dni": "36123455", "nivel_acceso": "user", "email": "nicolas.h@empresa.com"},
+    {id: 9, "username": "valenunez", "password": "vnpass77", "dni": "38122345", "nivel_acceso": "guest", "email": "valenunez@empresa.com"},
+    {id: 10, "username": "pablor", "password": "prpass33", "dni": "40123345", "nivel_acceso": "user", "email": "pablor@empresa.com"},
+    {id: 11, "username": "antonella.b", "password": "abpass22", "dni": "42110999", "nivel_acceso": "user", "email": "antonella.b@empresa.com"},
+    {id: 12, "username": "julianm", "password": "jmsecure", "dni": "37111777", "nivel_acceso": "admin", "email": "julianm@empresa.com"},
+    {id: 13, "username": "cami.t", "password": "ctpass44", "dni": "45122000", "nivel_acceso": "guest", "email": "cami.t@empresa.com"},
+    {id: 14, "username": "sofia.l", "password": "slkey55", "dni": "38122999", "nivel_acceso": "user", "email": "sofia.l@empresa.com"}
 ]

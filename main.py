@@ -1,94 +1,179 @@
 from account import userLog
-from CRUD import registrar, buscador, editar, eliminar
 from dataset import empleados, areas, licencias, usuarios
+from sign_up import crear_usuario
+import modulo_areas
+import modulo_empleados
+import modulo_licencias
 #region Menu
 def Menu():
-    user = input("Ingrese su usuario: ")
-    password = input("Ingrese su contraseña: ")
-    print()
-    nivel_acceso = userLog(user, password, usuarios)
-    match nivel_acceso:
-        case 2:
+    while True:
+        print("="*34)
+        print("Opciones de ingreso:")
+        print("="*34)
+        print("| 1 - Crear Usuario".ljust(33) + "|")
+        print("| 2 - Iniciar Sesion".ljust(33) + "|")
+        print("| 3 - Salir".ljust(33) + "|")
+        print("="*34)
+        opcion = int(input("Seleccione una opcion: "))
+        match opcion:
+            case 1:
+                crear_usuario(usuarios)
+            case 2:
+                nivel_acceso = userLog(usuarios)
+                opcion = -1
+                if nivel_acceso == 0:
+                    opcion = 5
+                    print()
+                else:
+                    print()
+                    print("Ingreso exitoso")
+                    print()
+                while opcion != 5:
+                    print()
+                    print("="*34)
+                    print("MENU PRINCIPAL")
+                    print("="*34)
+                    print("| Opciones:".ljust(33) + "|")
+                    print("| 1 - Areas".ljust(33) + "|")
+                    print("| 2 - Empleados".ljust(33) + "|")
+                    print("| 3 - Licencias".ljust(33) + "|")
+                    print("| 4 - Usuarios (no disponible)".ljust(33) + "|")
+                    print("| 5 - Cerrar Sesion".ljust(33) + "|")
+                    print("| 0 - Salir".ljust(33) + "|")
+                    print("="*34)
+                    opcion = int(input("Seleccione una opcion: "))
+                    match opcion:
+                        case 1:
+                            print()
+                            print("="*34)
+                            print("MENU PRINCIPAL -> AREAS")
+                            print("="*34)
+                            print("| Opciones:".ljust(33) + "|")
+                            print("| 1 - Buscar Area".ljust(33) + "|")
+                            if nivel_acceso > 1:
+                                print("| 2 - Ver estadisticas (no disponible)".ljust(33) + "|")
+                            if nivel_acceso == 2:
+                                print("| 3 - Registrar Area".ljust(33) + "|")
+                                print("| 4 - Editar Area".ljust(33) + "|")
+                                print("| 5 - Eliminar Area".ljust(33) + "|")
+                            print("| 0 - Volver".ljust(33) + "|")
+                            print("="*34)
+                            tipo = int(input("Seleccione una opcion: "))
+                            match tipo:
+                                case 1:
+                                    modulo_areas.BuscarArea(areas)
+                                case 2:
+                                    print("NO DISPONIBLE")
+                                case 3:
+                                    if nivel_acceso == 2:
+                                        modulo_areas.RegistrarArea(areas)
+                                    else: print("No tiene permisos para realizar esta accion")
+                                case 4:
+                                    if nivel_acceso == 2:
+                                        modulo_areas.EditarArea()
+                                    else: print("No tiene permisos para realizar esta accion")
+                                case 5:
+                                    if nivel_acceso == 2:
+                                        modulo_areas.EliminarArea()
+                                    else: print("No tiene permisos para realizar esta accion")
+                                case 0:
+                                    print("Volviendo al menu principal...")
+                                case _:
+                                    print("Opcion no existente")
+                        case 2:
+                            print()
+                            print("="*34)
+                            print("MENU PRINCIPAL -> EMPLEADOS")
+                            print("="*34)
+                            print("| Opciones:".ljust(33) + "|")
+                            print("| 1 - Buscar Empleado".ljust(33) + "|")
+                            if nivel_acceso > 1:
+                                print("| 2 - Ver estadisticas (no disponible)".ljust(33) + "|")
+                            if nivel_acceso == 2:
+                                print("| 3 - Registrar Empleado".ljust(33) + "|")
+                                print("| 4 - Editar Empleado".ljust(33) + "|")
+                                print("| 5 - Eliminar Empleado".ljust(33) + "|")
+                            print("| 0 - Volver".ljust(33) + "|")
+                            print("="*34)
+                            tipo = int(input("Seleccione una opcion: "))
+                            match tipo:
+                                case 1:
+                                    modulo_empleados.BuscarEmpleado(empleados)
+                                case 2:
+                                    print("NO DISPONIBLE")
+                                case 3:
+                                    if nivel_acceso == 2:
+                                        modulo_empleados.RegistrarEmpleado(empleados)
+                                    else: print("No tiene permisos para realizar esta accion")
+                                case 4:
+                                    if nivel_acceso == 2:
+                                        modulo_empleados.EditarEmpleado()
+                                    else: print("No tiene permisos para realizar esta accion")
+                                case 5:
+                                    if nivel_acceso == 2:
+                                        modulo_empleados.EliminarEmpleado()
+                                    else: print("No tiene permisos para realizar esta accion")
+                                case 0:
+                                    print("Volviendo al menu principal...")
+                                case _:
+                                    print("Opcion no existente")
+                        case 3:
+                            print()
+                            print("="*34)
+                            print("MENU PRINCIPAL -> LICENCIAS")
+                            print("="*34)
+                            print("| Opciones:".ljust(33) + "|")
+                            print("| 1 - Buscar Licencia".ljust(33) + "|")
+                            if nivel_acceso > 1:
+                                print("| 2 - Ver estadisticas (no disponible)".ljust(33) + "|")
+                            if nivel_acceso == 2:
+                                print("| 3 - Registrar Licencia".ljust(33) + "|")
+                                print("| 4 - Editar Licencia".ljust(33) + "|")
+                                print("| 5 - Eliminar Licencia".ljust(33) + "|")
+                            print("| 0 - Volver".ljust(33) + "|")
+                            print("="*34)
+                            tipo = int(input("Seleccione una opcion: "))
+                            match tipo:
+                                case 1:
+                                    modulo_licencias.BuscarLicencia(licencias, empleados)
+                                case 2:
+                                    print("NO DISPONIBLE")
+                                case 3:
+                                    if nivel_acceso == 2:
+                                        modulo_licencias.RegistrarLicencia(licencias)
+                                    else: print("No tiene permisos para realizar esta accion")
+                                case 4:
+                                    if nivel_acceso == 2:
+                                        modulo_licencias.EditarLicencia()
+                                    else: print("No tiene permisos para realizar esta accion")
+                                case 5:
+                                    if nivel_acceso == 2:
+                                        modulo_licencias.EliminarLicencia()
+                                    else: print("No tiene permisos para realizar esta accion")
+                                case 0:
+                                    print("Volviendo al menu principal...")
+                                case _:
+                                    print("Opcion no existente")
+                        case 4:
+                            print("MENU PRINCIPAL -> USUARIOS (no disponible)")
+                        case 5:
+                            print("Cerrando sesion...")
+                        case 0:
+                            print()
+                            print("Gracias por usar el sistema de gestion de recursos humanos.")
+                            print("Saliendo del programa...")
+                            print()
+                            return
+                        case _:
+                            print("Opcion no existente")
+            case 3:
+                print()
+                print("Gracias por usar el sistema de gestion de recursos humanos.")
+                print("Saliendo del programa...")
+                print()
+                return
 
-            opcion = int(input("Seleccione una opcion: "))
-            while opcion != 5: 
-                
-                if opcion == 0:
-                    opcion = int(input("Seleccione una opcion xx: "))
 
-                if opcion == 1:
-                    print()
-                    print("MENU PRINCIPAL -> REGISTRAR")
-                    print("="*34)
-                    print('| Que elemento quiere Registrar? |')
-                    print('| 1. Area                        |')
-                    print('| 2. Empleado                    |')
-                    print('| 3. Volver                      |')
-                    print("="*34)
-                    tipo = int(input("Seleccione una opcion: "))
-                    registrar.Registrar(tipo)
-
-                if opcion == 2:
-                    buscador.Buscador(empleados, areas, licencias)
-                if opcion == 3:
-                    print()
-                    print("MENU PRINCIPAL -> EDITAR")
-                    print("="*34)
-                    print('| Que elemento quiere editar?    |')
-                    print('| 1. Area                        |')
-                    print('| 2. Licencia                    |')
-                    print('| 3. Empleado                    |')
-                    print('| 4. Volver                      |')
-                    print("="*34)
-                    tipo = int(input("Seleccione una opcion: "))
-                    editar.Editar(tipo)
-                if opcion == 4:
-                    print()
-                    print("MENU PRINCIPAL -> ELIMINAR")
-                    print("="*34)
-                    print('| Que elemento quiere eliminar?  |')
-                    print('| 1. Area                        |')
-                    print('| 2. Licencia                    |')
-                    print('| 3. Empleado                    |')
-                    print('| 4. Volver                      |')
-                    print("="*34)
-                    tipo = int(input("Seleccione una opcion: "))
-                    eliminar.Eliminar(tipo)
-                userLog(user, password, usuarios)
-                opcion = int(input("Seleccione una opcion: "))
-        case 1:
-            opcion = int(input("Seleccione una opcion: "))
-            while opcion != 5: 
-                if opcion == 1:
-                    registrar.Registrar(2)
-                if opcion == 2:
-                    buscador.Buscador(empleados, areas, licencias)
-                if opcion == 3:
-                    print()
-                    print("MENU PRINCIPAL -> EDITAR")
-                    print("="*34)
-                    print('| Que elemento quiere editar?    |')
-                    print('| 2. Licencia                    |')
-                    print('| 3. Empleado                    |')
-                    print('| 4. Volver                      |')
-                    print("="*34)
-                    tipo = int(input("Seleccione una opcion: "))
-                    editar.Editar(tipo)
-                if opcion == 4:
-                    eliminar.Eliminar(3)
-                userLog(user, password, usuarios)
-                opcion = int(input("Seleccione una opcion: "))
-        case 0:
-            opcion = int(input("Seleccione una opcion: "))
-            while opcion != 2:
-                if opcion == 1:
-                    buscador.Buscador(empleados, areas, licencias)
-                userLog(user, password, usuarios)
-                opcion = int(input("Seleccione una opcion: "))
-    print("-"*26)
-    return 0
-                
-#Programa principal
 if __name__ == "__main__":
-    
     Menu()
+

@@ -1,4 +1,4 @@
-from dataset import empleados
-def generar_id():
-    id = len(empleados)
+#Funciones 
+def generar_id(matriz):
+    id = len(matriz)
     return id

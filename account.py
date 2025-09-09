@@ -1,10 +1,14 @@
 from dataset import usuarios
 
-def userLog(user, password, usuarios):
+#Funciones
+def userLog(usuarios):
+    user = input("Ingrese su usuario: ")
+    password = input("Ingrese su contraseña: ")
+    nivel_acceso = None
     for i in range(len(usuarios)):
-        if user == usuarios[i][1]:
-            if password == usuarios [i][2]:
-                nivel_acceso=usuarios[i][4]
+        if user == usuarios[i]['username']:
+            if password == usuarios [i]['password']:
+                nivel_acceso=usuarios[i]['nivel_acceso']
             else: print("El usuario no coincide con la contraseña")        
     if not nivel_acceso:
         print ("No se encontró el usuario.")
