@@ -1,4 +1,5 @@
 from impresion import Imprimir_Encabezados, Reemplazo_Id_Valor
+from dataset import usuarios
 #Funciones 
 
 def Encontrar(valor, matriz, columna, encabezado):
@@ -35,3 +36,23 @@ def Id_Empleado(empleados, empleado):
         id = bool([empleado[0] for empleado in empleados if emp in empleado[1].lower()])
     id = [empleado[0] for empleado in empleados if emp in empleado[1].lower()][0]
     return id
+
+def Encontrar_diccionario(usuarios, clave, busqueda):
+    resultado=list(filter(lambda x: busqueda in x [clave] , usuarios))
+    print(resultado)
+    for i in usuarios[0].keys():
+        print (i,end="\t")
+    print()
+    for i in range(len(resultado)):
+        for j in resultado[i].keys():
+            print(resultado[i][j], end="\t")
+        print()
+    print()
+    if len(resultado)==0:
+        print("No se encontro")
+    print("="*130)
+    print("BUSQUEDA FINALIZADA")
+    print("="*130)
+    print()
+if __name__ == "__main__":
+    Encontrar_diccionario(usuarios, "username", "juanp") 
