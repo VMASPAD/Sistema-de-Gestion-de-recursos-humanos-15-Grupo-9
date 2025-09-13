@@ -1,3 +1,4 @@
+import re
 from dataset import empleados, areas, justificaciones, licencias
 #Funciones 
 def Imprimir_Opciones(matriz, columna):
@@ -112,3 +113,8 @@ def Imprimir_Diccionario_Ordenada(usuarios, clave):
     print("="*198)
     print()
     return 
+
+def formato_dni(dni):
+    patron= re.compile (dni)
+    impresion_dni=patron.sub(dni[:-6]+'.'+dni[-6:-3]+'.'+ dni[-3: ],dni)
+    return impresion_dni

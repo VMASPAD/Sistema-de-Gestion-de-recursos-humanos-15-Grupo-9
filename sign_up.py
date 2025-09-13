@@ -3,10 +3,10 @@ from dataset import usuarios
 
 #Funciones
 def verificar_usuario(usuarios):
-    tag = input("Ingrese su de usuario: ")
+    tag = input("Ingrese su nombre de usuario: ")
     while tag in [usuarios[i]["username"] for i in range(len(usuarios))]:
         print("El usuario ya existe, por favor ingrese otro.")
-        tag = input("Ingrese su de usuario: ")
+        tag = input("Ingrese su nombre de usuario: ")
     return tag
 
 def generar_contraseña():
@@ -20,6 +20,14 @@ def generar_contraseña():
         password = input("Ingrese su contraseña, (debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número): ")
     return password
 
+def verificar_dni():
+    dni=input("ingrese el dni: ")
+    patron= re.compile('[0-9]{7,9}')
+    while not patron.match(dni):
+        print("dni invalido")
+        dni=input("ingrese su dni (debe contener de 7 a 9 numeros): ")
+    return dni
+
 def asignar_nivel_acceso():
     niveles = { 1 : "admin", 2 : "user", 3 : "guest"}
     print("Niveles de acceso disponibles")
@@ -32,7 +40,7 @@ def asignar_nivel_acceso():
 def crear_usuario(usuarios):
     username = verificar_usuario(usuarios)
     password = generar_contraseña()
-    dni = int(input("Ingrese su DNI: "))
+    dni = verificar_dni()
     nivel_acceso = asignar_nivel_acceso()
     email = username + "@empresa.com"
     id = len(usuarios)

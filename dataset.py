@@ -74,7 +74,7 @@ empleados = [
 
 # id, username, password, dni, nivel_acceso, email, estado
 usuarios = [
-    {"id": 0, "username": "juanp", "password": "jp1234", "dni": "40123456", "nivel_acceso": "admin", "email": "juanp@empresa.com", "estado": "Activo"},
+    {"id": 0, "username": "juanp", "password": "juanp", "dni": "40123456", "nivel_acceso": "admin", "email": "juanp@empresa.com", "estado": "Activo"},
     {"id": 1, "username": "maria.g", "password": "mg2024", "dni": "38987456", "nivel_acceso": "user", "email": "maria.g@empresa.com", "estado": "Activo"},
     {"id": 2, "username": "lucasf", "password": "lfpass", "dni": "42111444", "nivel_acceso": "guest", "email": "lucasf@empresa.com", "estado": "Activo"},
     {"id": 3, "username": "c.rodriguez", "password": "cro2025", "dni": "40998877", "nivel_acceso": "user", "email": "c.rodriguez@empresa.com", "estado": "Activo"},

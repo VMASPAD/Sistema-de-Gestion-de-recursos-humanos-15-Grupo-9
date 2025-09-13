@@ -4,6 +4,7 @@ from sign_up import crear_usuario
 import modulo_areas
 import modulo_empleados
 import modulo_licencias
+import modulo_usuarios
 #region Menu
 def Menu():
     while True:
@@ -37,7 +38,7 @@ def Menu():
                     print("| 1 - Areas".ljust(33) + "|")
                     print("| 2 - Empleados".ljust(33) + "|")
                     print("| 3 - Licencias".ljust(33) + "|")
-                    print("| 4 - Usuarios (no disponible)".ljust(33) + "|")
+                    print("| 4 - Usuarios".ljust(33) + "|")
                     print("| 5 - Cerrar Sesion".ljust(33) + "|")
                     print("| 0 - Salir".ljust(33) + "|")
                     print("="*34)
@@ -155,7 +156,37 @@ def Menu():
                                 case _:
                                     print("Opcion no existente")
                         case 4:
-                            print("MENU PRINCIPAL -> USUARIOS (no disponible)")
+                            print("MENU PRINCIPAL -> USUARIOS")
+                            print("="*34)
+                            print("| Opciones:".ljust(33) + "|")
+                            print("| 1 - Buscar Usuario".ljust(33) + "|")
+                            if nivel_acceso == 2:
+                                print("| 2 - Crear Usuario".ljust(33) + "|")
+                                print("| 3 - Eliminar Usuario".ljust(33) + "|")
+                                print("| 4 - Editar Usuario".ljust(33) + "|")
+                            print("| 0 - Volver".ljust(33) + "|")
+                            print("="*34)
+                            tipo = int(input("Seleccione una opcion: "))
+                            match tipo:
+                                case 1:
+                                    modulo_usuarios.buscar_usuarios(usuarios)
+                                case 2:
+                                    if nivel_acceso == 2:
+                                        crear_usuario(usuarios)
+                                    else: print("No tiene permisos para realizar esta accion")
+                                case 3:
+                                    if nivel_acceso == 2:
+                                        modulo_usuarios.eliminar_usuario(usuarios)
+                                    else: print("No tiene permisos para realizar esta accion")
+                                case 4:
+                                    if nivel_acceso == 2:
+                                        modulo_usuarios.editar_usuario(usuarios)
+                                    else: print("No tiene permisos para realizar esta accion")
+                                case 0:
+                                    print("Volviendo al menu principal...")
+                                case _:
+                                    print("Opcion no existente")
+                                    print("="*130)
                         case 5:
                             print("Cerrando sesion...")
                         case 0:

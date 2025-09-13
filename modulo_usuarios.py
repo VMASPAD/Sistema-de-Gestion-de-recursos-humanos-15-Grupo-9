@@ -1,6 +1,8 @@
+import re
 from dataset import usuarios
 from CRUD.buscador import Encontrar_diccionario
-from impresion import Imprimir_Diccionario_Ordenada, Imprimir_Matriz_Ordenada   
+from impresion import Imprimir_Diccionario_Ordenada, Imprimir_Matriz_Ordenada, formato_dni   
+from sign_up import verificar_usuario, generar_contraseña, asignar_nivel_acceso, verificar_dni
 
 def buscar_usuarios(usuarios):
     print("MENU  PRINCIPAL -> USUARIOS -> BUSCADOR")            # id, username, password, dni, nivel_acceso, email
@@ -56,6 +58,46 @@ def eliminar_usuario(usuarios):
         print(f"usuario con id {usuarioEliminar} del usuario {usuarios[usuarioEliminar]["username"]} eliminado (Inactivo)")
     else:
         print(f"No se encontró un usuario con ID {usuarioEliminar}.")
+
+def editar_usuario(usuarios):
+    print("="*26)
+    index=int(input("Escriba el id del usuario a editar: "))
+    if index < len(usuarios) and index >=0:
+        print("¿Que campo quiere editar?")
+        print("1. username")
+        print('2. password')
+        print('3. dni')
+        print('4. nivel acceso')
+        campo = int(input("Seleccione el campo a editar (1-4): "))
+
+        if campo == 1:
+            username_pasado=usuarios[index]["username"]
+            usuarios[index]["username"]=verificar_usuario(usuarios)
+            print(f"el usuario {username_pasado} ha sido cambiado por {usuarios[index]["username"]}")
+
+        if campo == 2:
+            password_pasado=usuarios[index]["password"]
+            usuarios[index]["password"]=generar_contraseña()
+            patron = re.compile(usuarios[index]["password"])
+            encriptar = patron.sub(usuarios[index]["password"][:3] + '*'*len(usuarios[index]["password"][3:]), usuarios[index]["password"])
+            print(f"la contraseña anterior {password_pasado} ha sido cambiada por {encriptar}")
+
+        if campo == 3:
+            dni_pasado=formato_dni(usuarios[index]["dni"])
+            usuarios[index]["dni"]= verificar_dni()
+            dni_punteado=formato_dni(usuarios[index]["dni"])
+            print(f"dni {dni_pasado} ha sido modificado a {dni_punteado}")
+
+
+
+        if campo == 4:
+            nivel_acceso_pasado=usuarios[index]["nivel_acceso"]
+            usuarios[index]["nivel_acceso"]=asignar_nivel_acceso()
+            print(f"el nivel de acceso de {usuarios[index]["username"]} ha sido modificado a {usuarios[index]["nivel_acceso"]}")
+    else:
+        print("Usuario no encontrado")
+
+    return usuarios
+
 if __name__ == "__main__":
-    eliminar_usuario(usuarios)
-    #eliminar_usuario(usuarios)
+    buscar_usuarios(usuarios)
