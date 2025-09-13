@@ -1,6 +1,7 @@
 from dataset import usuarios
 from CRUD.buscador import Encontrar_diccionario
 from impresion import Imprimir_Diccionario_Ordenada, Imprimir_Matriz_Ordenada   
+
 def buscar_usuarios(usuarios):
     print("MENU  PRINCIPAL -> USUARIOS -> BUSCADOR")            # id, username, password, dni, nivel_acceso, email
     print("="*34)
@@ -46,7 +47,15 @@ def buscar_usuarios(usuarios):
             print("BUSQUEDA FINALIZADA")
             print("="*130)
 
-
+def eliminar_usuario(usuarios):
+    print("="*26)
+    usuarioEliminar = input("Escriba el id del usuario a eliminar: ")
+    if usuarioEliminar in [str(fila["id"]) for fila in usuarios]:
+        usuarioEliminar=int(usuarioEliminar)
+        usuarios[usuarioEliminar]["estado"]= "Inactivo"
+        print(f"usuario con id {usuarioEliminar} del usuario {usuarios[usuarioEliminar]["username"]} eliminado (Inactivo)")
+    else:
+        print(f"No se encontró un usuario con ID {usuarioEliminar}.")
 if __name__ == "__main__":
-    Imprimir_Diccionario_Ordenada(usuarios, "id")
-    
+    eliminar_usuario(usuarios)
+    #eliminar_usuario(usuarios)
