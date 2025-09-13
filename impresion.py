@@ -94,3 +94,21 @@ def Reemplazo_Id_Valor(id, reemplazar):
         return valor
     else:
         return id
+
+def Imprimir_Diccionario_Ordenada(usuarios, clave):
+    usuarios.sort(key=lambda x: x[clave])
+    print("="*198)
+    for i in usuarios[0].keys():
+        print (i.ljust(25),end="\t")
+    print()
+    print("-"*198)
+    for i in range(len(usuarios)):
+        if "Inactivo" not in usuarios[i].values():
+            for j in usuarios[i].keys():
+                impresion = str(usuarios[i][j])
+                print(impresion.ljust(25), end="\t")
+            print()
+            print("-"*198)
+    print("="*198)
+    print()
+    return 
