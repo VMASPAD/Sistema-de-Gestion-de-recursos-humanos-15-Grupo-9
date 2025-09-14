@@ -60,5 +60,22 @@ def porcentaje_empleados_activos(empleados):
     print(f"Porcentaje de empleados inactivos: {porcentaje_inactivos:.2f}%")
     return 0
 
+def cantidad_empleados_area(empleados, areas):
+    area_dict = {area[0]: area[1] for area in areas}
+    area_count = {}
+    for emp in empleados:
+        if emp[5] == "Activo":
+            area_id = emp[4]
+            if area_id in area_count:
+                area_count[area_id] += 1
+            else:
+                area_count[area_id] = 1
+    print("Cantidad de empleados activos por área:")
+    for area_id, count in area_count.items():
+        area_name = area_dict.get(area_id, "Área desconocida")
+        print(f"{area_name}: {count}")
+    return 0
+
+
 if __name__ == "__main__":
     porcentaje_empleados_activos(empleados)
