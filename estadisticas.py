@@ -1,6 +1,21 @@
-from dataset import empleados, licencias
+from dataset import empleados, licencias, areas
 
 #Funciones 
+
+def promedio_empleados_por_area(empleados, areas):
+    empleados_activos = len([emp for emp in empleados if emp[5] == "Activo"])
+    areas_activas = len([area for area in areas if area[3] == "Activo"])
+    if areas_activas == 0 or empleados_activos == 0:
+        if areas_activas == 0:
+            print("No hay áreas activas.")
+        if empleados_activos == 0:
+            print("No hay empleados activos.")
+        return 0
+    else:
+        promedio = empleados_activos / areas_activas
+        print(f"El promedio de empleados por área activa es: {promedio:.2f}")
+        return 0
+
 
 def cantidad_empleados(parametro):
     if parametro == "total":

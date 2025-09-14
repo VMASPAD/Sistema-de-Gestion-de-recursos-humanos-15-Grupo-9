@@ -1,5 +1,6 @@
 from idGenerator import generar_id
 from impresion import Imprimir_Matriz_Ordenada
+from estadisticas import promedio_empleados_por_area
 from CRUD.registrar import verificar_area
 from CRUD.buscador import Encontrar
 from CRUD.eliminar import Eliminar_ClaveForanea
@@ -16,6 +17,27 @@ def RegistrarArea(areas):
     areas.append(nueva_area)
     return areas
 
+def EstadisticasAreas(areas):
+    print("="*43)
+    print("MENU PRINCIPAL -> AREAS -> ESTADISTICAS")
+    print("="*43)
+    print("| Opciones:".ljust(42) + "|")
+    print("| 1 - Ver promedio de empleados por area".ljust(42) + "|")
+    print("| 0 - Volver".ljust(42) + "|")
+    print("="*43)
+    opcion = int(input("Seleccione una opcion: "))
+    match opcion:
+        case 1:
+            promedio_empleados_por_area(empleados, areas)
+        case 0:
+            return
+        case _:
+            print("Opcion no valida.")
+            print("="*130)
+            print()
+            print("ESTADISTICAS FINALIZADAS")
+            print("="*130)
+    
 #Buscar Area
 def BuscarArea(areas):
     print("MENU PRINCIPAL -> AREAS -> BUSCADOR")
