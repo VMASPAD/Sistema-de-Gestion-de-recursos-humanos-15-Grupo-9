@@ -1,5 +1,6 @@
 from idGenerator import generar_id
 from impresion import Imprimir_Matriz_Ordenada
+from CRUD.registrar import verificar_area
 from CRUD.buscador import Encontrar
 from CRUD.eliminar import Eliminar_ClaveForanea
 from dataset import areas, empleados, licencias
@@ -8,7 +9,7 @@ from dataset import areas, empleados, licencias
 #Registrar Area
 def RegistrarArea(areas):
     nueva_area = []
-    nombre_area = input("Ingrese el nombre del área: ")
+    nombre_area = verificar_area()
     cantidad_empleados = 0
     A = [generar_id(areas), nombre_area, cantidad_empleados, "Activo"]
     nueva_area.extend(A)
@@ -81,3 +82,7 @@ def EliminarArea():
         print(f"Area con id {areaEliminar} eliminada.")
     else:
         print(f"Area {areaEliminar} no encontrada.")
+    
+
+if __name__ == "__main__":
+    RegistrarArea(areas)

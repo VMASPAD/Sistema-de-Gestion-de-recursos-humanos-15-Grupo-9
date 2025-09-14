@@ -9,10 +9,10 @@ from dataset import empleados, areas, licencias
 #Registrar empleado
 def RegistrarEmpleado(empleados):
     empleado = []
-    nombre_empleado = input("Ingrese el nombre del empleado: ")
-    apellido_empleado = input("Ingrese el apellido del empleado: ")
+    nombre_empleado = input("Ingrese el nombre del empleado: ").strip().capitalize()
+    apellido_empleado = input("Ingrese el apellido del empleado: ").strip().capitalize()
     telefono_empleado = verificar_telefono()
-    posicion_empleado = input("Ingrese la posicion del empleado: ")
+    posicion_empleado = input("Ingrese la posicion del empleado: ").strip().capitalize()
     Imprimir_Opciones(areas, 1)
     num_area_empleado = int(input("Ingrese el número area del empleado: "))
     fecha_ingreso_empleado = Ingresar_Fecha("el ingreso del empleado")
@@ -87,15 +87,15 @@ def EditarEmpleado():
         campo = int(input("Seleccione el campo a editar (1-7): "))
         match campo:
             case 1:
-                nuevo_valor = input("Ingrese el nuevo nombre: ")
+                nuevo_valor = input("Ingrese el nuevo nombre: ").strip().capitalize()
             case 2:
-                nuevo_valor = input("Ingrese el nuevo apellido: ")
+                nuevo_valor = input("Ingrese el nuevo apellido: ").strip().capitalize()
             case 3:
                 nuevo_valor = verificar_telefono()
             case 4:
-                nuevo_valor = input("Ingrese la nueva area: ")
+                nuevo_valor = input("Ingrese la nueva area: ").strip().capitalize()
             case 5:
-                nuevo_valor = input("Ingrese el nuevo estado: ")
+                nuevo_valor = input("Ingrese el nuevo estado: ").strip().capitalize()
             case 6:
                 nuevo_valor = Ingresar_Fecha("fecha de ingreso")
             case 7:

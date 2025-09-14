@@ -3,11 +3,12 @@ from dataset import usuarios
 
 #Funciones
 def verificar_usuario(usuarios):
+    usernames = {usuarios[i]["username"] for i in range(len(usuarios))}
     tag = input("Ingrese su nombre de usuario: ")
-    while tag in [usuarios[i]["username"] for i in range(len(usuarios))]:
+    while tag in usernames:
         print("El usuario ya existe, por favor ingrese otro.")
         tag = input("Ingrese su nombre de usuario: ")
-    return tag
+    return tag.strip()
 
 def generar_contraseña():
     password = input("Ingrese su contraseña, (debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número): ")
@@ -18,13 +19,17 @@ def generar_contraseña():
     while not patron1.match(password) or not patron2.search(password) or not patron3.search(password) or not patron4.search(password):
         print("Contraseña no válida.")
         password = input("Ingrese su contraseña, (debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número): ")
-    return password
+    return password.strip()
 
 def verificar_dni():
+    dni_ensistema = {usuarios[i]["dni"] for i in range(len(usuarios))}
     dni=input("ingrese el dni: ")
     patron= re.compile('[0-9]{7,9}')
-    while not patron.match(dni):
-        print("dni invalido")
+    while not patron.match(dni) or dni in dni_ensistema:
+        if dni in dni_ensistema:
+            print("El dni ya existe en el sistema, por favor ingrese otro.")
+        else:
+            print("dni invalido")
         dni=input("ingrese su dni (debe contener de 7 a 9 numeros): ")
     return dni
 

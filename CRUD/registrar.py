@@ -1,5 +1,5 @@
 from idGenerator import generar_id
-from dataset import justificaciones
+from dataset import justificaciones, empleados, areas
 import re 
 
 #Funciones
@@ -23,6 +23,18 @@ def Calcular_cantidad_empleados(empleados, area_id):
             cantidad += 1
     return cantidad
 
+def verificar_area():
+    nombres_areas = {areas[i][1].lower() for i in range(len(areas))}
+    nombre_area = input("Ingrese el nombre del área: ").strip().lower()
+    while nombre_area in nombres_areas or nombre_area == "":
+        if nombre_area in nombres_areas:
+            print("El nombre del área ya existe, por favor ingrese otro.")
+        else:
+            print("El nombre del área no puede estar vacío.")
+        nombre_area = input("Ingrese el nombre del área: ").strip().lower()
+    return nombre_area.capitalize()
+
+
 def verificar_telefono():
     codigo_area = input("Ingrese el codigo de area (sin +54): ")
     telefono = input("Ingrese el telefono (los ultimos 8 digitos): ")
@@ -31,4 +43,13 @@ def verificar_telefono():
         print("Telefono invalido")
         telefono = input("Ingrese el telefono (los ultimos 8 digitos): ")
     telefono = "+54" + codigo_area + telefono
+    telefonos_en_sistema = {empleados[i][2] for i in range(len(empleados))}
+    while telefono in telefonos_en_sistema:
+        print("El telefono ya existe en el sistema, por favor ingrese otro.")
+        codigo_area = input("Ingrese el codigo de area (sin +54): ")
+        telefono = input("Ingrese el telefono (los ultimos 8 digitos): ")
+        while not patron.match(telefono):
+            print("Telefono invalido")
+            telefono = input("Ingrese el telefono (los ultimos 8 digitos): ")
+        telefono = "+54" + codigo_area + telefono
     return telefono

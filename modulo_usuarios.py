@@ -93,7 +93,7 @@ def editar_usuario(usuarios):
         if campo == 4:
             nivel_acceso_pasado=usuarios[index]["nivel_acceso"]
             usuarios[index]["nivel_acceso"]=asignar_nivel_acceso()
-            print(f"el nivel de acceso de {usuarios[index]["username"]} ha sido modificado a {usuarios[index]["nivel_acceso"]}")
+            print(f"el nivel de acceso de {usuarios[index]["username"]} ha sido modificado de {nivel_acceso_pasado} a {usuarios[index]["nivel_acceso"]}")
     else:
         print("Usuario no encontrado")
 

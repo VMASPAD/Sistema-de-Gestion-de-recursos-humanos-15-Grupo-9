@@ -2,11 +2,12 @@ from dataset import usuarios
 
 #Funciones
 def userLog(usuarios):
-    user = input("Ingrese su usuario: ")
-    password = input("Ingrese su contraseña: ")
+    usuarios_activos = {usuarios[i]["username"] for i in range(len(usuarios)) if usuarios[i]["estado"]=="Activo"}
+    user = input("Ingrese su usuario: ").strip()
+    password = input("Ingrese su contraseña: ").strip()
     nivel_acceso = None
     for i in range(len(usuarios)):
-        if user == usuarios[i]['username'] and usuarios[i]['estado']=="activo":
+        if user == usuarios[i]['username'] and user in usuarios_activos:
             if password == usuarios [i]['password']:
                 nivel_acceso=usuarios[i]['nivel_acceso']
             else: print("El usuario no coincide con la contraseña")        
