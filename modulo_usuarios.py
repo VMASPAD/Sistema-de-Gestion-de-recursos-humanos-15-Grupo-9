@@ -88,8 +88,6 @@ def editar_usuario(usuarios):
             dni_punteado=formato_dni(usuarios[index]["dni"])
             print(f"dni {dni_pasado} ha sido modificado a {dni_punteado}")
 
-
-
         if campo == 4:
             nivel_acceso_pasado=usuarios[index]["nivel_acceso"]
             usuarios[index]["nivel_acceso"]=asignar_nivel_acceso()

@@ -46,9 +46,19 @@ def promedio_licencias_por_empleado(licencias, empleados):
         promedio = len(licencias_activas) / len(empleados_activos)
         print(f"El promedio de licencias por empleado activo es: {promedio:.2f}")
         return 0
-
-
-
+    
+def porcentaje_empleados_activos(empleados):
+    total=len(empleados)
+    if total == 0:
+        print("No hay empleados registrados.")
+        return 0
+    activos = len([emp for emp in empleados if emp[5] == "Activo"])
+    inactivos = total - activos
+    porcentaje_activos = (activos / total) * 100
+    porcentaje_inactivos = (inactivos / total) * 100
+    print(f"Porcentaje de empleados activos: {porcentaje_activos:.2f}%")
+    print(f"Porcentaje de empleados inactivos: {porcentaje_inactivos:.2f}%")
+    return 0
 
 if __name__ == "__main__":
-    promedio_licencias_por_empleado(licencias, empleados)
+    porcentaje_empleados_activos(empleados)

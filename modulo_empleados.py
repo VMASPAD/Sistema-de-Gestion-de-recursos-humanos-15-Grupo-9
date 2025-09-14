@@ -1,6 +1,6 @@
 from idGenerator import generar_id
 from impresion import Imprimir_Matriz_Ordenada, Imprimir_Opciones
-from estadisticas import cantidad_empleados
+from estadisticas import cantidad_empleados, porcentaje_empleados_activos
 from CRUD.registrar import Ingresar_Fecha, verificar_telefono
 from CRUD.buscador import Encontrar
 from CRUD.eliminar import Eliminar_ClaveForanea
@@ -86,8 +86,10 @@ def EstadisticasEmpleados():
             cantidad_empleados("total")
         case 2:
             cantidad_empleados("activo")
+            porcentaje_empleados_activos(empleados)
         case 3:
             cantidad_empleados("inactivo")
+            porcentaje_empleados_activos(empleados)
         case 0:
             print("Volviendo al menu principal...")
         case _:
