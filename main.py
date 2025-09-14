@@ -89,7 +89,7 @@ def Menu():
                             print("| Opciones:".ljust(33) + "|")
                             print("| 1 - Buscar Empleado".ljust(33) + "|")
                             if nivel_acceso > 1:
-                                print("| 2 - Ver estadisticas (no disponible)".ljust(33) + "|")
+                                print("| 2 - Ver estadisticas".ljust(33) + "|")
                             if nivel_acceso == 2:
                                 print("| 3 - Registrar Empleado".ljust(33) + "|")
                                 print("| 4 - Editar Empleado".ljust(33) + "|")
@@ -101,7 +101,9 @@ def Menu():
                                 case 1:
                                     modulo_empleados.BuscarEmpleado(empleados)
                                 case 2:
-                                    print("NO DISPONIBLE")
+                                    if nivel_acceso > 1:
+                                        modulo_empleados.EstadisticasEmpleados()
+                                    else: print("No tiene permisos para realizar esta accion")
                                 case 3:
                                     if nivel_acceso == 2:
                                         modulo_empleados.RegistrarEmpleado(empleados)

@@ -1,5 +1,6 @@
 from idGenerator import generar_id
 from impresion import Imprimir_Matriz_Ordenada, Imprimir_Opciones
+from estadisticas import cantidad_empleados
 from CRUD.registrar import Ingresar_Fecha, verificar_telefono
 from CRUD.buscador import Encontrar
 from CRUD.eliminar import Eliminar_ClaveForanea
@@ -69,6 +70,30 @@ def BuscarEmpleado(empleados):
                     key = lambda fila: fila[1].rsplit(" ", 1)[-1]
                     Imprimir_Matriz_Ordenada(empleados, 0,  key)
 
+def EstadisticasEmpleados():
+    print("="*43)
+    print("MENU PRINCIPAL -> EMPLEADOS -> ESTADISTICAS")
+    print("="*43)
+    print("| Opciones:".ljust(42) +"|")
+    print("| 1. Ver cantidad de empleados totales".ljust(42) +"|")
+    print("| 2. Ver cantidad de empleados activos".ljust(42) +"|")
+    print("| 3. Ver cantidad de empleados por area".ljust(42) +"|")
+    print("| 0. Volver".ljust(42) +"|")
+    print("="*43)
+    opcion = int(input("Seleccione una opcion: "))
+    match opcion:
+        case 1: 
+            cantidad_empleados("total")
+        case 2:
+            cantidad_empleados("activo")
+        case 3:
+            cantidad_empleados("inactivo")
+        case 0:
+            print("Volviendo al menu principal...")
+        case _:
+            print("Opcion no valida")
+        
+    return 0
 #Editar empleado
 def EditarEmpleado():
     print("="*26)
@@ -131,4 +156,4 @@ def EliminarEmpleado():
 
 
 if __name__ == "__main__":
-    EditarEmpleado()
+    EstadisticasEmpleados()
