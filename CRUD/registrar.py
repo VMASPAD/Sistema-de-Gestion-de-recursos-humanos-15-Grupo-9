@@ -1,19 +1,28 @@
+
+VERDE = '\033[92m'
+ROJO = '\033[91m'
+AMARILLO = '\033[93m'
+AZUL = '\033[94m'
+MAGENTA = '\033[95m'
+CIAN = '\033[96m'
+RESET = '\033[0m'
+
 from idGenerator import generar_id
 from dataset import justificaciones, empleados, areas
 import re 
 
 #Funciones
 def Eleccion_Justificacion():
-    print("Seleccione una justificacion:")
+    print(AZUL + "Seleccione una justificacion:" + RESET)
     for justificacion in justificaciones:
-        print(f"{justificacion[0]} - {justificacion[1]}")
-    opcion = int(input("Ingrese la opcion: "))
+        print(CIAN + f"{justificacion[0]} - {justificacion[1]}" + RESET)
+    opcion = int(input(MAGENTA + "Ingrese la opcion: " + RESET))
     return opcion
 
 def Ingresar_Fecha(asunto):
-    dia = int(input(f"Ingrese el dia (DD) de {asunto}: "))
-    mes = int(input(f"Ingrese el mes (MM) de {asunto}: "))
-    año = int(input(f"Ingrese el año (AAAA) de {asunto}: "))
+    dia = int(input(MAGENTA + f"Ingrese el dia (DD) de {asunto}: " + RESET))
+    mes = int(input(MAGENTA + f"Ingrese el mes (MM) de {asunto}: " + RESET))
+    año = int(input(MAGENTA + f"Ingrese el año (AAAA) de {asunto}: " + RESET))
     return f"{año}-{mes}-{dia}"
 
 def Calcular_cantidad_empleados(empleados, area_id):
@@ -25,31 +34,31 @@ def Calcular_cantidad_empleados(empleados, area_id):
 
 def verificar_area():
     nombres_areas = {areas[i][1].lower() for i in range(len(areas))}
-    nombre_area = input("Ingrese el nombre del área: ").strip().lower()
+    nombre_area = input(MAGENTA + "Ingrese el nombre del área: " + RESET).strip().lower()
     while nombre_area in nombres_areas or nombre_area == "":
         if nombre_area in nombres_areas:
-            print("El nombre del área ya existe, por favor ingrese otro.")
+            print(ROJO + "El nombre del área ya existe, por favor ingrese otro." + RESET)
         else:
-            print("El nombre del área no puede estar vacío.")
-        nombre_area = input("Ingrese el nombre del área: ").strip().lower()
+            print(ROJO + "El nombre del área no puede estar vacío." + RESET)
+        nombre_area = input(MAGENTA + "Ingrese el nombre del área: " + RESET).strip().lower()
     return nombre_area.capitalize()
 
 
 def verificar_telefono():
-    codigo_area = input("Ingrese el codigo de area (sin +54): ")
-    telefono = input("Ingrese el telefono (los ultimos 8 digitos): ")
+    codigo_area = input(MAGENTA + "Ingrese el codigo de area (sin +54): " + RESET)
+    telefono = input(MAGENTA + "Ingrese el telefono (los ultimos 8 digitos): " + RESET)
     patron = re.compile('[0-9]{8}')
     while not patron.match(telefono):
-        print("Telefono invalido")
-        telefono = input("Ingrese el telefono (los ultimos 8 digitos): ")
+        print(ROJO + "Telefono invalido" + RESET)
+        telefono = input(MAGENTA + "Ingrese el telefono (los ultimos 8 digitos): " + RESET)
     telefono = "+54" + codigo_area + telefono
     telefonos_en_sistema = {empleados[i][2] for i in range(len(empleados))}
     while telefono in telefonos_en_sistema:
-        print("El telefono ya existe en el sistema, por favor ingrese otro.")
-        codigo_area = input("Ingrese el codigo de area (sin +54): ")
-        telefono = input("Ingrese el telefono (los ultimos 8 digitos): ")
+        print(ROJO + "El telefono ya existe en el sistema, por favor ingrese otro." + RESET)
+        codigo_area = input(MAGENTA + "Ingrese el codigo de area (sin +54): " + RESET)
+        telefono = input(MAGENTA + "Ingrese el telefono (los ultimos 8 digitos): " + RESET)
         while not patron.match(telefono):
-            print("Telefono invalido")
-            telefono = input("Ingrese el telefono (los ultimos 8 digitos): ")
+            print(ROJO + "Telefono invalido" + RESET)
+            telefono = input(MAGENTA + "Ingrese el telefono (los ultimos 8 digitos): " + RESET)
         telefono = "+54" + codigo_area + telefono
     return telefono

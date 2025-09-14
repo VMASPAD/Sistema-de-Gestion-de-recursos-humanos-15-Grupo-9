@@ -1,3 +1,12 @@
+
+VERDE = '\033[92m'
+ROJO = '\033[91m'
+AMARILLO = '\033[93m'
+AZUL = '\033[94m'
+MAGENTA = '\033[95m'
+CIAN = '\033[96m'
+RESET = '\033[0m'
+
 from idGenerator import generar_id
 from impresion import Imprimir_Matriz_Ordenada, Imprimir_Opciones
 from estadisticas import cantidad_empleados, porcentaje_empleados_activos, cantidad_empleados_area
@@ -10,12 +19,12 @@ from dataset import empleados, areas, licencias
 #Registrar empleado
 def RegistrarEmpleado(empleados):
     empleado = []
-    nombre_empleado = input("Ingrese el nombre del empleado: ").strip().capitalize()
-    apellido_empleado = input("Ingrese el apellido del empleado: ").strip().capitalize()
+    nombre_empleado = input(MAGENTA + "Ingrese el nombre del empleado: " + RESET).strip().capitalize()
+    apellido_empleado = input(MAGENTA + "Ingrese el apellido del empleado: " + RESET).strip().capitalize()
     telefono_empleado = verificar_telefono()
-    posicion_empleado = input("Ingrese la posicion del empleado: ").strip().capitalize()
+    posicion_empleado = input(MAGENTA + "Ingrese la posicion del empleado: " + RESET).strip().capitalize()
     Imprimir_Opciones(areas, 1)
-    num_area_empleado = int(input("Ingrese el número area del empleado: "))
+    num_area_empleado = int(input(MAGENTA + "Ingrese el número area del empleado: " + RESET))
     fecha_ingreso_empleado = Ingresar_Fecha("el ingreso del empleado")
     fecha_nacimiento_empleado = Ingresar_Fecha("la fecha de nacimiento del empleado")
     A = [generar_id(empleados),nombre_empleado + " " + apellido_empleado, telefono_empleado, posicion_empleado,num_area_empleado,"Activo",fecha_ingreso_empleado,fecha_nacimiento_empleado]
@@ -26,28 +35,28 @@ def RegistrarEmpleado(empleados):
 
 #Buscar empleado
 def BuscarEmpleado(empleados):
-    print("MENU PRINCIPAL -> EMPLEADOS -> BUSCADOR")
-    print("="*34)
-    print("| Opciones:".ljust(33) + "|")
-    print("| 1 - Id".ljust(33) + "|")
-    print("| 2 - Nombre/Apellido".ljust(33) + "|")
-    print("| 3 - Area".ljust(33) + "|")
-    print("| 4 - Mostrar empleados".ljust(33) + "|")
-    print("| 5 - Volver".ljust(33) + "|")
-    print("="*34)
-    opcion = int(input("Ingrese la opcion de busqueda: "))
+    print(AZUL + "MENU PRINCIPAL -> EMPLEADOS -> BUSCADOR" + RESET)
+    print(AZUL + "="*34 + RESET)
+    print(CIAN + "| Opciones:".ljust(33) + "|" + RESET)
+    print(CIAN + "| 1 - Id".ljust(33) + "|" + RESET)
+    print(CIAN + "| 2 - Nombre/Apellido".ljust(33) + "|" + RESET)
+    print(CIAN + "| 3 - Area".ljust(33) + "|" + RESET)
+    print(CIAN + "| 4 - Mostrar empleados".ljust(33) + "|" + RESET)
+    print(CIAN + "| 5 - Volver".ljust(33) + "|" + RESET)
+    print(AZUL + "="*34 + RESET)
+    opcion = int(input(MAGENTA + "Ingrese la opcion de busqueda: " + RESET))
     print()
     match opcion: 
         case 1:
-            busqueda = int(input("Ingrese el Id a buscar: "))
+            busqueda = int(input(MAGENTA + "Ingrese el Id a buscar: " + RESET))
             Encontrar(busqueda, empleados, 0, 0)
         case 2:
-            busqueda = input("Ingrese el nombre o apellido a buscar: ")
+            busqueda = input(MAGENTA + "Ingrese el nombre o apellido a buscar: " + RESET)
             busqueda = busqueda.lower()
             Encontrar(busqueda, empleados, 1, 0)
         case 3: 
             Imprimir_Opciones(areas, 1)
-            busqueda = int(input("Ingrese el numero de area a buscar: "))
+            busqueda = int(input(MAGENTA + "Ingrese el numero de area a buscar: " + RESET))
             Encontrar(busqueda, empleados, 4, 0)
         case 4:
             print("="*34)

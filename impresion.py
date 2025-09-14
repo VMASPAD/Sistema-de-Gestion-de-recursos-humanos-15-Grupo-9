@@ -1,11 +1,20 @@
+
+VERDE = '\033[92m'
+ROJO = '\033[91m'
+AMARILLO = '\033[93m'
+AZUL = '\033[94m'
+MAGENTA = '\033[95m'
+CIAN = '\033[96m'
+RESET = '\033[0m'
+
 import re
 from dataset import empleados, areas, justificaciones, licencias, historial_operaciones, usuarios
 #Funciones 
 def Imprimir_Opciones(matriz, columna):
     print()
-    print("Opciones: ")
+    print(AZUL + "Opciones: " + RESET)
     for i in range(len(matriz)):
-        print(f"{i} - {matriz[i][columna]}")
+        print(CIAN + f"{i} - {matriz[i][columna]}" + RESET)
 
 def Imprimir_Encabezados(fila):
     encabezados = [
@@ -57,9 +66,9 @@ def Imprimir_Matriz_Ordenada(matriz, encabezado, llave):
     columnas = len(matriz[0])
 
     matriz.sort(key=llave)
-    print("="*180)
+    print(AZUL + "="*180 + RESET)
     Imprimir_Encabezados(encabezado)
-    print("-"*180)
+    print(AZUL + "-"*180 + RESET)
     for i in range(filas):
         if "Inactivo" not in matriz[i]:
             for j in range(columnas):
@@ -71,8 +80,8 @@ def Imprimir_Matriz_Ordenada(matriz, encabezado, llave):
                     impresion = str(impresion).ljust(24)
                 print(impresion, end="\t")
             print()
-            print("-"*180)
-    print("="*180)
+            print(AZUL + "-"*180 + RESET)
+    print(AZUL + "="*180 + RESET)
     print()
     return
 
@@ -81,7 +90,7 @@ def Encontrar_Id_Empleado(empleados, empleado):
     if id:
         return id[0][0]
     else:
-        print("Empleado no encontrado") 
+        print(ROJO + "Empleado no encontrado" + RESET) 
         return False
 
 def Reemplazo_Id_Valor(id, reemplazar):
@@ -105,19 +114,19 @@ def Reemplazo_Id_Valor(id, reemplazar):
 
 def Imprimir_Diccionario_Ordenada(usuarios, clave):
     usuarios.sort(key=lambda x: x[clave])
-    print("="*170)
+    print(AZUL + "="*170 + RESET)
     for i in usuarios[0].keys():
         print (i.ljust(23),end="\t")
     print()
-    print("-"*170)
+    print(AZUL + "-"*170 + RESET)
     for i in range(len(usuarios)):
         if "Inactivo" not in usuarios[i].values():
             for j in usuarios[i].keys():
                 impresion = str(usuarios[i][j])
                 print(impresion.ljust(23), end="\t")
             print()
-            print("-"*170)
-    print("="*170)
+            print(AZUL + "-"*170 + RESET)
+    print(AZUL + "="*170 + RESET)
     print()
     return 
 
@@ -127,17 +136,17 @@ def formato_dni(dni):
     return impresion_dni
 
 def Mostrar_historial_operaciones(historial):
-    print("="*170)
-    print("HISTORIAL DE OPERACIONES".ljust(60))
-    print("="*170)
+    print(AZUL + "="*170 + RESET)
+    print(AZUL + "HISTORIAL DE OPERACIONES".ljust(60) + RESET)
+    print(AZUL + "="*170 + RESET)
     Imprimir_Encabezados(4)
-    print("-"*170)
+    print(AZUL + "-"*170 + RESET)
     for op in historial:
         for dato in op:
             dato = str(dato)
             print(dato.ljust(24), end="\t")
         print()
-        print("-"*170)
+        print(AZUL + "-"*170 + RESET)
 
 
 if __name__ == "__main__":

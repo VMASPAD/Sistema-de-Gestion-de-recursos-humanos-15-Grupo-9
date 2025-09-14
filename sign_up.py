@@ -1,44 +1,53 @@
+
+VERDE = '\033[92m'
+ROJO = '\033[91m'
+AMARILLO = '\033[93m'
+AZUL = '\033[94m'
+MAGENTA = '\033[95m'
+CIAN = '\033[96m'
+RESET = '\033[0m'
+
 import re 
 from dataset import usuarios
 
 #Funciones
 def verificar_usuario(usuarios):
     usernames = {usuarios[i]["username"] for i in range(len(usuarios))}
-    tag = input("Ingrese su nombre de usuario: ")
+    tag = input(MAGENTA + "Ingrese su nombre de usuario: " + RESET)
     while tag in usernames:
-        print("El usuario ya existe, por favor ingrese otro.")
-        tag = input("Ingrese su nombre de usuario: ")
+        print(ROJO + "El usuario ya existe, por favor ingrese otro." + RESET)
+        tag = input(MAGENTA + "Ingrese su nombre de usuario: " + RESET)
     return tag.strip()
 
 def generar_contraseña():
-    password = input("Ingrese su contraseña, (debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número): ")
+    password = input(MAGENTA + "Ingrese su contraseña, (debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número): " + RESET)
     patron1 = re.compile("[A-Za-z0-9]{8,}")
     patron2 = re.compile("[A-Z]{1,}")
     patron3 = re.compile("[a-z]{1,}")
     patron4 = re.compile("[0-9]{1,}")
     while not patron1.match(password) or not patron2.search(password) or not patron3.search(password) or not patron4.search(password):
-        print("Contraseña no válida.")
-        password = input("Ingrese su contraseña, (debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número): ")
+        print(ROJO + "Contraseña no válida." + RESET)
+        password = input(MAGENTA + "Ingrese su contraseña, (debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número): " + RESET)
     return password.strip()
 
 def verificar_dni():
     dni_ensistema = {usuarios[i]["dni"] for i in range(len(usuarios))}
-    dni=input("ingrese el dni: ")
+    dni=input(MAGENTA + "ingrese el dni: " + RESET)
     patron= re.compile('[0-9]{7,9}')
     while not patron.match(dni) or dni in dni_ensistema:
         if dni in dni_ensistema:
-            print("El dni ya existe en el sistema, por favor ingrese otro.")
+            print(ROJO + "El dni ya existe en el sistema, por favor ingrese otro." + RESET)
         else:
-            print("dni invalido")
-        dni=input("ingrese su dni (debe contener de 7 a 9 numeros): ")
+            print(ROJO + "dni invalido" + RESET)
+        dni=input(MAGENTA + "ingrese su dni (debe contener de 7 a 9 numeros): " + RESET)
     return dni
 
 def asignar_nivel_acceso():
     niveles = { 1 : "admin", 2 : "user", 3 : "guest"}
-    print("Niveles de acceso disponibles")
+    print(AZUL + "Niveles de acceso disponibles" + RESET)
     for key, value in niveles.items():
-        print(f"{key} - {value}")
-    opcion = int(input("Seleccione el nivel de acceso (1-3): "))
+        print(CIAN + f"{key} - {value}" + RESET)
+    opcion = int(input(MAGENTA + "Seleccione el nivel de acceso (1-3): " + RESET))
     return niveles.get(opcion)
 
 
@@ -49,7 +58,7 @@ def crear_usuario(usuarios):
     nivel_acceso = asignar_nivel_acceso()
     email = username + "@empresa.com"
     id = len(usuarios)
-    print(f"Usuario creado exitosamente:\nID: {id}\nUsername: {username}\nPassword: {password}\nDNI: {dni}\nNivel de acceso: {nivel_acceso}\nEmail: {email}")
+    print(VERDE + f"Usuario creado exitosamente:\nID: {id}\nUsername: {username}\nPassword: {password}\nDNI: {dni}\nNivel de acceso: {nivel_acceso}\nEmail: {email}" + RESET)
     usuarios.append({"id": id, "username": username, "password": password, "dni": dni, "nivel_acceso": nivel_acceso, "email": email, "estado": "activo"})
 
 

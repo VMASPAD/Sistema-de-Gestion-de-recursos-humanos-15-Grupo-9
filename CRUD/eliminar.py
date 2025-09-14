@@ -1,5 +1,14 @@
 
 
+VERDE = '\033[92m'
+ROJO = '\033[91m'
+AMARILLO = '\033[93m'
+AZUL = '\033[94m'
+MAGENTA = '\033[95m'
+CIAN = '\033[96m'
+RESET = '\033[0m'
+
+
 #Funciones 
 def Eliminar_ClaveForanea(id, matriz, columna):
     for i in range(len(matriz)):
@@ -9,4 +18,4 @@ def Eliminar_ClaveForanea(id, matriz, columna):
     return matriz
 
 if __name__ == "__main__":
-    print("Este archivo no se ejecuta de forma independiente")
+    print(AMARILLO + "Este archivo no se ejecuta de forma independiente" + RESET)
