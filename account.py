@@ -6,7 +6,7 @@ def userLog(usuarios):
     password = input("Ingrese su contraseña: ")
     nivel_acceso = None
     for i in range(len(usuarios)):
-        if user == usuarios[i]['username']:
+        if user == usuarios[i]['username'] and usuarios[i]['estado']=="activo":
             if password == usuarios [i]['password']:
                 nivel_acceso=usuarios[i]['nivel_acceso']
             else: print("El usuario no coincide con la contraseña")        

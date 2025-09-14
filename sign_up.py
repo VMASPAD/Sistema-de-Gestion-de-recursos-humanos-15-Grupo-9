@@ -45,7 +45,7 @@ def crear_usuario(usuarios):
     email = username + "@empresa.com"
     id = len(usuarios)
     print(f"Usuario creado exitosamente:\nID: {id}\nUsername: {username}\nPassword: {password}\nDNI: {dni}\nNivel de acceso: {nivel_acceso}\nEmail: {email}")
-    usuarios.append({"id": id, "username": username, "password": password, "dni": dni, "nivel_acceso": nivel_acceso, "email": email})
+    usuarios.append({"id": id, "username": username, "password": password, "dni": dni, "nivel_acceso": nivel_acceso, "email": email, "estado": "activo"})
 
 
 if __name__ == "__main__":

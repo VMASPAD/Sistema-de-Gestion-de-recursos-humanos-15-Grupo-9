@@ -1,5 +1,6 @@
 from idGenerator import generar_id
 from dataset import justificaciones
+import re 
 
 #Funciones
 def Eleccion_Justificacion():
@@ -21,3 +22,13 @@ def Calcular_cantidad_empleados(empleados, area_id):
         if empleado[4] == area_id and empleado[5] == "Activo":
             cantidad += 1
     return cantidad
+
+def verificar_telefono():
+    codigo_area = input("Ingrese el codigo de area (sin +54): ")
+    telefono = input("Ingrese el telefono (los ultimos 8 digitos): ")
+    patron = re.compile('[0-9]{8}')
+    while not patron.match(telefono):
+        print("Telefono invalido")
+        telefono = input("Ingrese el telefono (los ultimos 8 digitos): ")
+    telefono = "+54" + codigo_area + telefono
+    return telefono

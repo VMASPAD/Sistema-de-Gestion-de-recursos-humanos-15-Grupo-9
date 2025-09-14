@@ -1,6 +1,6 @@
 from idGenerator import generar_id
 from impresion import Imprimir_Matriz_Ordenada, Imprimir_Opciones
-from CRUD.registrar import Ingresar_Fecha
+from CRUD.registrar import Ingresar_Fecha, verificar_telefono
 from CRUD.buscador import Encontrar
 from CRUD.eliminar import Eliminar_ClaveForanea
 from dataset import empleados, areas, licencias
@@ -11,7 +11,7 @@ def RegistrarEmpleado(empleados):
     empleado = []
     nombre_empleado = input("Ingrese el nombre del empleado: ")
     apellido_empleado = input("Ingrese el apellido del empleado: ")
-    telefono_empleado = int(input("Ingrese el telefono del empleado: "))
+    telefono_empleado = verificar_telefono()
     posicion_empleado = input("Ingrese la posicion del empleado: ")
     Imprimir_Opciones(areas, 1)
     num_area_empleado = int(input("Ingrese el número area del empleado: "))
@@ -85,7 +85,21 @@ def EditarEmpleado():
         print('6. Fecha de ingreso')
         print('7. Fecha de nacimiento')
         campo = int(input("Seleccione el campo a editar (1-7): "))
-        nuevo_valor = input("Ingrese el nuevo valor: ")
+        match campo:
+            case 1:
+                nuevo_valor = input("Ingrese el nuevo nombre: ")
+            case 2:
+                nuevo_valor = input("Ingrese el nuevo apellido: ")
+            case 3:
+                nuevo_valor = verificar_telefono()
+            case 4:
+                nuevo_valor = input("Ingrese la nueva area: ")
+            case 5:
+                nuevo_valor = input("Ingrese el nuevo estado: ")
+            case 6:
+                nuevo_valor = Ingresar_Fecha("fecha de ingreso")
+            case 7:
+                nuevo_valor = Ingresar_Fecha("fecha de nacimiento")
         if campo == 1 or campo == 2:
             nombre_actual = empleado[1].split(" ")
             if campo == 1:
@@ -93,7 +107,7 @@ def EditarEmpleado():
             else:
                 nombre_actual[1] = nuevo_valor
             nuevo_valor = " ".join(nombre_actual)
-        empleados[index][campo - 1] = nuevo_valor
+        empleados[index][campo - 1 if campo > 1 else campo] = nuevo_valor
         print("Empleado actualizado:", empleados[index])
     else:
         print("Empleado no encontrado.")
@@ -114,3 +128,7 @@ def EliminarEmpleado():
         areas[posicion_empleados[4]][2] -= 1
     else:
         print(f"Empleado {empleadoEliminar} no encontrado.")
+
+
+if __name__ == "__main__":
+    EditarEmpleado()
