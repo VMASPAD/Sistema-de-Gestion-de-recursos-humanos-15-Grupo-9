@@ -46,22 +46,56 @@ def Id_Empleado(empleados, empleado):
     id = [empleado[0] for empleado in empleados if emp in empleado[1].lower()][0]
     return id
 
-def Encontrar_diccionario(usuarios, clave, busqueda):
-    resultado=list(filter(lambda x: busqueda in x [clave] , usuarios))
+def Encontrar_diccionario(busqueda, usuarios, clave, encabezado=None):
+    if not usuarios:
+        print(ROJO + "No hay datos para buscar" + RESET)
+        return
+
+    # Resolver nombre de la clave si se pasó un índice
+    if isinstance(clave, int):
+        keys = list(usuarios[0].keys())
+        if clave < 0 or clave >= len(keys):
+            print(ROJO + "Clave de búsqueda inválida" + RESET)
+            return
+        key = keys[clave]
+    else:
+        key = clave
+
+    # Normalizar búsqueda y seleccionar por igualdad o substring
+    resultado = []
+    try:
+        # si busqueda es numérica o un entero, comparar por igualdad
+        if isinstance(busqueda, int) or (isinstance(busqueda, str) and busqueda.isdigit()):
+            bstr = str(busqueda)
+            for item in usuarios:
+                if str(item.get(key)) == bstr:
+                    resultado.append(item)
+        else:
+            b = str(busqueda).lower()
+            for item in usuarios:
+                val = item.get(key)
+                if val is None:
+                    continue
+                if b in str(val).lower():
+                    resultado.append(item)
+    except Exception:
+        print(ROJO + "Error durante la búsqueda" + RESET)
+        return
+
+    # Imprimir resultados formateados
     print(AZUL + "="*170 + RESET)
     for i in usuarios[0].keys():
         print (i.ljust(23),end="\t")
     print()
     print(AZUL + "="*170 + RESET)
     print(AZUL + "-"*170 + RESET)
-    for i in range(len(resultado)):
-        for j in resultado[i].keys():
-            print(str(resultado[i][j]).ljust(23), end="\t")
+    for res in resultado:
+        for j in res.keys():
+            print(str(res[j]).ljust(23), end="\t")
         print()
         print(AZUL + "-"*170 + RESET)
         print()
-    print()
-    if len(resultado)==0:
+    if len(resultado) == 0:
         print(ROJO + "No se encontro" + RESET)
     print(AZUL + "="*170 + RESET)
     print(VERDE + "BUSQUEDA FINALIZADA" + RESET)
