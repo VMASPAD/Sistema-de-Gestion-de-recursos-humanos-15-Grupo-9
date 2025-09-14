@@ -1,6 +1,7 @@
 from account import userLog
-from dataset import empleados, areas, licencias, usuarios
+from dataset import empleados, areas, licencias, usuarios, historial_operaciones
 from sign_up import crear_usuario
+from impresion import Mostrar_historial_operaciones
 import modulo_areas
 import modulo_empleados
 import modulo_licencias
@@ -39,7 +40,8 @@ def Menu():
                     print("| 2 - Empleados".ljust(33) + "|")
                     print("| 3 - Licencias".ljust(33) + "|")
                     print("| 4 - Usuarios".ljust(33) + "|")
-                    print("| 5 - Cerrar Sesion".ljust(33) + "|")
+                    print("| 5 - Historial de Operaciones".ljust(33) + "|")
+                    print("| 6 - Cerrar Sesion".ljust(33) + "|")
                     print("| 0 - Salir".ljust(33) + "|")
                     print("="*34)
                     opcion = int(input("Seleccione una opcion: "))
@@ -130,7 +132,7 @@ def Menu():
                             print("| Opciones:".ljust(33) + "|")
                             print("| 1 - Buscar Licencia".ljust(33) + "|")
                             if nivel_acceso > 1:
-                                print("| 2 - Ver estadisticas (no disponible)".ljust(33) + "|")
+                                print("| 2 - Ver estadisticas".ljust(33) + "|")
                             if nivel_acceso == 2:
                                 print("| 3 - Registrar Licencia".ljust(33) + "|")
                                 print("| 4 - Editar Licencia".ljust(33) + "|")
@@ -142,7 +144,9 @@ def Menu():
                                 case 1:
                                     modulo_licencias.BuscarLicencia(licencias, empleados)
                                 case 2:
-                                    print("NO DISPONIBLE")
+                                    if nivel_acceso > 1:
+                                        modulo_licencias.EstadisticasLicencias(licencias)
+                                    else: print("No tiene permisos para realizar esta accion")
                                 case 3:
                                     if nivel_acceso == 2:
                                         modulo_licencias.RegistrarLicencia(licencias)
@@ -192,6 +196,24 @@ def Menu():
                                     print("Opcion no existente")
                                     print("="*130)
                         case 5:
+                            print()
+                            print("="*34)
+                            print("MENU PRINCIPAL -> HISTORIAL DE OPERACIONES")
+                            print("="*34)
+                            print("| Opciones:".ljust(33) + "|")
+                            print("| 1 - Historial de Operaciones".ljust(33) + "|")
+                            print("| 0 - Volver".ljust(33) + "|")
+                            print("="*34)
+                            tipo = int(input("Seleccione una opcion: "))
+                            match tipo:
+                                case 1:
+                                    Mostrar_historial_operaciones(historial_operaciones)
+                                case 0:
+                                    print("Volviendo al menu principal...")
+                                case _:
+                                    print("Opcion no existente")
+                            
+                        case 6:
                             print("Cerrando sesion...")
                         case 0:
                             print()

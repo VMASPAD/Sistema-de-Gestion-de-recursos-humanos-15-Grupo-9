@@ -1,5 +1,6 @@
 from idGenerator import generar_id
 from impresion import Imprimir_Matriz_Ordenada, Encontrar_Id_Empleado
+from estadisticas import promedio_licencias_por_empleado
 from CRUD.registrar import Eleccion_Justificacion, Ingresar_Fecha
 from CRUD.buscador import Encontrar, Id_Empleado
 from CRUD.eliminar import Eliminar_ClaveForanea
@@ -16,6 +17,31 @@ def RegistrarLicencia(licencias):
     nueva_licencia.extend(A)
     licencias.append(nueva_licencia)
     return licencias
+
+def EstadisticasLicencias(licencias):
+    print("="*46)
+    print("MENU PRINCIPAL -> LICENCIAS -> ESTADISTICAS")
+    print("="*46)
+    print("| Opciones:".ljust(45) + "|")
+    print("| 1 - Ver cantidad de licencias".ljust(45) + "|")
+    print("| 2 - Ver promedio de licencias por empleado".ljust(45) + "|")
+    print("| 0 - Volver".ljust(45) + "|")
+    print("="*46)
+    opcion = int(input("Seleccione una opcion: "))
+    match opcion:
+        case 1:
+            print(f"La cantidad total de licencias es: {len(list(licencia for licencia in licencias if licencia[4] == 'Activo'))}")
+        case 2:
+            promedio_licencias_por_empleado(licencias, empleados)
+        case 0:
+            return
+        case _:
+            print("Opcion no valida.")
+            print("="*130)
+            print()
+            print("ESTADISTICAS FINALIZADAS")
+            print("="*130)
+    return
 
 #Buscar Licencia
 def BuscarLicencia(licencias, empleados):

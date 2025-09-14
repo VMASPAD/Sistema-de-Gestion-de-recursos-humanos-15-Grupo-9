@@ -1,5 +1,5 @@
 import re
-from dataset import empleados, areas, justificaciones, licencias
+from dataset import empleados, areas, justificaciones, licencias, historial_operaciones, usuarios
 #Funciones 
 def Imprimir_Opciones(matriz, columna):
     print()
@@ -9,13 +9,17 @@ def Imprimir_Opciones(matriz, columna):
 
 def Imprimir_Encabezados(fila):
     encabezados = [
-        ["id",	"Nombre y Ape..", "Telefono", "Posición", "id_Area", "Estado", "Fecha_ingreso", "Fecha_nacimiento"], # Empleados 
+        ["id",	"N/A", "Telefono", "Posición", "id_Area", "Estado", "F_ingreso", "F_nacimiento"], # Empleados 
         ["Id", "Nombre", "Cantidad", "Estado"], # Areas
         ["Id", "Empleado", "Fecha","Justificacion", "Estado"], # Licencias
-        ["Id", "Justificación", "Tipo"] # Justificaciones 
-        ]
+        ["Id", "Justificación", "Tipo"], # Justificaciones
+        ["Operacion", "Entidad Afectada", "Fecha"] # Historial de Operaciones
+    ]
     for i in encabezados[fila]:
-        i = i.ljust(15)
+        if fila == 0:
+            i = i.ljust(21)
+        else:
+            i = i.ljust(24)
         print(i, end= "\t")
     print()
     return
@@ -43,9 +47,9 @@ def Formato(nombre):
             nombre = " ".join(cort)
 
     elif len(str(nombre)) < 8:
-        nombre = Rellenar(nombre)
+       nombre = Rellenar(nombre)
 
-    nombre = nombre.ljust(15)
+    nombre = nombre.ljust(20)
     return nombre
 
 def Imprimir_Matriz_Ordenada(matriz, encabezado, llave):
@@ -53,19 +57,22 @@ def Imprimir_Matriz_Ordenada(matriz, encabezado, llave):
     columnas = len(matriz[0])
 
     matriz.sort(key=llave)
-    print("="*130)
+    print("="*180)
     Imprimir_Encabezados(encabezado)
-    print("-"*130)
+    print("-"*180)
     for i in range(filas):
         if "Inactivo" not in matriz[i]:
             for j in range(columnas):
                 impresion = matriz[i][j]
                 impresion = Reemplazo_Id_Valor(impresion, j)
-                impresion = Formato(impresion)
+                if encabezado == 0:
+                    impresion = Formato(impresion)
+                else:
+                    impresion = str(impresion).ljust(24)
                 print(impresion, end="\t")
             print()
-            print("-"*130)
-    print("="*130)
+            print("-"*180)
+    print("="*180)
     print()
     return
 
@@ -98,19 +105,19 @@ def Reemplazo_Id_Valor(id, reemplazar):
 
 def Imprimir_Diccionario_Ordenada(usuarios, clave):
     usuarios.sort(key=lambda x: x[clave])
-    print("="*198)
+    print("="*170)
     for i in usuarios[0].keys():
-        print (i.ljust(25),end="\t")
+        print (i.ljust(23),end="\t")
     print()
-    print("-"*198)
+    print("-"*170)
     for i in range(len(usuarios)):
         if "Inactivo" not in usuarios[i].values():
             for j in usuarios[i].keys():
                 impresion = str(usuarios[i][j])
-                print(impresion.ljust(25), end="\t")
+                print(impresion.ljust(23), end="\t")
             print()
-            print("-"*198)
-    print("="*198)
+            print("-"*170)
+    print("="*170)
     print()
     return 
 
@@ -118,3 +125,20 @@ def formato_dni(dni):
     patron= re.compile (dni)
     impresion_dni=patron.sub(dni[:-6]+'.'+dni[-6:-3]+'.'+ dni[-3: ],dni)
     return impresion_dni
+
+def Mostrar_historial_operaciones(historial):
+    print("="*170)
+    print("HISTORIAL DE OPERACIONES".ljust(60))
+    print("="*170)
+    Imprimir_Encabezados(4)
+    print("-"*170)
+    for op in historial:
+        for dato in op:
+            dato = str(dato)
+            print(dato.ljust(24), end="\t")
+        print()
+        print("-"*170)
+
+
+if __name__ == "__main__":
+    Imprimir_Matriz_Ordenada(empleados, 0, lambda fila: fila[0])

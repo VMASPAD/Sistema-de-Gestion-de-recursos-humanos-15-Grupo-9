@@ -53,7 +53,7 @@ justificaciones = [
     [15, "Adopcion", "Familiar"]
 ]
 
-# id, nombre y apellido, telefono, posicion, area, estado, fecha de ingreso, fecha de nacimiento
+# id, nombre y apellido, telefono, posicion, area, estado, fecha de ingreso, fecha de nacimiento,
 empleados = [
     [0, "Juanceto01", "+541112345678", "Operario", 1, "Activo", "2019-03-15", "1987-06-12"],
     [1, "Juan Perez", "+541187654321", "Operario", 1, "Activo", "2019-03-15",    "1987-06-12"],
@@ -76,7 +76,7 @@ empleados = [
 usuarios = [
     {"id": 0, "username": "juanp", "password": "juanp", "dni": "40123456", "nivel_acceso": "admin", "email": "juanp@empresa.com", "estado": "Activo"},
     {"id": 1, "username": "maria.g", "password": "mg2024", "dni": "38987456", "nivel_acceso": "user", "email": "maria.g@empresa.com", "estado": "Activo"},
-    {"id": 2, "username": "lucasf", "password": "lfpass", "dni": "42111444", "nivel_acceso": "guest", "email": "lucasf@empresa.com", "estado": "Activo"},
+    {"id": 2, "username": "lucasf", "password": "lfpass", "dni": "42111444", "nivel_acceso": "admin", "email": "lucasf@empresa.com", "estado": "Activo"},
     {"id": 3, "username": "c.rodriguez", "password": "cro2025", "dni": "40998877", "nivel_acceso": "user", "email": "c.rodriguez@empresa.com", "estado": "Activo"},
     {"id": 4, "username": "martins", "password": "mssecure", "dni": "37123987", "nivel_acceso": "admin", "email": "martins@empresa.com", "estado": "Activo"},
     {"id": 5, "username": "florcastro", "password": "florc99", "dni": "43111822", "nivel_acceso": "user", "email": "florcastro@empresa.com", "estado": "Activo"},
@@ -89,4 +89,28 @@ usuarios = [
     {"id": 12, "username": "julianm", "password": "jmsecure", "dni": "37111777", "nivel_acceso": "admin", "email": "julianm@empresa.com", "estado": "Activo"},
     {"id": 13, "username": "cami.t", "password": "ctpass44", "dni": "45122000", "nivel_acceso": "guest", "email": "cami.t@empresa.com", "estado": "Activo"},
     {"id": 14, "username": "sofia.l", "password": "slkey55", "dni": "38122999", "nivel_acceso": "user", "email": "sofia.l@empresa.com", "estado": "Activo"}
+]
+
+# operacion, entidad afectada, fecha
+historial_operaciones = [
+    ("Registrar Licencia", "Juan Perez" , "2025-03-15"),
+    ("Eliminar Empleado", "Maria Gonzalez" , "2025-03-16"),
+    ("Editar Area", "Staff" , "2025-03-17"),
+    ("Registrar Empleado", "Carla Rodriguez" , "2025-03-18"),
+    ("Registrar Usuario", "Martin Sosa" , "2025-03-19"),
+    ("Eliminar Usuario", "Florencia Castro" , "2025-03-20"),
+    ("Editar Empleado", "Santiago Lopez" , "2025-03-21"),
+    ("Registrar Area", "Ventas y Atencion al Cliente" , "2025-03-22"),
+    ("Editar Area", "Staff" , "2025-03-23"),
+    ("Editar Usuario", "Valeria Nunez" , "2025-03-24"),
+    ("Registrar Licencia", "Pablo Ruiz" , "2025-03-25"),
+    ("Eliminar Empleado", "Antonella Benitez" , "2025-03-26"),
+    ("Editar Area", "Direccion General" , "2025-03-27"),
+    ("Registrar Empleado", "Camila Torres" , "2025-03-28"),
+    ("Registrar Usuario", "Sofia Lopez" , "2025-03-29"),
+    ("Eliminar Usuario", "Lucas Fernandez" , "2025-03-30"),
+    ("Editar Empleado", "Maria Gonzalez" , "2025-03-31"),
+    ("Registrar Area", "Staff" , "2025-04-01"),
+    ("Eliminar Area", "Staff" , "2025-04-02"),
+    ("Editar Usuario", "Martin Sosa" , "2025-04-03")
 ]

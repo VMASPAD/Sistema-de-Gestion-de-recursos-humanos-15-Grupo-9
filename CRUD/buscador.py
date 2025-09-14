@@ -1,12 +1,12 @@
 from impresion import Imprimir_Encabezados, Reemplazo_Id_Valor
-from dataset import usuarios
+from dataset import usuarios, empleados
 #Funciones 
 
 def Encontrar(valor, matriz, columna, encabezado):
     existe = False
-    print("="*130)
+    print("="*185)
     Imprimir_Encabezados(encabezado)
-    print("-"*130)
+    print("-"*185)
     for i in range(len(matriz)):
         valor = str(valor).lower()
         busqueda = matriz[i][columna]
@@ -20,12 +20,12 @@ def Encontrar(valor, matriz, columna, encabezado):
             #mejorar impresion
             for j in range(len(matriz[i])):
                 impresion = Reemplazo_Id_Valor(matriz[i][j], j)
-                print(str(impresion).ljust(15), end= "\t")
+                print(str(impresion).ljust(21), end= "\t")
             existe = True
             print()
-            print("-"*130)
-    if not existe: print("No se encontro"), print("-"*130)
-    print("="*130)
+            print("-"*185)
+    if not existe: print("No se encontro"), print("-"*185)
+    print("="*185)
 
 def Id_Empleado(empleados, empleado):
     emp = empleado.lower()
@@ -39,20 +39,24 @@ def Id_Empleado(empleados, empleado):
 
 def Encontrar_diccionario(usuarios, clave, busqueda):
     resultado=list(filter(lambda x: busqueda in x [clave] , usuarios))
-    print(resultado)
+    print("="*170)
     for i in usuarios[0].keys():
-        print (i,end="\t")
+        print (i.ljust(23),end="\t")
     print()
+    print("="*170)
+    print("-"*170)
     for i in range(len(resultado)):
         for j in resultado[i].keys():
-            print(resultado[i][j], end="\t")
+            print(str(resultado[i][j]).ljust(23), end="\t")
+        print()
+        print("-"*170)
         print()
     print()
     if len(resultado)==0:
         print("No se encontro")
-    print("="*130)
+    print("="*170)
     print("BUSQUEDA FINALIZADA")
-    print("="*130)
+    print("="*170)
     print()
 if __name__ == "__main__":
-    Encontrar_diccionario(usuarios, "username", "juanp") 
+    Encontrar(0, empleados, 0, 0)
