@@ -1,7 +1,7 @@
 # id, nombre, cantidad, Activo
 areas = [
     [0, "Staff", 0, "Activo"],
-    [1, "Produccion", 3, "Activo"],               # Juanceto01, Juan Perez, Martin Sosa
+    [1, "Produccion", 3, "Activo"],               # Juanceto01, Juan Perez, Martin Sosa     
     [2, "Mantenimiento", 2, "Activo"],            # Maria Gonzalez, Nicolas Herrera
     [3, "Calidad", 2, "Activo"],                  # Lucas Fernandez, Antonella Benitez
     [4, "Logistica y Deposito", 2, "Activo"],     # Martin Sosa, Pablo Ruiz
