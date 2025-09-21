@@ -38,7 +38,7 @@ def Encontrar(valor, matriz, columna, encabezado):
 
 def Id_Empleado(empleados, empleado):
     emp = empleado.lower()
-    id = bool(empleado[0] for empleado in empleados if emp in empleado[1].lower())
+    id = bool([empleado[0] for empleado in empleados if emp in empleado[1].lower()])
     while not id:
         print(ROJO + "Empleado no encontrado, intente nuevamente" + RESET)
         emp = input(MAGENTA + "Ingrese el nombre o apellido del empleado: " + RESET).lower()

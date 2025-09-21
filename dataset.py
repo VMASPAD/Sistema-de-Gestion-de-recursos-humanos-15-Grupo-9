@@ -15,7 +15,7 @@ areas = [
 
 # id, id_empleado, fecha, id_justificacion, Activo
 licencias = [
-    [0, 1, "2024-23-2", 1, "Activo"],    # Juan Pérez - Enfermedad común
+    [0, 1, "2024-02-02", 1, "Activo"],    # Juan Pérez - Enfermedad común
     [1, 1, "2024-03-12", 1, "Activo"],   # Juan Pérez - Enfermedad común
     [2, 2, "2024-05-10", 4, "Activo"],   # María González - Consulta médica
     [3, 3, "2024-06-15", 3, "Activo"],   # Lucas Fernández - Accidente no laboral

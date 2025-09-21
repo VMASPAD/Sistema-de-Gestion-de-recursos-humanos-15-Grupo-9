@@ -27,36 +27,14 @@ def userLog(usuarios):
     if nivel_acceso=="admin": #user: juanp, pass: jp1234, DNI:40123456
         print(VERDE + "Bienvenido al sistema de gestion de recursos humanos" + RESET)
         print()
-        print(AZUL + "MENU PRINCIPAL" + RESET)
-        print(AZUL + "="*26 + RESET)
-        print(CIAN + '| Seleccione operacion   | ' + RESET)
-        print(CIAN + '| 1. Registrar Elemento  | ' + RESET)
-        print(CIAN + '| 2. Buscador Elementos  | ' + RESET)
-        print(CIAN + '| 3. Editar Elementos    | ' + RESET)
-        print(CIAN + '| 4. Eliminar Elementos  | ' + RESET)
-        print(CIAN + '| 5. Salir               | ' + RESET)
-        print(AZUL + "="*26 + RESET)
+        
         return 2
     elif nivel_acceso=="user": #user: maria.g, pass: mg2024, DNI:38987456
         print(VERDE + "Bienvenido al sistema de gestion de recursos humanos" + RESET)
         print()
-        print(AZUL + "MENU PRINCIPAL" + RESET)
-        print(AZUL + "="*26 + RESET)
-        print(CIAN + '| Seleccione operacion   | ' + RESET)
-        print(CIAN + '| 1. Registrar Empleado  | ' + RESET)
-        print(CIAN + '| 2. Buscador Elementos  | ' + RESET)
-        print(CIAN + '| 3. Editar Elementos    | ' + RESET)
-        print(CIAN + '| 4. Eliminar Empleado  | ' + RESET)
-        print(CIAN + '| 5. Salir               | ' + RESET)
-        print(AZUL + "="*26 + RESET)
+        
         return 1
     elif nivel_acceso == "guest": #user: lucasf, pass: lfpass, DNI:42111444
         print(VERDE + "Bienvenido al sistema de gestion de recursos humanos" + RESET)
         print()
-        print(AZUL + "MENU PRINCIPAL" + RESET)
-        print(AZUL + "="*26 + RESET)
-        print(CIAN + '| Seleccione operacion   | ' + RESET)
-        print(CIAN + '| 1. Buscador Elementos  | ' + RESET)
-        print(CIAN + '| 2. Salir               | ' + RESET)
-        print(AZUL + "="*26 + RESET)
         return 0

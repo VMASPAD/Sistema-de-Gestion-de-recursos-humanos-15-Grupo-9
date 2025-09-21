@@ -33,13 +33,13 @@ def Menu():
                 nivel_acceso = userLog(usuarios)
                 opcion = -1
                 if nivel_acceso == 0:
-                    opcion = 5
+                    opcion = 6
                     print()
                 else:
                     print()
                     print(VERDE + "Ingreso exitoso" + RESET)
                     print()
-                while opcion != 5:
+                while opcion != 6:
                     print()
                     print(AZUL + "="*34 + RESET)
                     print(AZUL + "MENU PRINCIPAL" + RESET)
@@ -62,7 +62,7 @@ def Menu():
                             print(AZUL + "="*34 + RESET)
                             print(CIAN + "| Opciones:".ljust(33) + "|" + RESET)
                             print(CIAN + "| 1 - Buscar Area".ljust(33) + "|" + RESET)
-                            if nivel_acceso > 1:
+                            if nivel_acceso >= 1:
                                 print(CIAN + "| 2 - Ver estadisticas".ljust(33) + "|" + RESET)
                             if nivel_acceso == 2:
                                 print(CIAN + "| 3 - Registrar Area".ljust(33) + "|" + RESET)
@@ -75,7 +75,7 @@ def Menu():
                                 case 1:
                                     modulo_areas.BuscarArea(areas)
                                 case 2:
-                                    if nivel_acceso > 1:
+                                    if nivel_acceso >= 1:
                                         modulo_areas.EstadisticasAreas(areas)
                                     else: print(ROJO + "No tiene permisos para realizar esta accion" + RESET)
                                 case 3:
@@ -101,7 +101,7 @@ def Menu():
                             print(AZUL + "="*34 + RESET)
                             print(CIAN + "| Opciones:".ljust(33) + "|" + RESET)
                             print(CIAN + "| 1 - Buscar Empleado".ljust(33) + "|" + RESET)
-                            if nivel_acceso > 1:
+                            if nivel_acceso >= 1:
                                 print(CIAN + "| 2 - Ver estadisticas".ljust(33) + "|" + RESET)
                             if nivel_acceso == 2:
                                 print(CIAN + "| 3 - Registrar Empleado".ljust(33) + "|" + RESET)
@@ -114,7 +114,7 @@ def Menu():
                                 case 1:
                                     modulo_empleados.BuscarEmpleado(empleados)
                                 case 2:
-                                    if nivel_acceso > 1:
+                                    if nivel_acceso >= 1:
                                         modulo_empleados.EstadisticasEmpleados()
                                     else: print(ROJO + "No tiene permisos para realizar esta accion" + RESET)
                                 case 3:
@@ -140,7 +140,7 @@ def Menu():
                             print(AZUL + "="*34 + RESET)
                             print(CIAN + "| Opciones:".ljust(33) + "|" + RESET)
                             print(CIAN + "| 1 - Buscar Licencia".ljust(33) + "|" + RESET)
-                            if nivel_acceso > 1:
+                            if nivel_acceso >= 1:
                                 print(CIAN + "| 2 - Ver estadisticas".ljust(33) + "|" + RESET)
                             if nivel_acceso == 2:
                                 print(CIAN + "| 3 - Registrar Licencia".ljust(33) + "|" + RESET)
@@ -153,7 +153,7 @@ def Menu():
                                 case 1:
                                     modulo_licencias.BuscarLicencia(licencias, empleados)
                                 case 2:
-                                    if nivel_acceso > 1:
+                                    if nivel_acceso >= 1:
                                         modulo_licencias.EstadisticasLicencias(licencias)
                                     else: print(ROJO + "No tiene permisos para realizar esta accion" + RESET)
                                 case 3:

@@ -29,26 +29,21 @@ def buscar_usuarios(usuarios):
     match opcion:
         case 1:
             busqueda = int(input(MAGENTA + "ingrese el ID a buscar: " + RESET))
-            Encontrar_diccionario(busqueda, usuarios, 0, 0)
-            Imprimir_Diccionario_Ordenada(usuarios, 0, 0)
+            Encontrar_diccionario(busqueda, usuarios, "id", 0)
         case 2:
             busqueda = input(MAGENTA + "ingrese el Username" + RESET)
             busqueda=busqueda.lower()
-            Encontrar_diccionario(busqueda, usuarios, 1, 0)
-            Imprimir_Diccionario_Ordenada(usuarios, 0, 1)
+            Encontrar_diccionario(busqueda, usuarios, "username", 0)
         case 3:
             busqueda = int(input(MAGENTA + "ingrese el DNI a buscar: " + RESET))
-            Encontrar_diccionario(busqueda, usuarios, 3, 0)
-            Imprimir_Diccionario_Ordenada(usuarios, 0, 3)
+            Encontrar_diccionario(busqueda, usuarios, "dni", 0)
         case 4:
             busqueda = input(MAGENTA + "ingrese el Mail a buscar: " + RESET)
             busqueda=busqueda.lower()
-            Encontrar_diccionario(busqueda, usuarios, 4, 0)
-            Imprimir_Diccionario_Ordenada(usuarios, 0, 4 )
+            Encontrar_diccionario(busqueda, usuarios, "email", 0)
         case 5:
-            busqueda = int(input(MAGENTA + "ingrese el Nivel de Acceso a buscar: " + RESET))
-            Encontrar_diccionario(busqueda, usuarios, 5, 0)
-            Imprimir_Diccionario_Ordenada(usuarios, 0, 5)
+            busqueda = input(MAGENTA + "ingrese el Nivel de Acceso a buscar: " + RESET)
+            Encontrar_diccionario(busqueda, usuarios, "nivel_acceso", 0)
         case 6:
             print(CIAN + "Volviendo al menu principal..." + RESET)
         case _:
