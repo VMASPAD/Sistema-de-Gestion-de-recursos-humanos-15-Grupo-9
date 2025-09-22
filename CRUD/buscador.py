@@ -63,24 +63,22 @@ def Encontrar_diccionario(busqueda, usuarios, clave, encabezado=None):
 
     # Normalizar búsqueda y seleccionar por igualdad o substring
     resultado = []
-    try:
-        # si busqueda es numérica o un entero, comparar por igualdad
-        if isinstance(busqueda, int) or (isinstance(busqueda, str) and busqueda.isdigit()):
-            bstr = str(busqueda)
-            for item in usuarios:
-                if str(item.get(key)) == bstr:
-                    resultado.append(item)
-        else:
-            b = str(busqueda).lower()
-            for item in usuarios:
-                val = item.get(key)
-                if val is None:
-                    continue
-                if b in str(val).lower():
-                    resultado.append(item)
-    except Exception:
-        print(ROJO + "Error durante la búsqueda" + RESET)
-        return
+    
+    # si busqueda es numérica o un entero, comparar por igualdad
+    if isinstance(busqueda, int) or (isinstance(busqueda, str) and busqueda.isdigit()):
+        bstr = str(busqueda)
+        for item in usuarios:
+            if str(item.get(key)) == bstr:
+                resultado.append(item)
+    else:
+        b = str(busqueda).lower()
+        for item in usuarios:
+            val = item.get(key)
+            if val is None:
+                continue
+            if b in str(val).lower():
+                resultado.append(item)
+    
 
     # Imprimir resultados formateados
     print(AZUL + "="*170 + RESET)
