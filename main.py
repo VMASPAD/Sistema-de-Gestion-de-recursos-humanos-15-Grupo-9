@@ -32,7 +32,7 @@ def Menu():
             case 2:
                 nivel_acceso = userLog(usuarios)
                 opcion = -1
-                if nivel_acceso == 0:
+                if nivel_acceso == -1:
                     opcion = 6
                     print()
                 else:

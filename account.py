@@ -22,7 +22,7 @@ def userLog(usuarios):
             else: print(ROJO + "El usuario no coincide con la contraseña" + RESET)        
     if not nivel_acceso:
         print (ROJO + "No se encontró el usuario." + RESET)
-        return 0    
+        return -1  
 
     if nivel_acceso=="admin": #user: juanp, pass: jp1234, DNI:40123456
         print(VERDE + "Bienvenido al sistema de gestion de recursos humanos" + RESET)
