@@ -13,14 +13,26 @@ from dataset import usuarios
 #Funciones
 def verificar_usuario(usuarios):
     usernames = {usuarios[i]["username"] for i in range(len(usuarios))}
-    tag = input(MAGENTA + "Ingrese su nombre de usuario: " + RESET)
+    try:
+        tag = input(MAGENTA + "Ingrese su nombre de usuario: " + RESET)
+    except ValueError:
+        print(ROJO + "Entrada inválida. Por favor, ingrese un nombre de usuario válido." + RESET)
+        return verificar_usuario(usuarios)
     while tag in usernames:
         print(ROJO + "El usuario ya existe, por favor ingrese otro." + RESET)
-        tag = input(MAGENTA + "Ingrese su nombre de usuario: " + RESET)
+        try:
+            tag = input(MAGENTA + "Ingrese su nombre de usuario: " + RESET)
+        except ValueError:
+            print(ROJO + "Entrada inválida. Por favor, ingrese un nombre de usuario válido." + RESET)
+            return verificar_usuario(usuarios)
     return tag.strip()
 
 def generar_contraseña():
-    password = input(MAGENTA + "Ingrese su contraseña, (debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número): " + RESET)
+    try:
+        password = input(MAGENTA + "Ingrese su contraseña, (debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número): " + RESET)
+    except ValueError:
+        print(ROJO + "Entrada inválida. Por favor, ingrese una contraseña válida." + RESET)
+        return generar_contraseña()
     patron1 = re.compile("[A-Za-z0-9]{8,}")
     patron2 = re.compile("[A-Z]{1,}")
     patron3 = re.compile("[a-z]{1,}")
@@ -32,7 +44,11 @@ def generar_contraseña():
 
 def verificar_dni():
     dni_ensistema = {usuarios[i]["dni"] for i in range(len(usuarios))}
-    dni=input(MAGENTA + "ingrese el dni: " + RESET)
+    try:
+        dni=input(MAGENTA + "ingrese el dni: " + RESET)
+    except ValueError:
+        print(ROJO + "Entrada inválida. Por favor, ingrese un DNI válido." + RESET)
+        return verificar_dni()
     patron= re.compile('[0-9]{7,9}')
     while not patron.match(dni) or dni in dni_ensistema:
         if dni in dni_ensistema:
@@ -47,7 +63,11 @@ def asignar_nivel_acceso():
     print(AZUL + "Niveles de acceso disponibles" + RESET)
     for key, value in niveles.items():
         print(CIAN + f"{key} - {value}" + RESET)
-    opcion = int(input(MAGENTA + "Seleccione el nivel de acceso (1-3): " + RESET))
+    try:
+        opcion = int(input(MAGENTA + "Seleccione el nivel de acceso (1-3): " + RESET))
+    except ValueError:
+        print(ROJO + "Entrada inválida. Por favor, ingrese un número válido." + RESET)
+        return asignar_nivel_acceso()
     return niveles.get(opcion)
 
 

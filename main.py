@@ -25,7 +25,11 @@ def Menu():
         print(CIAN + "| 2 - Iniciar Sesion".ljust(33) + "|" + RESET)
         print(CIAN + "| 3 - Salir".ljust(33) + "|" + RESET)
         print(AZUL + "="*34 + RESET)
-        opcion = int(input(MAGENTA + "Seleccione una opcion: " + RESET))
+        try:
+            opcion = int(input(MAGENTA + "Seleccione una opcion: " + RESET))
+        except ValueError:
+            print(AMARILLO + "Por favor ingrese un numero valido." + RESET)
+            continue
         match opcion:
             case 1:
                 crear_usuario(usuarios)
