@@ -10,7 +10,7 @@ RESET = '\033[0m'
 from idGenerator import generar_id
 from impresion import Imprimir_Matriz_Ordenada
 from estadisticas import promedio_empleados_por_area
-from CRUD.registrar import verificar_area, Ingresar_Numero
+from CRUD.registrar import Ingresar_Numero, verificar_area
 from CRUD.buscador import Encontrar
 from CRUD.eliminar import Eliminar_ClaveForanea
 from dataset import areas, empleados, licencias
@@ -34,7 +34,7 @@ def EstadisticasAreas(areas):
     print(CIAN + "| 1 - Ver promedio de empleados por area".ljust(42) + "|" + RESET)
     print(CIAN + "| 0 - Volver".ljust(42) + "|" + RESET)
     print(AZUL + "="*43 + RESET)
-    opcion = int(input(MAGENTA + "Seleccione una opcion: " + RESET))
+    opcion = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
     match opcion:
         case 1:
             promedio_empleados_por_area(empleados, areas)
@@ -99,7 +99,7 @@ def EditarArea():
 #Eliminar Area
 def EliminarArea():
     print(AZUL + "="*26 + RESET)
-    areaEliminar = str(input(MAGENTA + "Escriba el nombre del area: " + RESET)).lower()
+    areaEliminar = str(input(MAGENTA + "Escriba el nombre del area o escriba \"Lista\" para obtener la planilla: " + RESET)).lower()
     if areaEliminar == "lista":
         print(AZUL + "Lista de areas:" + RESET)
         Imprimir_Matriz_Ordenada(areas, 1, lambda fila: fila[0])

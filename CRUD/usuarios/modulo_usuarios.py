@@ -66,14 +66,14 @@ def eliminar_usuario(usuarios):
 
 def editar_usuario(usuarios):
     print(AZUL + "="*26 + RESET)
-    index=int(input(MAGENTA + "Escriba el id del usuario a editar: " + RESET))
+    index=Ingresar_Numero(MAGENTA + "Escriba el id del usuario a editar: " + RESET)
     if index < len(usuarios) and index >=0:
         print(AZUL + "¿Que campo quiere editar?" + RESET)
         print(CIAN + "1. username" + RESET)
         print(CIAN + '2. password' + RESET)
         print(CIAN + '3. dni' + RESET)
         print(CIAN + '4. nivel acceso' + RESET)
-        campo = int(input(MAGENTA + "Seleccione el campo a editar (1-4): " + RESET))
+        campo = Ingresar_Numero(MAGENTA + "Seleccione el campo a editar (1-4): " + RESET)
 
         if campo == 1:
             username_pasado=usuarios[index]["username"]
