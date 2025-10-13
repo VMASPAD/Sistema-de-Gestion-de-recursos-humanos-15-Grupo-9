@@ -10,7 +10,7 @@ RESET = '\033[0m'
 from idGenerator import generar_id
 from impresion import Imprimir_Matriz_Ordenada
 from estadisticas import promedio_empleados_por_area
-from CRUD.registrar import verificar_area
+from CRUD.registrar import verificar_area, Ingresar_Numero
 from CRUD.buscador import Encontrar
 from CRUD.eliminar import Eliminar_ClaveForanea
 from dataset import areas, empleados, licencias
@@ -57,11 +57,11 @@ def BuscarArea(areas):
     print(CIAN + "| 3 - Mostrar areas".ljust(33) + "|" + RESET)
     print(CIAN + "| 4 - Volver".ljust(33) + "|" + RESET)
     print(AZUL + "="*34 + RESET)
-    opcion = int(input(MAGENTA + "Ingrese la opcion de busqueda: " + RESET))
+    opcion = Ingresar_Numero(MAGENTA + "Ingrese la opcion de busqueda: " + RESET)
     print()
     match opcion:
         case 1:
-            busqueda = int(input(MAGENTA + "Ingrese el Id a buscar: " + RESET))
+            busqueda = Ingresar_Numero(MAGENTA + "Ingrese el Id a buscar: " + RESET)
             Encontrar(busqueda, areas, 0, 1)
         case 2:
             busqueda = input(MAGENTA + "Ingrese el nombre a buscar: " + RESET)

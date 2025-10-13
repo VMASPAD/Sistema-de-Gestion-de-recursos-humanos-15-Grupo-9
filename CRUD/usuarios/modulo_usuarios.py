@@ -9,6 +9,7 @@ RESET = '\033[0m'
 
 import re
 from dataset import usuarios
+from CRUD.registrar import Ingresar_Numero
 from CRUD.buscador import Encontrar_diccionario
 from impresion import Imprimir_Diccionario_Ordenada, Imprimir_Matriz_Ordenada, formato_dni   
 from sign_up import verificar_usuario, generar_contraseña, asignar_nivel_acceso, verificar_dni
@@ -24,18 +25,18 @@ def buscar_usuarios(usuarios):
     print(CIAN + "| 5 - Nivel de Acceso".ljust(33) + "|" + RESET)
     print(CIAN + "| 6 - Volver" .ljust(33)+"|" + RESET)
     print(AZUL + "="*34 + RESET)
-    opcion=int(input(MAGENTA + "ingrese la opcion por la cual quiere buscar: " + RESET)) 
+    opcion=Ingresar_Numero(MAGENTA + "ingrese la opcion por la cual quiere buscar: " + RESET)
     print()
     match opcion:
         case 1:
-            busqueda = int(input(MAGENTA + "ingrese el ID a buscar: " + RESET))
+            busqueda = Ingresar_Numero(MAGENTA + "ingrese el ID a buscar: " + RESET)
             Encontrar_diccionario(busqueda, usuarios, "id", 0)
         case 2:
             busqueda = input(MAGENTA + "ingrese el Username" + RESET)
             busqueda=busqueda.lower()
             Encontrar_diccionario(busqueda, usuarios, "username", 0)
         case 3:
-            busqueda = int(input(MAGENTA + "ingrese el DNI a buscar: " + RESET))
+            busqueda = Ingresar_Numero(MAGENTA + "ingrese el DNI a buscar: " + RESET)
             Encontrar_diccionario(busqueda, usuarios, "dni", 0)
         case 4:
             busqueda = input(MAGENTA + "ingrese el Mail a buscar: " + RESET)

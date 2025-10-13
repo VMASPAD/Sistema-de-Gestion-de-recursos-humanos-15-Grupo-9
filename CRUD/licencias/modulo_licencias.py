@@ -1,7 +1,16 @@
+
+VERDE = '\033[92m'
+ROJO = '\033[91m'
+AMARILLO = '\033[93m'
+AZUL = '\033[94m'
+MAGENTA = '\033[95m'
+CIAN = '\033[96m'
+RESET = '\033[0m'
+
 from idGenerator import generar_id
 from impresion import Imprimir_Matriz_Ordenada, Encontrar_Id_Empleado
 from estadisticas import promedio_licencias_por_empleado
-from CRUD.registrar import Eleccion_Justificacion, Ingresar_Fecha
+from CRUD.registrar import Eleccion_Justificacion, Ingresar_Fecha, Ingresar_Numero
 from CRUD.buscador import Encontrar, Id_Empleado
 from CRUD.eliminar import Eliminar_ClaveForanea
 from dataset import empleados, licencias
@@ -45,20 +54,21 @@ def EstadisticasLicencias(licencias):
 
 #Buscar Licencia
 def BuscarLicencia(licencias, empleados):
-    print("MENU PRINCIPAL -> LICENCIAS -> BUSCADOR")
-    print("="*34)
-    print("| Opciones:".ljust(33) + "|")
-    print("| 1 - Id".ljust(33) + "|")
-    print("| 2 - Empleado".ljust(33) + "|")
-    print("| 3 - Fecha".ljust(33) + "|")
-    print("| 4 - Mostrar licencias".ljust(33) + "|")
-    print("| 5 - Volver".ljust(33) + "|")
-    print("="*34)
-    opcion = int(input("Ingrese la opcion de busqueda: "))
+    print(AZUL + "="*34 + RESET)
+    print(AZUL + "MENU PRINCIPAL -> LICENCIAS -> BUSCADOR" + RESET)
+    print(AZUL + "="*34 + RESET)
+    print(CIAN + "| Opciones:".ljust(33) + "|" + RESET)
+    print(CIAN + "| 1 - Id".ljust(33) + "|" + RESET)
+    print(CIAN + "| 2 - Empleado".ljust(33) + "|" + RESET)
+    print(CIAN + "| 3 - Fecha".ljust(33) + "|" + RESET)
+    print(CIAN + "| 4 - Mostrar licencias".ljust(33) + "|" + RESET)
+    print(CIAN + "| 5 - Volver".ljust(33) + "|" + RESET)
+    print(CIAN + "="*34 + RESET)
+    opcion = Ingresar_Numero(MAGENTA + "Ingrese la opcion de busqueda: " + RESET)
     print()
     match opcion:
         case 1:
-            busqueda = int(input("Ingrese el Id a buscar: "))
+            busqueda = Ingresar_Numero(MAGENTA + "Ingrese el Id a buscar: " + RESET)
             Encontrar(busqueda, licencias, 0, 2)
         case 2:
             busqueda = input("Ingrese el nombre y apellido del empleado a buscar: ")
@@ -67,7 +77,7 @@ def BuscarLicencia(licencias, empleados):
             if busqueda:
                 Encontrar(busqueda, licencias, 1, 2)
         case 3:
-            busqueda = input("Ingrese la fecha a buscar (AAAA-MM-DD): ")
+            busqueda = Ingresar_Fecha("la licencia a buscar")
             Encontrar(busqueda, licencias, 2, 2)
         case 4:
             key = lambda fila : fila[0]

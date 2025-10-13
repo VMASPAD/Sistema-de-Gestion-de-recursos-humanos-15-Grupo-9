@@ -10,7 +10,7 @@ RESET = '\033[0m'
 from idGenerator import generar_id
 from impresion import Imprimir_Matriz_Ordenada, Imprimir_Opciones
 from estadisticas import cantidad_empleados, porcentaje_empleados_activos, cantidad_empleados_area
-from CRUD.registrar import Ingresar_Fecha, verificar_telefono
+from CRUD.registrar import Ingresar_Fecha, verificar_telefono, Ingresar_Numero
 from CRUD.buscador import Encontrar
 from CRUD.eliminar import Eliminar_ClaveForanea
 from dataset import empleados, areas, licencias
@@ -44,11 +44,11 @@ def BuscarEmpleado(empleados):
     print(CIAN + "| 4 - Mostrar empleados".ljust(33) + "|" + RESET)
     print(CIAN + "| 5 - Volver".ljust(33) + "|" + RESET)
     print(AZUL + "="*34 + RESET)
-    opcion = int(input(MAGENTA + "Ingrese la opcion de busqueda: " + RESET))
+    opcion = Ingresar_Numero(MAGENTA + "Ingrese la opcion de busqueda: " + RESET)
     print()
     match opcion: 
         case 1:
-            busqueda = int(input(MAGENTA + "Ingrese el Id a buscar: " + RESET))
+            busqueda = Ingresar_Numero(MAGENTA + "Ingrese el Id a buscar: " + RESET)
             Encontrar(busqueda, empleados, 0, 0)
         case 2:
             busqueda = input(MAGENTA + "Ingrese el nombre o apellido a buscar: " + RESET)
@@ -56,17 +56,17 @@ def BuscarEmpleado(empleados):
             Encontrar(busqueda, empleados, 1, 0)
         case 3: 
             Imprimir_Opciones(areas, 1)
-            busqueda = int(input(MAGENTA + "Ingrese el numero de area a buscar: " + RESET))
+            busqueda = Ingresar_Numero(MAGENTA + "Ingrese el numero de area a buscar: " + RESET)
             Encontrar(busqueda, empleados, 4, 0)
         case 4:
-            print("="*34)
-            print("| Opciones ascendentemente:".ljust(33) + "|")
-            print("| 1 - Id".ljust(33) + "|")
-            print("| 2 - Area".ljust(33) + "|")
-            print("| 3 - Apellido".ljust(33) + "|")
-            print("| 4 - Volver".ljust(33) + "|")
-            print("="*34)   
-            opcion = int(input("Ingrese la opcion de ordenado: "))
+            print(CIAN + "="*34 + RESET)
+            print(CIAN + "| Opciones ascendentemente:".ljust(33) + "|" + RESET)
+            print(CIAN + "| 1 - Id".ljust(33) + "|" + RESET)
+            print(CIAN + "| 2 - Area".ljust(33) + "|" + RESET)
+            print(CIAN + "| 3 - Apellido".ljust(33) + "|" + RESET)
+            print(CIAN + "| 4 - Volver".ljust(33) + "|" + RESET)
+            print(CIAN + "="*34 + RESET)
+            opcion = Ingresar_Numero(MAGENTA + "Ingrese la opcion de ordenado: " + RESET)
             print()
             match opcion :
                 case 1:
