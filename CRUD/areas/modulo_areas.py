@@ -82,7 +82,7 @@ def EditarArea():
         print(AZUL + "Que campo quiere editar?" + RESET)
         print(CIAN + '1. Nombre' + RESET)
         print(CIAN + '2. Cantidad' + RESET)
-        valueTochange = int(input(MAGENTA + 'Seleccione una opcion: ' + RESET))
+        valueTochange = Ingresar_Numero(MAGENTA + 'Seleccione una opcion: ' + RESET)
         for i in range(len(areas)):
             if areas[i][0] == index:
                 print(CIAN + f"Area encontrada: {areas[i]}" + RESET)
@@ -91,7 +91,7 @@ def EditarArea():
             areas[index][1] = newName
             print(VERDE + f"Area actualizada: {areas[index]}" + RESET)
         elif valueTochange == 2:
-            newCantidad = input(MAGENTA + 'Ingrese la nueva cantidad: ' + RESET)
+            newCantidad = Ingresar_Numero(MAGENTA + 'Ingrese la nueva cantidad: ' + RESET)
             areas[index][2] = newCantidad
             print(VERDE + f"Area actualizada: {areas[index]}" + RESET)
     else: print(ROJO + "El id ingresado no es valido" + RESET)

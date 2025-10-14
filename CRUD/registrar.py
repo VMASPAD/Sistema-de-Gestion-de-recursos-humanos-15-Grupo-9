@@ -29,7 +29,7 @@ def Eleccion_Justificacion():
     print(AZUL + "Seleccione una justificacion:" + RESET)
     for justificacion in justificaciones:
         print(CIAN + f"{justificacion[0]} - {justificacion[1]}" + RESET)
-    opcion = int(input(MAGENTA + "Ingrese la opcion: " + RESET))
+    opcion = Ingresar_Numero(MAGENTA + "Ingrese la opcion: " + RESET)
     return opcion
 
 
@@ -50,8 +50,7 @@ def Calcular_cantidad_empleados(empleados, area_id):
 
 def verificar_area():
     nombres_areas = {areas[i][1].lower() for i in range(len(areas))}
-    nombre_area = input(
-        MAGENTA + "Ingrese el nombre del área: " + RESET).strip().lower()
+    nombre_area = input(MAGENTA + "Ingrese el nombre del área: " + RESET).strip().lower()
     while nombre_area in nombres_areas or nombre_area == "":
         if nombre_area in nombres_areas:
             print(ROJO + "El nombre del área ya existe, por favor ingrese otro." + RESET)
@@ -63,26 +62,20 @@ def verificar_area():
 
 
 def verificar_telefono():
-    codigo_area = input(
-        MAGENTA + "Ingrese el codigo de area (sin +54): " + RESET)
-    telefono = input(
-        MAGENTA + "Ingrese el telefono (los ultimos 8 digitos): " + RESET)
+    codigo_area = Ingresar_Numero(MAGENTA + "Ingrese el codigo de area (sin +54): " + RESET)
+    telefono = Ingresar_Numero(MAGENTA + "Ingrese el telefono (los ultimos 8 digitos): " + RESET)
     patron = re.compile('[0-9]{8}')
     while not patron.match(telefono):
         print(ROJO + "Telefono invalido" + RESET)
-        telefono = input(
-            MAGENTA + "Ingrese el telefono (los ultimos 8 digitos): " + RESET)
+        telefono = Ingresar_Numero(MAGENTA + "Ingrese el telefono (los ultimos 8 digitos): " + RESET)
     telefono = "+54" + codigo_area + telefono
     telefonos_en_sistema = {empleados[i][2] for i in range(len(empleados))}
     while telefono in telefonos_en_sistema:
         print(ROJO + "El telefono ya existe en el sistema, por favor ingrese otro." + RESET)
-        codigo_area = input(
-            MAGENTA + "Ingrese el codigo de area (sin +54): " + RESET)
-        telefono = input(
-            MAGENTA + "Ingrese el telefono (los ultimos 8 digitos): " + RESET)
+        codigo_area = Ingresar_Numero(MAGENTA + "Ingrese el codigo de area (sin +54): " + RESET)
+        telefono = Ingresar_Numero(MAGENTA + "Ingrese el telefono (los ultimos 8 digitos): " + RESET)
         while not patron.match(telefono):
             print(ROJO + "Telefono invalido" + RESET)
-            telefono = input(
-                MAGENTA + "Ingrese el telefono (los ultimos 8 digitos): " + RESET)
+            telefono = Ingresar_Numero(MAGENTA + "Ingrese el telefono (los ultimos 8 digitos): " + RESET)
         telefono = "+54" + codigo_area + telefono
     return telefono

@@ -36,7 +36,7 @@ def EstadisticasLicencias(licencias):
     print("| 2 - Ver promedio de licencias por empleado".ljust(45) + "|")
     print("| 0 - Volver".ljust(45) + "|")
     print("="*46)
-    opcion = int(input("Seleccione una opcion: "))
+    opcion = Ingresar_Numero("Seleccione una opcion: ")
     match opcion:
         case 1:
             print(f"La cantidad total de licencias es: {len(list(licencia for licencia in licencias if licencia[4] == 'Activo'))}")
@@ -93,7 +93,7 @@ def EditarLicencia():
         print("Que campo quiere editar?")
         print('1. Fecha')
         print('2. Empleado')
-        valueTochange = int(input('Seleccione una opcion: '))
+        valueTochange = Ingresar_Numero('Seleccione una opcion: ')
         if licencias[index][0] == index:
             print(f"Licencia encontrada: {licencias[index]}")
         if valueTochange == 1:

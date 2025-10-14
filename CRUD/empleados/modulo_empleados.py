@@ -24,7 +24,7 @@ def RegistrarEmpleado(empleados):
     telefono_empleado = verificar_telefono()
     posicion_empleado = input(MAGENTA + "Ingrese la posicion del empleado: " + RESET).strip().capitalize()
     Imprimir_Opciones(areas, 1)
-    num_area_empleado = int(input(MAGENTA + "Ingrese el número area del empleado: " + RESET))
+    num_area_empleado = Ingresar_Numero(MAGENTA + "Ingrese el número area del empleado: " + RESET)
     fecha_ingreso_empleado = Ingresar_Fecha("el ingreso del empleado")
     fecha_nacimiento_empleado = Ingresar_Fecha("la fecha de nacimiento del empleado")
     A = [generar_id(empleados),nombre_empleado + " " + apellido_empleado, telefono_empleado, posicion_empleado,num_area_empleado,"Activo",fecha_ingreso_empleado,fecha_nacimiento_empleado]
@@ -89,7 +89,7 @@ def EstadisticasEmpleados():
     print("| 3. Ver cantidad de empleados por area".ljust(42) +"|")
     print("| 0. Volver".ljust(42) +"|")
     print("="*43)
-    opcion = int(input("Seleccione una opcion: "))
+    opcion = Ingresar_Numero("Seleccione una opcion: ")
     match opcion:
         case 1: 
             cantidad_empleados("total")
@@ -108,7 +108,7 @@ def EstadisticasEmpleados():
 #Editar empleado
 def EditarEmpleado():
     print("="*26)
-    index = int(input("Escriba el id del empleado a editar:  "))
+    index = Ingresar_Numero("Escriba el id del empleado a editar:  ")
     if index < len(empleados) and index >= 0:
         empleado = empleados[index]
         print(f"Empleado encontrado: {empleado}")
@@ -120,7 +120,7 @@ def EditarEmpleado():
         print('5. Estado')
         print('6. Fecha de ingreso')
         print('7. Fecha de nacimiento')
-        campo = int(input("Seleccione el campo a editar (1-7): "))
+        campo = Ingresar_Numero("Seleccione el campo a editar (1-7): ")
         match campo:
             case 1:
                 nuevo_valor = input("Ingrese el nuevo nombre: ").strip().capitalize()

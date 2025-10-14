@@ -11,6 +11,7 @@ from account import userLog
 from dataset import empleados, areas, licencias, usuarios, historial_operaciones
 from sign_up import crear_usuario
 from impresion import Mostrar_historial_operaciones
+from CRUD.registrar import Ingresar_Numero
 from CRUD.areas import modulo_areas
 from CRUD.licencias import modulo_licencias
 from CRUD.usuarios import modulo_usuarios
@@ -26,7 +27,7 @@ def Menu():
         print(CIAN + "| 3 - Salir".ljust(33) + "|" + RESET)
         print(AZUL + "="*34 + RESET)
         try:
-            opcion = int(input(MAGENTA + "Seleccione una opcion: " + RESET))
+            opcion = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
         except ValueError:
             print(AMARILLO + "Por favor ingrese un numero valido." + RESET)
             continue
@@ -57,7 +58,7 @@ def Menu():
                     print(CIAN + "| 6 - Cerrar Sesion".ljust(33) + "|" + RESET)
                     print(CIAN + "| 0 - Salir".ljust(33) + "|" + RESET)
                     print(AZUL + "="*34 + RESET)
-                    opcion = int(input(MAGENTA + "Seleccione una opcion: " + RESET))
+                    opcion = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
                     match opcion:
                         case 1:
                             print()
@@ -74,7 +75,7 @@ def Menu():
                                 print(CIAN + "| 5 - Eliminar Area".ljust(33) + "|" + RESET)
                             print(CIAN + "| 0 - Volver".ljust(33) + "|" + RESET)
                             print(AZUL + "="*34 + RESET)
-                            tipo = int(input(MAGENTA + "Seleccione una opcion: " + RESET))
+                            tipo = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
                             match tipo:
                                 case 1:
                                     modulo_areas.BuscarArea(areas)
@@ -113,7 +114,7 @@ def Menu():
                                 print(CIAN + "| 5 - Eliminar Empleado".ljust(33) + "|" + RESET)
                             print(CIAN + "| 0 - Volver".ljust(33) + "|" + RESET)
                             print(AZUL + "="*34 + RESET)
-                            tipo = int(input(MAGENTA + "Seleccione una opcion: " + RESET))
+                            tipo = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
                             match tipo:
                                 case 1:
                                     modulo_empleados.BuscarEmpleado(empleados)
@@ -152,7 +153,7 @@ def Menu():
                                 print(CIAN + "| 5 - Eliminar Licencia".ljust(33) + "|" + RESET)
                             print(CIAN + "| 0 - Volver".ljust(33) + "|" + RESET)
                             print(AZUL + "="*34 + RESET)
-                            tipo = int(input(MAGENTA + "Seleccione una opcion: " + RESET))
+                            tipo = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
                             match tipo:
                                 case 1:
                                     modulo_licencias.BuscarLicencia(licencias, empleados)
@@ -187,7 +188,7 @@ def Menu():
                                 print(CIAN + "| 4 - Editar Usuario".ljust(33) + "|" + RESET)
                             print(CIAN + "| 0 - Volver".ljust(33) + "|" + RESET)
                             print(AZUL + "="*34 + RESET)
-                            tipo = int(input(MAGENTA + "Seleccione una opcion: " + RESET))
+                            tipo = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
                             match tipo:
                                 case 1:
                                     modulo_usuarios.buscar_usuarios(usuarios)
@@ -217,7 +218,7 @@ def Menu():
                             print(CIAN + "| 1 - Historial de Operaciones".ljust(33) + "|" + RESET)
                             print(CIAN + "| 0 - Volver".ljust(33) + "|" + RESET)
                             print(AZUL + "="*34 + RESET)
-                            tipo = int(input(MAGENTA + "Seleccione una opcion: " + RESET))
+                            tipo = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
                             match tipo:
                                 case 1:
                                     Mostrar_historial_operaciones(historial_operaciones)
