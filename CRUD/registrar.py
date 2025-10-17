@@ -14,10 +14,15 @@ RESET = '\033[0m'
 # Funciones
 
 
-def Ingresar_Numero(mensaje):
+def Ingresar_Numero(mensaje, numero=None):
     while True:
         try:
-            numero = int(input(mensaje))
+            #Esto es para poder probar la función en las pruebas unitarias
+            if not numero:
+                numero = int(input(mensaje))
+            if numero < 0:
+                numero = None
+                raise ValueError
             return numero
         except ValueError:
             print()

@@ -27,9 +27,10 @@ def verificar_usuario(usuarios):
             return verificar_usuario(usuarios)
     return tag.strip()
 
-def generar_contraseña():
+def generar_contraseña(password=None):
     try:
-        password = input(MAGENTA + "Ingrese su contraseña, (debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número): " + RESET)
+        if not password:
+            password = input(MAGENTA + "Ingrese su contraseña, (debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número): " + RESET)
     except ValueError:
         print(ROJO + "Entrada inválida. Por favor, ingrese una contraseña válida." + RESET)
         return generar_contraseña()

@@ -10,10 +10,12 @@ RESET = '\033[0m'
 from dataset import usuarios
 
 #Funciones
-def userLog(usuarios):
+def userLog(usuarios, user=None, password=None):
     usuarios_activos = {usuarios[i]["username"] for i in range(len(usuarios)) if usuarios[i]["estado"]=="Activo"}
-    user = input(MAGENTA + "Ingrese su usuario: " + RESET).strip()
-    password = input(MAGENTA + "Ingrese su contraseña: " + RESET).strip()
+    if not user:
+        user = input(MAGENTA + "Ingrese su usuario: " + RESET).strip()
+    if not password:
+        password = input(MAGENTA + "Ingrese su contraseña: " + RESET).strip()
     nivel_acceso = None
     for i in range(len(usuarios)):
         if user == usuarios[i]['username'] and user in usuarios_activos:
