@@ -7,7 +7,6 @@ MAGENTA = '\033[95m'
 CIAN = '\033[96m'
 RESET = '\033[0m'
 
-from dataset import usuarios
 
 #Funciones
 def userLog(usuarios, user=None, password=None):

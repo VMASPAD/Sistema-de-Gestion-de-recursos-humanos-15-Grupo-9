@@ -8,7 +8,7 @@ CIAN = '\033[96m'
 RESET = '\033[0m'
 
 from account import userLog
-from dataset import empleados, areas, licencias, usuarios, historial_operaciones
+from dataset import empleados, areas, licencias, usuariosCRUD, historial_operaciones
 from sign_up import crear_usuario
 from impresion import Mostrar_historial_operaciones
 from CRUD.registrar import Ingresar_Numero
@@ -33,9 +33,9 @@ def Menu():
             continue
         match opcion:
             case 1:
-                crear_usuario(usuarios)
+                crear_usuario(usuariosCRUD("read"))
             case 2:
-                nivel_acceso = userLog(usuarios)
+                nivel_acceso = userLog(usuariosCRUD("read"))
                 opcion = -1
                 if nivel_acceso == -1:
                     opcion = 6
@@ -191,18 +191,18 @@ def Menu():
                             tipo = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
                             match tipo:
                                 case 1:
-                                    modulo_usuarios.buscar_usuarios(usuarios)
+                                    modulo_usuarios.buscar_usuarios(usuariosCRUD('read'))
                                 case 2:
                                     if nivel_acceso == 2:
-                                        crear_usuario(usuarios)
+                                        crear_usuario(usuariosCRUD('read'))
                                     else: print(ROJO + "No tiene permisos para realizar esta accion" + RESET)
                                 case 3:
                                     if nivel_acceso == 2:
-                                        modulo_usuarios.eliminar_usuario(usuarios)
+                                        modulo_usuarios.eliminar_usuario(usuariosCRUD('read'))
                                     else: print(ROJO + "No tiene permisos para realizar esta accion" + RESET)
                                 case 4:
                                     if nivel_acceso == 2:
-                                        modulo_usuarios.editar_usuario(usuarios)
+                                        modulo_usuarios.editar_usuario(usuariosCRUD('read'))
                                     else: print(ROJO + "No tiene permisos para realizar esta accion" + RESET)
                                 case 0:
                                     print(CIAN + "Volviendo al menu principal..." + RESET)
