@@ -117,12 +117,7 @@ def usuariosCRUD(tipoOperacion):
                     contenido.truncate()
                     return data
             except FileNotFoundError:
-                # crear el directorio/archivo si no existe
-                import os
-                os.makedirs("dataset", exist_ok=True)
-                with open("dataset/usuarios.json", "w", encoding="utf-8") as contenido:
-                    json.dump([new_user], contenido, indent=4, ensure_ascii=False)
-                    return [new_user]
+               print('Archivo no encontrado')
         case "update":
             return
             
