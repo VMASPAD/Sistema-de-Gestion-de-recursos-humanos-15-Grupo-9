@@ -99,5 +99,31 @@ def Encontrar_diccionario(busqueda, usuarios, clave, encabezado=None):
     print(VERDE + "BUSQUEDA FINALIZADA" + RESET)
     print(AZUL + "="*170 + RESET)
     print()
+
+def encontrar_elemento(valor, archivo, columna):
+    try:
+        with open(archivo, 'r', encoding='UTF-8') as datos:
+            lineas = datos.readline().strip()
+            encontrado = False
+            while lineas:
+                columnas = lineas.strip().split(";")
+                valor = str(valor)
+                busqueda = str(columnas[columna])
+                if valor.isnumeric():
+                    busqueda = [busqueda]
+                if valor in busqueda:
+                    encontrado = True
+                    for col in range(len(columnas)):
+                        print(str(columnas[col]).ljust(20), end="\t")
+                    print()
+                lineas = datos.readline().strip()
+            if not encontrado:
+                print("No se encontro el usuario")
+    except OSError:
+        print("No se encontró el archivo")
+
+    return
+
+
 if __name__ == "__main__":
     Encontrar(0, empleados, 0, 0)

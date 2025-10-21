@@ -148,6 +148,20 @@ def Mostrar_historial_operaciones(historial):
         print()
         print(AZUL + "-"*170 + RESET)
 
+def imprimir_archivo(archivo):
+    try:
+        with open(archivo, 'r', encoding='UTF-8') as datos:
+            lineas = datos.readline().strip()
+            while lineas:
+                columnas = lineas.strip().split(";")
+                for col in range(len(columnas)):
+                    print(str(columnas[col]).ljust(20), end="\t")
+                print()
+                lineas = datos.readline().strip()
+    except OSError:
+        print("No se encontró el archivo")
+
+    return
 
 if __name__ == "__main__":
     Imprimir_Matriz_Ordenada(empleados, 0, lambda fila: fila[0])
