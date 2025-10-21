@@ -1,5 +1,3 @@
-import json
-
 # id, nombre, cantidad, Activo
 areas = [
     [0, "Staff", 0, "Activo"],
@@ -75,54 +73,23 @@ empleados = [
 ]
 
 # id, username, password, dni, nivel_acceso, email, estado
-def usuariosCRUD(tipoOperacion):
-    """
-    Tipo de operacion: read, add, update
-    
-    """
-    match tipoOperacion:
-        case "read":
-            try:
-                with open("dataset/usuarios.json", "r", encoding="utf-8") as contenido:
-                    try:
-                        return json.load(contenido)
-                    except json.JSONDecodeError:
-                        # archivo vacío o con JSON inválido -> devolver lista vacía
-                        return []
-            except FileNotFoundError:
-                print("El archivo no existe.")
-                return []
-        case "add":
-            new_user = {
-                "id": 21,
-                "username": "maria.g",
-                "password": "mg2024",
-                "dni": "38987456",
-                "nivel_acceso": "user",
-                "email": "maria.g@empresa.com",
-                "estado": "Activo"
-            }
-            try:
-                # abrir en r+ para poder leer y luego escribir
-                with open("dataset/usuarios.json", "r+", encoding="utf-8") as contenido:
-                    try:
-                        data = json.load(contenido)
-                        if not isinstance(data, list):
-                            data = []
-                    except json.JSONDecodeError:
-                        data = []
-                    data.append(new_user)
-                    contenido.seek(0)
-                    json.dump(data, contenido, indent=4, ensure_ascii=False)
-                    contenido.truncate()
-                    return data
-            except FileNotFoundError:
-               print('Archivo no encontrado')
-        case "update":
-            return
-            
-
-
+usuarios = [
+    {"id": 0, "username": "juanp", "password": "juanp", "dni": "40123456", "nivel_acceso": "admin", "email": "juanp@empresa.com", "estado": "Activo"},
+    {"id": 1, "username": "maria.g", "password": "mg2024", "dni": "38987456", "nivel_acceso": "user", "email": "maria.g@empresa.com", "estado": "Activo"},
+    {"id": 2, "username": "lucasf", "password": "lfpass", "dni": "42111444", "nivel_acceso": "admin", "email": "lucasf@empresa.com", "estado": "Activo"},
+    {"id": 3, "username": "c.rodriguez", "password": "cro2025", "dni": "40998877", "nivel_acceso": "user", "email": "c.rodriguez@empresa.com", "estado": "Activo"},
+    {"id": 4, "username": "martins", "password": "mssecure", "dni": "37123987", "nivel_acceso": "admin", "email": "martins@empresa.com", "estado": "Activo"},
+    {"id": 5, "username": "florcastro", "password": "florc99", "dni": "43111822", "nivel_acceso": "user", "email": "florcastro@empresa.com", "estado": "Activo"},
+    {"id": 6, "username": "slopez", "password": "slpass01", "dni": "39100234", "nivel_acceso": "guest", "email": "slopez@empresa.com", "estado": "Activo"},
+    {"id": 7, "username": "jazminr", "password": "jrpass23", "dni": "45122119", "nivel_acceso": "user", "email": "jazminr@empresa.com", "estado": "Activo"},
+    {"id": 8, "username": "nicolas.h", "password": "nh4567", "dni": "36123455", "nivel_acceso": "user", "email": "nicolas.h@empresa.com", "estado": "Activo"},
+    {"id": 9, "username": "valenunez", "password": "vnpass77", "dni": "38122345", "nivel_acceso": "guest", "email": "valenunez@empresa.com", "estado": "Activo"},
+    {"id": 10, "username": "pablor", "password": "prpass33", "dni": "40123345", "nivel_acceso": "user", "email": "pablor@empresa.com", "estado": "Activo"},
+    {"id": 11, "username": "antonella.b", "password": "abpass22", "dni": "42110999", "nivel_acceso": "user", "email": "antonella.b@empresa.com", "estado": "Activo"},
+    {"id": 12, "username": "julianm", "password": "jmsecure", "dni": "37111777", "nivel_acceso": "admin", "email": "julianm@empresa.com", "estado": "Activo"},
+    {"id": 13, "username": "cami.t", "password": "ctpass44", "dni": "45122000", "nivel_acceso": "guest", "email": "cami.t@empresa.com", "estado": "Activo"},
+    {"id": 14, "username": "sofia.l", "password": "slkey55", "dni": "38122999", "nivel_acceso": "user", "email": "sofia.l@empresa.com", "estado": "Activo"}
+]
 
 # operacion, entidad afectada, fecha
 historial_operaciones = [
