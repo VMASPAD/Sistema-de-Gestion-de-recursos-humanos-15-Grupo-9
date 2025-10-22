@@ -23,10 +23,10 @@ def RegistrarEmpleado(empleados):
     apellido_empleado = input(MAGENTA + "Ingrese el apellido del empleado: " + RESET).strip().capitalize()
     telefono_empleado = verificar_telefono()
     posicion_empleado = input(MAGENTA + "Ingrese la posicion del empleado: " + RESET).strip().capitalize()
-    Imprimir_Opciones(areas, 1)
+    #Imprimir_Opciones(areas, 1)
     num_area_empleado = Ingresar_Numero(MAGENTA + "Ingrese el número area del empleado: " + RESET)
-    fecha_ingreso_empleado = Ingresar_Fecha("el ingreso del empleado")
-    fecha_nacimiento_empleado = Ingresar_Fecha("la fecha de nacimiento del empleado")
+    fecha_ingreso_empleado = Ingresar_Fecha(MAGENTA + "el ingreso del empleado" + RESET)
+    fecha_nacimiento_empleado = Ingresar_Fecha(MAGENTA + "la fecha de nacimiento del empleado" + RESET)
     A = [generar_id(empleados),nombre_empleado + " " + apellido_empleado, telefono_empleado, posicion_empleado,num_area_empleado,"Activo",fecha_ingreso_empleado,fecha_nacimiento_empleado]
     empleado.extend(A)
     empleados.append(empleado)
@@ -165,6 +165,35 @@ def EliminarEmpleado():
     else:
         print(f"Empleado {empleadoEliminar} no encontrado.")
 
+def agregar_empleado_archivo(archivo):
+    id = int(obtener_ultimo_codigo(archivo))
+    id = id + 1 if id != 0 else 0
+    try:
+        with open(archivo, 'a', encoding='UTF-8') as arch:
+            nombre_empleado = input("Ingrese el nombre del empleado: ").strip().capitalize()
+            apellido_empleado = input("Ingrese el apellido del empleado: ").strip().capitalize()
+            telefono_empleado = verificar_telefono()
+            posicion_empleado = input("Ingrese la posicion del empleado: ").strip().capitalize()
+            num_area_empleado = Ingresar_Numero("Ingrese el numero del area del empleado: " )
+            fecha_ingreso_empleado = Ingresar_Fecha("el ingreso del empleado")
+            fecha_nacimiento_empleado = Ingresar_Fecha("la fecha de nacimiento del empleado")
+            info = f"\n{id};{nombre_empleado} {apellido_empleado};{telefono_empleado};{posicion_empleado};{num_area_empleado};Activo;{fecha_ingreso_empleado};{fecha_nacimiento_empleado}"
+            arch.write(info)
+            print(f"Se agrego el empleado {nombre_empleado + " " + apellido_empleado} exitosamente!")
+    except OSError:
+        print("Error al registrar al empleado")
+        print(OSError)
+             
+def obtener_ultimo_codigo(archivo):
+    ultimo_codigo = "0"
+    try:
+        with open(archivo, "rt", encoding="UTF-8") as arch:
+            for linea in arch:
+                datos = linea.strip().split(";")
+                ultimo_codigo = datos[0]
+    except FileNotFoundError:
+        pass  # Si no existe el archivo, empezamos desde cero
+    return ultimo_codigo
 
 if __name__ == "__main__":
     EstadisticasEmpleados()
