@@ -8,12 +8,12 @@ CIAN = '\033[96m'
 RESET = '\033[0m'
 
 from idGenerator import generar_id
-from impresion import Imprimir_Matriz_Ordenada, Imprimir_Opciones
+from impresion import Imprimir_Matriz_Ordenada, Imprimir_Opciones, imprimir_archivo
 from estadisticas import cantidad_empleados, porcentaje_empleados_activos, cantidad_empleados_area
 from CRUD.registrar import Ingresar_Fecha, verificar_telefono, Ingresar_Numero, agregar_entidad_archivo, obtener_ultimo_codigo
-from CRUD.buscador import Encontrar
+from CRUD.buscador import Encontrar, encontrar_elemento
 from CRUD.eliminar import Eliminar_ClaveForanea
-from dataset import empleados, areas, licencias
+from dataset import empleados, areas, licencias, archivos
 #Funciones 
 
 #Registrar empleado
@@ -50,35 +50,37 @@ def BuscarEmpleado(empleados):
     match opcion: 
         case 1:
             busqueda = Ingresar_Numero(MAGENTA + "Ingrese el Id a buscar: " + RESET)
-            Encontrar(busqueda, empleados, 0, 0)
+            encontrar_elemento(busqueda, archivos[0], 0, 0)
         case 2:
             busqueda = input(MAGENTA + "Ingrese el nombre o apellido a buscar: " + RESET)
             busqueda = busqueda.lower()
-            Encontrar(busqueda, empleados, 1, 0)
+            encontrar_elemento(busqueda, archivos[0], 1, 0)
         case 3: 
             Imprimir_Opciones(areas, 1)
             busqueda = Ingresar_Numero(MAGENTA + "Ingrese el numero de area a buscar: " + RESET)
-            Encontrar(busqueda, empleados, 4, 0)
+            encontrar_elemento(busqueda, archivos[0], 4, 0)
         case 4:
-            print(CIAN + "="*34 + RESET)
-            print(CIAN + "| Opciones ascendentemente:".ljust(33) + "|" + RESET)
-            print(CIAN + "| 1 - Id".ljust(33) + "|" + RESET)
-            print(CIAN + "| 2 - Area".ljust(33) + "|" + RESET)
-            print(CIAN + "| 3 - Apellido".ljust(33) + "|" + RESET)
-            print(CIAN + "| 4 - Volver".ljust(33) + "|" + RESET)
-            print(CIAN + "="*34 + RESET)
-            opcion = Ingresar_Numero(MAGENTA + "Ingrese la opcion de ordenado: " + RESET)
-            print()
-            match opcion :
-                case 1:
-                    key = lambda fila : fila[0]
-                    Imprimir_Matriz_Ordenada(empleados, 0,  key)
-                case 2:
-                    key = lambda fila : fila[4]
-                    Imprimir_Matriz_Ordenada(empleados, 0,  key)
-                case 3: 
-                    key = lambda fila: fila[1].rsplit(" ", 1)[-1]
-                    Imprimir_Matriz_Ordenada(empleados, 0,  key)
+            imprimir_archivo(archivos[0], 0)
+
+            # print(CIAN + "="*34 + RESET)
+            # print(CIAN + "| Opciones ascendentemente:".ljust(33) + "|" + RESET)
+            # print(CIAN + "| 1 - Id".ljust(33) + "|" + RESET)
+            # print(CIAN + "| 2 - Area".ljust(33) + "|" + RESET)
+            # print(CIAN + "| 3 - Apellido".ljust(33) + "|" + RESET)
+            # print(CIAN + "| 4 - Volver".ljust(33) + "|" + RESET)
+            # print(CIAN + "="*34 + RESET)
+            # opcion = Ingresar_Numero(MAGENTA + "Ingrese la opcion de ordenado: " + RESET)
+            # print()
+            # match opcion :
+            #     case 1:
+            #         key = lambda fila : fila[0]
+            #         Imprimir_Matriz_Ordenada(empleados, 0,  key)
+            #     case 2:
+            #         key = lambda fila : fila[4]
+            #         Imprimir_Matriz_Ordenada(empleados, 0,  key)
+            #     case 3: 
+            #         key = lambda fila: fila[1].rsplit(" ", 1)[-1]
+            #         Imprimir_Matriz_Ordenada(empleados, 0,  key)
 
 def EstadisticasEmpleados():
     print("="*43)

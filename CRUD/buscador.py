@@ -100,25 +100,30 @@ def Encontrar_diccionario(busqueda, usuarios, clave, encabezado=None):
     print(AZUL + "="*170 + RESET)
     print()
 
-def encontrar_elemento(valor, archivo, columna):
+def encontrar_elemento(valor, archivo, columna, encabezado):
     try:
         with open(archivo, 'r', encoding='UTF-8') as datos:
             lineas = datos.readline().strip()
             encontrado = False
+            print(AZUL + "="*185 + RESET)
+            Imprimir_Encabezados(encabezado)
+            print(AZUL + "-"*185 + RESET)
             while lineas:
                 columnas = lineas.strip().split(";")
                 valor = str(valor)
-                busqueda = str(columnas[columna])
+                busqueda = str(columnas[columna]).lower()
                 if valor.isnumeric():
                     busqueda = [busqueda]
                 if valor in busqueda:
                     encontrado = True
                     for col in range(len(columnas)):
-                        print(str(columnas[col]).ljust(20), end="\t")
+                        impresion = Reemplazo_Id_Valor(columnas[col], col)
+                        print(str(impresion).ljust(23), end="\t")
                     print()
                 lineas = datos.readline().strip()
             if not encontrado:
                 print("No se encontro el usuario")
+            print(AZUL + "-"*185 + RESET)
     except OSError:
         print("No se encontró el archivo")
 
@@ -126,4 +131,4 @@ def encontrar_elemento(valor, archivo, columna):
 
 
 if __name__ == "__main__":
-    Encontrar(0, empleados, 0, 0)
+    encontrar_elemento(12, r'./matrices/empleados.txt', 0, 0)

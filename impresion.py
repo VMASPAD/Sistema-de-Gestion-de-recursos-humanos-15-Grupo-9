@@ -8,7 +8,7 @@ CIAN = '\033[96m'
 RESET = '\033[0m'
 
 import re
-from dataset import empleados, areas, justificaciones, licencias, historial_operaciones, usuarios
+from dataset import empleados, areas, justificaciones, licencias, historial_operaciones, usuarios, archivos
 #Funciones 
 def Imprimir_Opciones(matriz, columna):
     print()
@@ -25,10 +25,10 @@ def Imprimir_Encabezados(fila):
         ["Operacion", "Entidad Afectada", "Fecha"] # Historial de Operaciones
     ]
     for i in encabezados[fila]:
-        if fila == 0:
+        if fila < 2:
             i = i.ljust(21)
         else:
-            i = i.ljust(24)
+            i = i.ljust(23)
         print(i, end= "\t")
     print()
     return
@@ -92,6 +92,25 @@ def Encontrar_Id_Empleado(empleados, empleado):
     else:
         print(ROJO + "Empleado no encontrado" + RESET) 
         return False
+    
+def Buscar_id_archivo(archivo, id):
+    try: 
+        with open(archivo, 'r', encoding='UTF-8') as arch:
+            encontrado = False
+            lineas = arch.readline().strip()
+            while lineas:
+                columnas = lineas.strip().split(";")
+                if int(columnas[0]) == id:
+                    impresion = columnas[1]
+                    encontrado = True
+                lineas = arch.readline().strip()
+            if encontrado:
+                return impresion
+            else:
+                return str(id)
+    except OSError as error:
+        print("No se pudo imprimir el archivo:", error)
+
 
 def Reemplazo_Id_Valor(id, reemplazar):
     id = str(id)
@@ -100,11 +119,11 @@ def Reemplazo_Id_Valor(id, reemplazar):
         columna = reemplazar
         match columna:
             case 1:
-                valor = empleados[id][1]
+                valor = Buscar_id_archivo(r'./matrices/empleados.txt', id)
             case 3:
                 valor = justificaciones[id][1]
             case 4:
-                valor = areas[id][1]
+                valor = Buscar_id_archivo(r'./matrices/areas.txt', id)
             case _:
                 valor = id
 
@@ -148,15 +167,23 @@ def Mostrar_historial_operaciones(historial):
         print()
         print(AZUL + "-"*170 + RESET)
 
-def imprimir_archivo(archivo):
+def imprimir_archivo(archivo, encabezado):
     try:
         with open(archivo, 'r', encoding='UTF-8') as datos:
             lineas = datos.readline().strip()
+            print(AZUL + "="*185 + RESET)
+            Imprimir_Encabezados(encabezado)
+            print(AZUL + "-"*185 + RESET)
             while lineas:
                 columnas = lineas.strip().split(";")
                 for col in range(len(columnas)):
-                    print(str(columnas[col]).ljust(20), end="\t")
+                    impresion = Reemplazo_Id_Valor(columnas[col], col)
+                    if encabezado == 0:
+                        impresion = Formato(impresion)
+                    print(str(impresion).ljust(23), end="\t")
+
                 print()
+                print(AZUL + "-"*185 + RESET)
                 lineas = datos.readline().strip()
     except OSError:
         print("No se encontró el archivo")

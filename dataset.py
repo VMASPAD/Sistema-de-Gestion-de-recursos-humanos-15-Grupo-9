@@ -114,3 +114,9 @@ historial_operaciones = [
     ("Eliminar Area", "Staff" , "2025-4-2"),
     ("Editar Usuario", "Martin Sosa" , "2025-4-3")
 ]
+
+archivos = [
+    r'matrices/empleados.txt',
+    r'matrices/areas.txt',
+    r'matrices/licencias.txt'
+]
