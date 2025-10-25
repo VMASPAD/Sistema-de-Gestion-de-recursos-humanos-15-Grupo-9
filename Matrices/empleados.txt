@@ -1,5 +1,5 @@
 0;Juanceto01;+541112345678;Operario;1;Activo;2019-3-15;1987-6-12
-1;Juan Perez;1162170941;Operario;Activo;Inactivo;1987-6-12
+1;Juan Perez;1162170941;Operario;Activo;2019-4-20;1987-6-12
 2;Maria Gonzalez;+541198765432;Tecnica;2;Activo;2020-7-1;1991-4-23
 3;Lucas Fernandez;+541143216789;Analista;3;Activo;2021-1-10;1995-9-18
 4;Carla Rodriguez;+541154329876;Administrativa;5;Activo;2018-11-5;1989-11-2
@@ -13,3 +13,5 @@
 12;Antonella Benitez;+541154329871;Especialista;3;Activo;2019-1-14;1993-2-28
 13;Julian Medina;+541165498721;Encargado;6;Activo;2018-5-22;1986-10-10
 14;Camila Torres;+541176543218;HR Generalist;8;Activo;2022-8-8;1997-3-3
+15;Juanp Juanp;+5411212121212;Meh;2;Activo;2013-11-12;2000-12-11
+16;Martin Lopez;+541210821921;Meh;2;Activo;2020-11-12;2000-11-12

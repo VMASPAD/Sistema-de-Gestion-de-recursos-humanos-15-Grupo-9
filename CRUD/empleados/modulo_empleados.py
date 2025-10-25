@@ -10,28 +10,29 @@ RESET = '\033[0m'
 from idGenerator import generar_id
 from impresion import Imprimir_Matriz_Ordenada, Imprimir_Opciones
 from estadisticas import cantidad_empleados, porcentaje_empleados_activos, cantidad_empleados_area
-from CRUD.registrar import Ingresar_Fecha, verificar_telefono, Ingresar_Numero
+from CRUD.registrar import Ingresar_Fecha, verificar_telefono, Ingresar_Numero, agregar_entidad_archivo, obtener_ultimo_codigo
 from CRUD.buscador import Encontrar
 from CRUD.eliminar import Eliminar_ClaveForanea
 from dataset import empleados, areas, licencias
 #Funciones 
 
 #Registrar empleado
-def RegistrarEmpleado(empleados):
-    empleado = []
-    nombre_empleado = input(MAGENTA + "Ingrese el nombre del empleado: " + RESET).strip().capitalize()
-    apellido_empleado = input(MAGENTA + "Ingrese el apellido del empleado: " + RESET).strip().capitalize()
+def RegistrarEmpleado(archivo):
+    id = int(obtener_ultimo_codigo(archivo))
+    id = id + 1 if id != 0 else 0
+    nombre_empleado = input("Ingrese el nombre del empleado: ").strip().capitalize()
+    apellido_empleado = input("Ingrese el apellido del empleado: ").strip().capitalize()
     telefono_empleado = verificar_telefono()
-    posicion_empleado = input(MAGENTA + "Ingrese la posicion del empleado: " + RESET).strip().capitalize()
-    #Imprimir_Opciones(areas, 1)
-    num_area_empleado = Ingresar_Numero(MAGENTA + "Ingrese el número area del empleado: " + RESET)
-    fecha_ingreso_empleado = Ingresar_Fecha(MAGENTA + "el ingreso del empleado" + RESET)
-    fecha_nacimiento_empleado = Ingresar_Fecha(MAGENTA + "la fecha de nacimiento del empleado" + RESET)
-    A = [generar_id(empleados),nombre_empleado + " " + apellido_empleado, telefono_empleado, posicion_empleado,num_area_empleado,"Activo",fecha_ingreso_empleado,fecha_nacimiento_empleado]
-    empleado.extend(A)
-    empleados.append(empleado)
-    areas[num_area_empleado][2] += 1
-    return empleados
+    posicion_empleado = input("Ingrese la posicion del empleado: ").strip().capitalize()
+    num_area_empleado = Ingresar_Numero("Ingrese el numero del area del empleado: " )
+    fecha_ingreso_empleado = Ingresar_Fecha("el ingreso del empleado")
+    fecha_nacimiento_empleado = Ingresar_Fecha("la fecha de nacimiento del empleado")
+    fila = [id, nombre_empleado + " " + apellido_empleado, telefono_empleado, posicion_empleado, num_area_empleado, "Activo", fecha_ingreso_empleado, fecha_nacimiento_empleado]
+    ok = agregar_entidad_archivo(archivo, fila)
+    if ok:
+        print(f"Se agrego el empleado {nombre_empleado + " " + apellido_empleado} exitosamente!")
+    else:
+        print("No se pudo registrar al empleado")
 
 #Buscar empleado
 def BuscarEmpleado(empleados):
@@ -165,24 +166,6 @@ def EliminarEmpleado():
     else:
         print(f"Empleado {empleadoEliminar} no encontrado.")
 
-def agregar_empleado_archivo(archivo):
-    id = int(obtener_ultimo_codigo(archivo))
-    id = id + 1 if id != 0 else 0
-    try:
-        with open(archivo, 'a', encoding='UTF-8') as arch:
-            nombre_empleado = input("Ingrese el nombre del empleado: ").strip().capitalize()
-            apellido_empleado = input("Ingrese el apellido del empleado: ").strip().capitalize()
-            telefono_empleado = verificar_telefono()
-            posicion_empleado = input("Ingrese la posicion del empleado: ").strip().capitalize()
-            num_area_empleado = Ingresar_Numero("Ingrese el numero del area del empleado: " )
-            fecha_ingreso_empleado = Ingresar_Fecha("el ingreso del empleado")
-            fecha_nacimiento_empleado = Ingresar_Fecha("la fecha de nacimiento del empleado")
-            info = f"\n{id};{nombre_empleado} {apellido_empleado};{telefono_empleado};{posicion_empleado};{num_area_empleado};Activo;{fecha_ingreso_empleado};{fecha_nacimiento_empleado}"
-            arch.write(info)
-            print(f"Se agrego el empleado {nombre_empleado + " " + apellido_empleado} exitosamente!")
-    except OSError:
-        print("Error al registrar al empleado")
-        print(OSError)
              
 def obtener_ultimo_codigo(archivo):
     ultimo_codigo = "0"
