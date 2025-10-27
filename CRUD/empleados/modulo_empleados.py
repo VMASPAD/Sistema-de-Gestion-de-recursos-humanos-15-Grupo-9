@@ -13,7 +13,7 @@ from estadisticas import cantidad_empleados, porcentaje_empleados_activos, canti
 from CRUD.registrar import Ingresar_Fecha, verificar_telefono, Ingresar_Numero, agregar_entidad_archivo, obtener_ultimo_codigo
 from CRUD.buscador import Encontrar, encontrar_elemento
 from CRUD.actualizar import editar_entidad_archivo
-from CRUD.eliminar import Eliminar_ClaveForanea
+from CRUD.eliminar import eliminar_entidad_archivo
 from dataset import empleados, areas, licencias, archivos
 #Funciones 
 
@@ -150,20 +150,18 @@ def EditarEmpleado():
 #Eliminar empleado
 def EliminarEmpleado():
     print("="*26)
-    empleadoEliminar = input("Escriba el nombre y apellido del empleado o escriba \"Lista\" para obtener la planilla: ").lower()
+    empleadoEliminar = input("Escriba el id del empleado o escriba \"Lista\" para obtener la planilla: ").lower()
     if empleadoEliminar == "lista":
         print("Lista de empleados:")
-        Imprimir_Matriz_Ordenada(empleados, lambda fila: fila[0])
-    elif empleadoEliminar in [empleado[1].lower() for empleado in empleados]:
-        posicion_empleados = empleados[[empleado[1].lower() for empleado in empleados].index(empleadoEliminar)]
-        # print(posicion_empleados)
-        empleados[posicion_empleados[0]][5] = "Inactivo"
-        Eliminar_ClaveForanea(posicion_empleados[0], licencias, 1)
-        print(f"Empleado {empleadoEliminar} eliminado.")
-        areas[posicion_empleados[4]][2] -= 1
-    else:
-        print(f"Empleado {empleadoEliminar} no encontrado.")
-
+        imprimir_archivo(archivos[0], 0)
+    elif empleadoEliminar.isnumeric():
+        empleadoEliminar = int(empleadoEliminar)
+        eliminado = eliminar_entidad_archivo(archivos[0], empleadoEliminar, 0, 5)
+        if eliminado:
+            eliminar_entidad_archivo(archivos[2], empleadoEliminar, 1, 4)
+    else: 
+        print("Ingrese una opción válida ")
+        print()
              
 def obtener_ultimo_codigo(archivo):
     ultimo_codigo = "0"
