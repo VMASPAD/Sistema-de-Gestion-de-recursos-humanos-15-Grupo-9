@@ -12,6 +12,7 @@ from impresion import Imprimir_Matriz_Ordenada, Imprimir_Opciones, imprimir_arch
 from estadisticas import cantidad_empleados, porcentaje_empleados_activos, cantidad_empleados_area
 from CRUD.registrar import Ingresar_Fecha, verificar_telefono, Ingresar_Numero, agregar_entidad_archivo, obtener_ultimo_codigo
 from CRUD.buscador import Encontrar, encontrar_elemento
+from CRUD.actualizar import editar_entidad_archivo
 from CRUD.eliminar import Eliminar_ClaveForanea
 from dataset import empleados, areas, licencias, archivos
 #Funciones 
@@ -35,7 +36,7 @@ def RegistrarEmpleado(archivo):
         print("No se pudo registrar al empleado")
 
 #Buscar empleado
-def BuscarEmpleado(empleados):
+def BuscarEmpleado():
     print(AZUL + "MENU PRINCIPAL -> EMPLEADOS -> BUSCADOR" + RESET)
     print(AZUL + "="*34 + RESET)
     print(CIAN + "| Opciones:".ljust(33) + "|" + RESET)
@@ -112,44 +113,39 @@ def EstadisticasEmpleados():
 def EditarEmpleado():
     print("="*26)
     index = Ingresar_Numero("Escriba el id del empleado a editar:  ")
-    if index < len(empleados) and index >= 0:
-        empleado = empleados[index]
-        print(f"Empleado encontrado: {empleado}")
-        print("Que campo quiere editar?")
-        print('1. Nombre')
-        print('2. Apellido')
-        print('3. Telefono')
-        print('4. Area')
-        print('5. Estado')
-        print('6. Fecha de ingreso')
-        print('7. Fecha de nacimiento')
-        campo = Ingresar_Numero("Seleccione el campo a editar (1-7): ")
-        match campo:
-            case 1:
-                nuevo_valor = input("Ingrese el nuevo nombre: ").strip().capitalize()
-            case 2:
-                nuevo_valor = input("Ingrese el nuevo apellido: ").strip().capitalize()
-            case 3:
-                nuevo_valor = verificar_telefono()
-            case 4:
-                nuevo_valor = input("Ingrese la nueva area: ").strip().capitalize()
-            case 5:
-                nuevo_valor = input("Ingrese el nuevo estado: ").strip().capitalize()
-            case 6:
-                nuevo_valor = Ingresar_Fecha("fecha de ingreso")
-            case 7:
-                nuevo_valor = Ingresar_Fecha("fecha de nacimiento")
-        if campo == 1 or campo == 2:
-            nombre_actual = empleado[1].split(" ")
-            if campo == 1:
-                nombre_actual[0] = nuevo_valor
-            else:
-                nombre_actual[1] = nuevo_valor
-            nuevo_valor = " ".join(nombre_actual)
-        empleados[index][campo - 1 if campo > 1 else campo] = nuevo_valor
-        print("Empleado actualizado:", empleados[index])
-    else:
-        print("Empleado no encontrado.")
+    print("Que campo quiere editar?")
+    print('1. Nombre y Apellido')
+    print('2. Telefono')
+    print('3. Posición')
+    print('4. Area')
+    print('5. Fecha de ingreso')
+    print('6. Fecha de nacimiento')
+    print('0. Volver')
+    campo = Ingresar_Numero("Seleccione el campo a editar (1-7): ")
+    match campo:
+        case 1:
+            nuevo_valor = input("Ingrese el nuevo nombre y apellido: ").strip().capitalize()
+            editar_entidad_archivo(archivos[0], index, campo, nuevo_valor)
+        case 2:
+            nuevo_valor = verificar_telefono()
+            editar_entidad_archivo(archivos[0], index, campo, nuevo_valor)
+        case 3:
+            nuevo_valor = input("Ingrese la nueva posición: ").strip().capitalize()
+            editar_entidad_archivo(archivos[0], index, campo, nuevo_valor)
+        case 4:
+            nuevo_valor = input("Ingrese la nueva area: ").strip().capitalize()
+            editar_entidad_archivo(archivos[0], index, campo, nuevo_valor)
+        case 5:
+            nuevo_valor = Ingresar_Fecha("fecha de ingreso")
+            editar_entidad_archivo(archivos[0], index, campo + 1, nuevo_valor)
+        case 6:
+            nuevo_valor = Ingresar_Fecha("fecha de nacimiento")
+            editar_entidad_archivo(archivos[0], index, campo + 1, nuevo_valor)
+        case 0:
+            print("\n volviendo...")
+        case _:
+            print("Opcion no existente")
+
     
 #Eliminar empleado
 def EliminarEmpleado():

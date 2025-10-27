@@ -117,7 +117,7 @@ def Menu():
                             tipo = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
                             match tipo:
                                 case 1:
-                                    modulo_empleados.BuscarEmpleado(empleados)
+                                    modulo_empleados.BuscarEmpleado()
                                 case 2:
                                     if nivel_acceso >= 1:
                                         modulo_empleados.EstadisticasEmpleados()
