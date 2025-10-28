@@ -8,7 +8,9 @@ CIAN = '\033[96m'
 RESET = '\033[0m'
 
 import re 
+import json
 from dataset import usuarios
+from impresion import formato_dni
 
 #Funciones
 def verificar_usuario(usuarios):
@@ -43,7 +45,7 @@ def generar_contraseña(password=None):
         password = input(MAGENTA + "Ingrese su contraseña, (debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número): " + RESET)
     return password.strip()
 
-def verificar_dni():
+def verificar_dni(usuarios):
     dni_ensistema = {usuarios[i]["dni"] for i in range(len(usuarios))}
     try:
         dni=input(MAGENTA + "ingrese el dni: " + RESET)
@@ -72,16 +74,24 @@ def asignar_nivel_acceso():
     return niveles.get(opcion)
 
 
-def crear_usuario(usuarios):
-    username = verificar_usuario(usuarios)
-    password = generar_contraseña()
-    dni = verificar_dni()
-    nivel_acceso = asignar_nivel_acceso()
-    email = username + "@empresa.com"
-    id = len(usuarios)
-    print(VERDE + f"Usuario creado exitosamente:\nID: {id}\nUsername: {username}\nPassword: {password}\nDNI: {dni}\nNivel de acceso: {nivel_acceso}\nEmail: {email}" + RESET)
-    usuarios.append({"id": id, "username": username, "password": password, "dni": dni, "nivel_acceso": nivel_acceso, "email": email, "estado": "Activo"})
+def crear_usuario(archivo):
+    try:
+        with open ("dataset/usuarios.json", "r", encoding="UTF-8") as usu:
+            usuarios=json.load(usu)
+        username = verificar_usuario(usuarios)
+        password = generar_contraseña()
+        dni = verificar_dni(usuarios)
+        nivel_acceso = asignar_nivel_acceso()
+        email = username + "@empresa.com"
+        id = len(usuarios)
+        print(VERDE + f"Usuario creado exitosamente:\nID: {id}\nUsername: {username}\nPassword: {password}\nDNI: {formato_dni(dni)}\nNivel de acceso: {nivel_acceso}\nEmail: {email}" + RESET)
+        usuarios.append({"id": id, "username": username, "password": password, "dni": dni, "nivel_acceso": nivel_acceso, "email": email, "estado": "Activo"})
+        
+        with open("dataset/usuarios.json", "w", encoding="UTF-8") as usu:
+            json.dump(usuarios, usu, ensure_ascii=False)
 
+    except (OSError, FileNotFoundError) as error :
+        print("error", error)
 
 if __name__ == "__main__":
     crear_usuario(usuarios)
