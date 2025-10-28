@@ -74,7 +74,7 @@ def asignar_nivel_acceso():
     return niveles.get(opcion)
 
 
-def crear_usuario(archivo):
+def crear_usuario():
     try:
         with open ("dataset/usuarios.json", "r", encoding="UTF-8") as usu:
             usuarios=json.load(usu)
