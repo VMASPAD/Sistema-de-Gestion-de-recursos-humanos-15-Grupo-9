@@ -93,16 +93,20 @@ def EstadisticasEmpleados():
     print("| 3. Ver cantidad de empleados por area".ljust(42) +"|")
     print("| 0. Volver".ljust(42) +"|")
     print("="*43)
+    activos, inactivos = cantidad_empleados()
     opcion = Ingresar_Numero("Seleccione una opcion: ")
+    print()
     match opcion:
         case 1: 
-            cantidad_empleados("total")
+            print(f'Cantidad de empleados totales: {activos + inactivos}')
         case 2:
-            cantidad_empleados("activo")
-            porcentaje_empleados_activos(empleados)
+            print(f'Cantidad de empleados Activos: {activos}')
+            print(f'Cantidad de empleado Inactivos: {inactivos}')
+            porcentaje_empleados_activos(activos, inactivos)
         case 3:
-            cantidad_empleados("inactivo")
-            cantidad_empleados_area(empleados, areas)
+            print("Cantidad de empleados por area: ")
+            print()
+            cantidad_empleados_area()
         case 0:
             print("Volviendo al menu principal...")
         case _:

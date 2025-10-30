@@ -26,25 +26,25 @@ def promedio_empleados_por_area(empleados, areas):
         return 0
 
 
-def cantidad_empleados(parametro):
-    if parametro == "total":
-        total = len(empleados)
-        print(CIAN + f"La cantidad total de empleados es: {total}" + RESET)
-        return total
-    elif parametro == "activo":
-        activos = lambda emp: emp[5] == "Activo"
-        cantidad_activos = len(list(filter(activos, empleados)))
-        print(VERDE + f"La cantidad de empleados activos es: {cantidad_activos}" + RESET)
-        return cantidad_activos
-    elif parametro == "inactivo":
-        inactivos = lambda emp: emp[5] == "Inactivo"
-        cantidad_inactivos = len(list(filter(inactivos, empleados)))
-        print(AMARILLO + f"La cantidad de empleados inactivos es: {cantidad_inactivos}" + RESET)
-        return cantidad_inactivos
-    else:
-        print(ROJO + "Parámetro inválido. Use 'total', 'activo' o 'inactivo'." + RESET)
-        return 0
-
+def cantidad_empleados():
+    activos = 0
+    inactivos = 0
+    try:
+        with open(r'matrices/empleados.txt', 'r', encoding='UTF-8') as arch:
+            for lineas in arch:
+                linea = lineas.strip().split(";")
+                estado = linea[5]
+                match estado:
+                    case "Activo":
+                        activos += 1
+                    case "Inactivo":
+                        inactivos += 1
+                    case _:
+                        raise OSError
+    except (OSError, FileNotFoundError):
+        print("Error!")
+    return activos, inactivos
+    
 def promedio_licencias_por_empleado(licencias, empleados):
     empleados_activos = [emp for emp in empleados if emp[5] == "Activo"]
     licencias_activas = [lic for lic in licencias if lic[4] == "Activo"]
@@ -56,33 +56,27 @@ def promedio_licencias_por_empleado(licencias, empleados):
         print(CIAN + f"El promedio de licencias por empleado activo es: {promedio:.2f}" + RESET)
         return 0
     
-def porcentaje_empleados_activos(empleados):
-    total=len(empleados)
+def porcentaje_empleados_activos(activos, inactivos):
+    total= activos + inactivos
     if total == 0:
         print(AMARILLO + "No hay empleados registrados." + RESET)
         return 0
-    activos = len([emp for emp in empleados if emp[5] == "Activo"])
-    inactivos = total - activos
     porcentaje_activos = (activos / total) * 100
     porcentaje_inactivos = (inactivos / total) * 100
     print(VERDE + f"Porcentaje de empleados activos: {porcentaje_activos:.2f}%" + RESET)
     print(AMARILLO + f"Porcentaje de empleados inactivos: {porcentaje_inactivos:.2f}%" + RESET)
     return 0
 
-def cantidad_empleados_area(empleados, areas):
-    area_dict = {area[0]: area[1] for area in areas}
-    area_count = {}
-    for emp in empleados:
-        if emp[5] == "Activo":
-            area_id = emp[4]
-            if area_id in area_count:
-                area_count[area_id] += 1
-            else:
-                area_count[area_id] = 1
-    print(AZUL + "Cantidad de empleados activos por área:" + RESET)
-    for area_id, count in area_count.items():
-        area_name = area_dict.get(area_id, "Área desconocida")
-        print(CIAN + f"{area_name}: {count}" + RESET)
+def cantidad_empleados_area():
+    try:
+        with open(r'matrices/areas.txt', 'r', encoding="UTF-8") as arch:
+            for lineas in arch:
+                linea = lineas.strip().split(";")
+                nomArea = linea[1]
+                cantidad = linea[2]
+                print(f'{nomArea}: {cantidad}')
+    except FileNotFoundError:
+        print("No se encontro el archivo")
     return 0
 
 
