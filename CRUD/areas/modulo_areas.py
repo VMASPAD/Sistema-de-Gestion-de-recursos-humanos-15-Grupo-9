@@ -13,18 +13,23 @@ from estadisticas import promedio_empleados_por_area
 from CRUD.registrar import Ingresar_Numero, verificar_area
 from CRUD.buscador import Encontrar
 from CRUD.eliminar import Eliminar_ClaveForanea
-from dataset import areas, empleados, licencias
+from dataset import empleados, licencias
 #Funciones 
 
 #Registrar Area
-def RegistrarArea(areas):
+def RegistrarArea():
     nueva_area = []
     nombre_area = verificar_area()
     cantidad_empleados = 0
-    A = [generar_id(areas), nombre_area, cantidad_empleados, "Activo"]
-    nueva_area.extend(A)
-    areas.append(nueva_area)
-    return areas
+    with open("Matrices/areas.csv", "w") as f: 
+        for line in f:
+            datos = line.strip().split(",")
+            nueva_area.append(datos)
+        A = [generar_id(nueva_area), nombre_area, cantidad_empleados, "Activo"]
+        nueva_area.append(A)
+        f.writelines([f"{A[0]},{A[1]},{A[2]},{A[3]}\n"])
+    print(VERDE + f"Area {nombre_area} registrada con exito!" + RESET)
+    return nueva_area
 
 def EstadisticasAreas(areas):
     print(AZUL + "="*43 + RESET)
@@ -48,7 +53,16 @@ def EstadisticasAreas(areas):
             print(AZUL + "="*130 + RESET)
     
 #Buscar Area
-def BuscarArea(areas):
+def BuscarArea():
+    areas = [] 
+    with open("Matrices/areas.csv", "r") as f: 
+        for line in f:
+            datos = line.strip().split(",")
+            datos[0] = int(datos[0]) if datos[0].isnumeric() else datos[0]
+            datos[2] = int(datos[2]) if datos[2].isnumeric() else datos[2]
+            areas.append(datos) 
+        f.close()
+    del areas[0] 
     print(AZUL + "MENU PRINCIPAL -> AREAS -> BUSCADOR" + RESET)
     print(AZUL + "="*34 + RESET)
     print(CIAN + "| Opciones:".ljust(33) + "|" + RESET)

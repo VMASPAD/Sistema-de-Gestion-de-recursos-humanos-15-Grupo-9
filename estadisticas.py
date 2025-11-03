@@ -34,7 +34,7 @@ def cantidad_empleados():
     try:
         with open(r'matrices/empleados.txt', 'r', encoding='UTF-8') as arch:
             for lineas in arch:
-                linea = lineas.strip().split(";")
+                linea = lineas.strip().split(",")
                 estado = linea[5]
                 match estado:
                     case "Activo":
@@ -73,7 +73,7 @@ def cantidad_empleados_area():
     try:
         with open(r'matrices/areas.txt', 'r', encoding="UTF-8") as arch:
             for lineas in arch:
-                linea = lineas.strip().split(";")
+                linea = lineas.strip().split(",")
                 nomArea = linea[1]
                 cantidad = linea[2]
                 print(f'{nomArea}: {cantidad}')
@@ -92,7 +92,7 @@ def promedio_de_edad():
     try:
         with open(archivos[0], 'r', encoding='UTF-8') as arch:
             for lineas in arch:
-                linea = lineas.strip().split(";")
+                linea = lineas.strip().split(",")
                 fechas.append(linea[-1])
 
 

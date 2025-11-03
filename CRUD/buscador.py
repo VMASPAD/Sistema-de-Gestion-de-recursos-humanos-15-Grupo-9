@@ -119,7 +119,7 @@ def encontrar_elemento(valor, archivo, columna, encabezado):
             Imprimir_Encabezados(encabezado)
             print(AZUL + "-"*185 + RESET)
             while lineas:
-                columnas = lineas.strip().split(";")
+                columnas = lineas.strip().split(",")
                 valor = str(valor)
                 busqueda = str(columnas[columna]).lower()
                 if valor.isnumeric():

@@ -100,7 +100,7 @@ def Buscar_id_archivo(archivo, id):
             encontrado = False
             lineas = arch.readline().strip()
             while lineas:
-                columnas = lineas.strip().split(";")
+                columnas = lineas.strip().split(",")
                 if int(columnas[0]) == id:
                     impresion = columnas[1]
                     encontrado = True
@@ -184,7 +184,7 @@ def imprimir_archivo(archivo, encabezado):
             Imprimir_Encabezados(encabezado)
             print(AZUL + "-"*185 + RESET)
             while lineas:
-                columnas = lineas.strip().split(";")
+                columnas = lineas.strip().split(",")
                 # for col in range(len(columnas)):
                 #     impresion = Reemplazo_Id_Valor(columnas[col], col)
                 #     if encabezado == 0:

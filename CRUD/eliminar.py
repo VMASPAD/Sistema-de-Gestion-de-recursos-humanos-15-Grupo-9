@@ -29,7 +29,7 @@ def eliminar_entidad_archivo(archivo, empleado, columna_id, columna):
         cop = open(copia, 'wt', encoding='UTF-8') 
 
         for linea in arch:
-            datos = linea.strip().split(";")
+            datos = linea.strip().split(",")
             id = int(datos[columna_id])
 
             if empleado == id:
@@ -43,7 +43,7 @@ def eliminar_entidad_archivo(archivo, empleado, columna_id, columna):
                     if dato == 0:
                         continue
                     else:
-                        nueva_linea += ";" + str(datos[dato])
+                        nueva_linea += "," + str(datos[dato])
                 nueva_linea += "\n"
                 cop.write(nueva_linea)
                 print(f"Se elimino {ent} con id: {datos[0]}")
@@ -77,7 +77,7 @@ def eliminar_entidad_archivo(archivo, empleado, columna_id, columna):
 
 def formateado_recursivo(lista, nl): 
     if len(lista) > 0:
-        nl += ";" + str(lista[0])
+        nl += "," + str(lista[0])
         nl = formateado_recursivo(lista[1:], nl)
         return nl
     else:
@@ -86,7 +86,7 @@ def Modificar_cantidad_area(operacion, area): #True : Sumar // False : Restar
     try: 
         with open(r"matrices/areas.txt", 'r', encoding='UTF-8') as arch, open(r'matrices/copia2.txt', 'w', encoding='UTF-8') as copia:
             for linea in arch:
-                datos = linea.strip().split(";")
+                datos = linea.strip().split(",")
                 id_area = int(datos[0])
                 if id_area == area:
                     if operacion:
@@ -98,7 +98,7 @@ def Modificar_cantidad_area(operacion, area): #True : Sumar // False : Restar
                     #     if i == 0:
                     #         continue
                     #     else:
-                    #         nueva_linea += ";" + str(datos[i])
+                    #         nueva_linea += "," + str(datos[i])
                     nueva_linea = formateado_recursivo(datos[1:], nueva_linea)
                     nueva_linea += "\n"
                     copia.write(nueva_linea)

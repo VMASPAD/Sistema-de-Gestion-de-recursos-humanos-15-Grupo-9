@@ -111,7 +111,7 @@ def obtener_ultimo_codigo(archivo):
     try:
         with open(archivo, "rt", encoding="UTF-8") as arch:
             for linea in arch:
-                datos = linea.strip().split(";")
+                datos = linea.strip().split(",")
                 ultimo_codigo = datos[0]
     except FileNotFoundError:
         pass  # Si no existe el archivo, empezamos desde cero
@@ -127,7 +127,7 @@ def agregar_entidad_archivo(archivo, columnas):
                 if col == 0:
                     continue
                 else:
-                    nueva_fila += ";" + str(columnas[col])
+                    nueva_fila += "," + str(columnas[col])
             nueva_fila += "\n"
             arch.write(nueva_fila)
             ok = True

@@ -18,7 +18,7 @@ def editar_entidad_archivo(archivo, entidad, columna,columna_id, edicion):
         cop = open(copia, 'wt', encoding='UTF-8') 
 
         for linea in arch:
-            datos = linea.strip().split(";")
+            datos = linea.strip().split(",")
             id = int(datos[columna_id])
 
             if entidad == id:
@@ -29,7 +29,7 @@ def editar_entidad_archivo(archivo, entidad, columna,columna_id, edicion):
                 encontrado = True
                 nueva_linea = str(datos[0])
                 for dato in datos[1:]:
-                    nueva_linea += ";" + str(dato)
+                    nueva_linea += "," + str(dato)
                 nueva_linea += "\n"
                 cop.write(nueva_linea)
                 print(f"Se editó {ent} {datos[1]}")

@@ -78,14 +78,14 @@ def Menu():
                             tipo = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
                             match tipo:
                                 case 1:
-                                    modulo_areas.BuscarArea(areas)
+                                    modulo_areas.BuscarArea()
                                 case 2:
                                     if nivel_acceso >= 1:
                                         modulo_areas.EstadisticasAreas(areas)
                                     else: print(ROJO + "No tiene permisos para realizar esta accion" + RESET)
                                 case 3:
                                     if nivel_acceso == 2:
-                                        modulo_areas.RegistrarArea(areas)
+                                        modulo_areas.RegistrarArea()
                                     else: print(ROJO + "No tiene permisos para realizar esta accion" + RESET)
                                 case 4:
                                     if nivel_acceso == 2:
