@@ -7,7 +7,9 @@ MAGENTA = '\033[95m'
 CIAN = '\033[96m'
 RESET = '\033[0m'
 
-from dataset import empleados, licencias, areas
+from dataset import archivos
+from datetime import datetime
+from functools import reduce
 
 #Funciones 
 
@@ -55,7 +57,7 @@ def promedio_licencias_por_empleado(licencias, empleados):
         promedio = len(licencias_activas) / len(empleados_activos)
         print(CIAN + f"El promedio de licencias por empleado activo es: {promedio:.2f}" + RESET)
         return 0
-    
+
 def porcentaje_empleados_activos(activos, inactivos):
     total= activos + inactivos
     if total == 0:
@@ -79,6 +81,33 @@ def cantidad_empleados_area():
         print("No se encontro el archivo")
     return 0
 
+def calcular_edad(fecha, hoy):
+    fecha_nacimiento = datetime.strptime(fecha, r"%Y-%m-%d").date()
+    edad = hoy.year - fecha_nacimiento.year- ((hoy.month, hoy.day) < (fecha_nacimiento.month, fecha_nacimiento.day))
+    return edad
+
+
+def promedio_de_edad():
+    fechas = []
+    try:
+        with open(archivos[0], 'r', encoding='UTF-8') as arch:
+            for lineas in arch:
+                linea = lineas.strip().split(";")
+                fechas.append(linea[-1])
+
+
+    except (FileNotFoundError, OSError):
+        print("Error!")
+    
+    hoy = datetime.today()
+    edades = list(map(lambda x: calcular_edad(x, hoy), fechas))
+
+    if edades:
+        suma = reduce(lambda x, y: x + y, edades)
+        promedio = suma / len(edades) 
+        print("El promedio de edad es de: ", promedio)
+    else:
+        print("No se puede hacer promedio por falta de empleados")
 
 if __name__ == "__main__":
-    porcentaje_empleados_activos(empleados)
+    promedio_de_edad()

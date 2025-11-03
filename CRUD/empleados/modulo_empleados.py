@@ -7,14 +7,13 @@ MAGENTA = '\033[95m'
 CIAN = '\033[96m'
 RESET = '\033[0m'
 
-from idGenerator import generar_id
-from impresion import Imprimir_Matriz_Ordenada, Imprimir_Opciones, imprimir_archivo
-from estadisticas import cantidad_empleados, porcentaje_empleados_activos, cantidad_empleados_area
+from impresion import imprimir_archivo
+from estadisticas import cantidad_empleados, porcentaje_empleados_activos, cantidad_empleados_area, promedio_de_edad
 from CRUD.registrar import Ingresar_Fecha, verificar_telefono, Ingresar_Numero, agregar_entidad_archivo, obtener_ultimo_codigo
-from CRUD.buscador import Encontrar, encontrar_elemento
+from CRUD.buscador import encontrar_elemento
 from CRUD.actualizar import editar_entidad_archivo
 from CRUD.eliminar import eliminar_entidad_archivo
-from dataset import empleados, areas, licencias, archivos
+from dataset import archivos
 #Funciones 
 
 #Registrar empleado
@@ -90,6 +89,7 @@ def EstadisticasEmpleados():
     print("| 1. Ver cantidad de empleados totales".ljust(42) +"|")
     print("| 2. Ver estado actual de empleados".ljust(42) +"|")
     print("| 3. Ver cantidad de empleados por area".ljust(42) +"|")
+    print("| 4. Ver Promedio de edad".ljust(42) +"|")
     print("| 0. Volver".ljust(42) +"|")
     print("="*43)
     activos, inactivos = cantidad_empleados()
@@ -106,6 +106,8 @@ def EstadisticasEmpleados():
             print("Cantidad de empleados por area: ")
             print()
             cantidad_empleados_area()
+        case 4:
+            promedio_de_edad()
         case 0:
             print("Volviendo al menu principal...")
         case _:

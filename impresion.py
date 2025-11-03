@@ -24,11 +24,12 @@ def Imprimir_Encabezados(fila):
         ["Id", "Justificación", "Tipo"], # Justificaciones
         ["Operacion", "Entidad Afectada", "Fecha"] # Historial de Operaciones
     ]
-    for i in encabezados[fila]:
-        if fila < 2:
-            i = i.ljust(21)
+    for i in range(len(encabezados)):
+        if i < 2:
+            encabezados[i] = list(map(lambda x: x.ljust(21), encabezados[i]))
         else:
-            i = i.ljust(23)
+            encabezados[i] = list(map(lambda x: x.ljust(23), encabezados[i]))
+    for i in encabezados[fila]:
         print(i, end= "\t")
     print()
     return
