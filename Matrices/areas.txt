@@ -2,7 +2,7 @@
 1;Produccion;3;Activo
 2;Mantenimiento;2;Activo
 3;Calidad;2;Activo
-4;Logistica y Deposito;2;Activo
+4;Logistica y Deposito;3;Activo
 5;Administracion y Finanzas;2;Activo
 6;Compras;1;Activo
 7;Ingenieria y Desarrollo;1;Activo

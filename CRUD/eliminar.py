@@ -16,6 +16,7 @@ def Eliminar_ClaveForanea():
 def eliminar_entidad_archivo(archivo, empleado, columna_id, columna):
     copia = r'matrices/copia.txt'
     encontrado = False
+    cantidad = False
     if archivo == archivos[0]:
         ent = "empleado"
         cantidad = True
@@ -32,6 +33,7 @@ def eliminar_entidad_archivo(archivo, empleado, columna_id, columna):
             id = int(datos[columna_id])
 
             if empleado == id:
+                assert datos[columna] == "Activo"
                 encontrado = True
                 datos[columna] = "Inactivo"
                 if cantidad:
@@ -50,7 +52,9 @@ def eliminar_entidad_archivo(archivo, empleado, columna_id, columna):
     except FileNotFoundError:
         print("No se encontró el archivo")
     except OSError as error:
-        print("No se pudo editar al empleado:", error) 
+        print("No se pudo editar al empleado:", error)
+    except AssertionError:
+        print(f"{ent} ya se encontraba Inactivo")
     finally:
         try:
             arch.close()
@@ -77,7 +81,6 @@ def formateado_recursivo(lista, nl):
         nl = formateado_recursivo(lista[1:], nl)
         return nl
     else:
-        print(nl)
         return nl
 def Modificar_cantidad_area(operacion, area): #True : Sumar // False : Restar
     try: 
@@ -97,7 +100,6 @@ def Modificar_cantidad_area(operacion, area): #True : Sumar // False : Restar
                     #     else:
                     #         nueva_linea += ";" + str(datos[i])
                     nueva_linea = formateado_recursivo(datos[1:], nueva_linea)
-                    print(nueva_linea)
                     nueva_linea += "\n"
                     copia.write(nueva_linea)
                 else:

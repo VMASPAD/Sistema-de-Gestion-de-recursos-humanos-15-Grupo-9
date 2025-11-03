@@ -52,7 +52,9 @@ def Encontrar_diccionario(busqueda, usuarios, clave, encabezado=None):
         return
 
     # Resolver nombre de la clave si se pasó un índice
-    if isinstance(clave, int):
+    clave = str(clave)
+    if clave.isnumeric():
+        clave = int(clave)
         keys = list(usuarios[0].keys())
         if clave < 0 or clave >= len(keys):
             print(ROJO + "Clave de búsqueda inválida" + RESET)
@@ -65,7 +67,8 @@ def Encontrar_diccionario(busqueda, usuarios, clave, encabezado=None):
     resultado = []
     
     # si busqueda es numérica o un entero, comparar por igualdad
-    if isinstance(busqueda, int) or (isinstance(busqueda, str) and busqueda.isdigit()):
+    bstr = str(busqueda)
+    if bstr.isnumeric():
         bstr = str(busqueda)
         for item in usuarios:
             if str(item.get(key)) == bstr:

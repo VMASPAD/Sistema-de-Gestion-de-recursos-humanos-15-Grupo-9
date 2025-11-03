@@ -123,29 +123,34 @@ def EditarEmpleado():
     print('2. Telefono')
     print('3. Posición')
     print('4. Area')
-    print('5. Fecha de ingreso')
-    print('6. Fecha de nacimiento')
+    print('5. Alta Lógica')
+    print('6. Fecha de ingreso')
+    print('7. Fecha de nacimiento')
     print('0. Volver')
     campo = Ingresar_Numero("Seleccione el campo a editar (1-7): ")
     match campo:
         case 1:
             nuevo_valor = input("Ingrese el nuevo nombre y apellido: ").strip().capitalize()
-            editar_entidad_archivo(archivos[0], index, campo, nuevo_valor)
+            editar_entidad_archivo(archivos[0], index, campo, 0, nuevo_valor)
         case 2:
             nuevo_valor = verificar_telefono()
-            editar_entidad_archivo(archivos[0], index, campo, nuevo_valor)
+            editar_entidad_archivo(archivos[0], index, campo, 0, nuevo_valor)
         case 3:
             nuevo_valor = input("Ingrese la nueva posición: ").strip().capitalize()
-            editar_entidad_archivo(archivos[0], index, campo, nuevo_valor)
+            editar_entidad_archivo(archivos[0], index, campo, 0, nuevo_valor)
         case 4:
             nuevo_valor = input("Ingrese la nueva area: ").strip().capitalize()
-            editar_entidad_archivo(archivos[0], index, campo, nuevo_valor)
+            editar_entidad_archivo(archivos[0], index, campo, 0, nuevo_valor)
         case 5:
-            nuevo_valor = Ingresar_Fecha("fecha de ingreso")
-            editar_entidad_archivo(archivos[0], index, campo + 1, nuevo_valor)
+            editado = editar_entidad_archivo(archivos[0], index, campo, 0, "Activo")
+            if editado:
+                editar_entidad_archivo(archivos[2], index, 4, 1, "Activo")
         case 6:
+            nuevo_valor = Ingresar_Fecha("fecha de ingreso")
+            editar_entidad_archivo(archivos[0], index, campo, 0, nuevo_valor)
+        case 7:
             nuevo_valor = Ingresar_Fecha("fecha de nacimiento")
-            editar_entidad_archivo(archivos[0], index, campo + 1, nuevo_valor)
+            editar_entidad_archivo(archivos[0], index, campo, 0, nuevo_valor)
         case 0:
             print("\n volviendo...")
         case _:
