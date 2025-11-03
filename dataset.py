@@ -118,5 +118,6 @@ historial_operaciones = [
 archivos = [
     r'matrices/empleados.txt',
     r'matrices/areas.txt',
-    r'matrices/licencias.txt'
+    r'matrices/licencias.txt',
+    r'matrices/justificaciones.txt'
 ]
