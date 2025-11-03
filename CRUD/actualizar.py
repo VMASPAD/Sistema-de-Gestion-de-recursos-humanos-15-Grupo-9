@@ -3,7 +3,7 @@ from dataset import archivos
 from CRUD.eliminar import Modificar_cantidad_area
 #Funciones 
 def editar_entidad_archivo(archivo, entidad, columna,columna_id, edicion):
-    copia = r'matrices/copia.txt'
+    copia = r'matrices/copia.csv'
     encontrado = False
     cantidad = False
     if archivo == archivos[0]:
@@ -16,8 +16,12 @@ def editar_entidad_archivo(archivo, entidad, columna,columna_id, edicion):
     try:
         arch = open(archivo, 'rt', encoding='UTF-8') 
         cop = open(copia, 'wt', encoding='UTF-8') 
-
+        skip = True
         for linea in arch:
+            if skip:
+                skip = False
+                cop.write(linea)
+                continue
             datos = linea.strip().split(",")
             id = int(datos[columna_id])
 
@@ -41,6 +45,10 @@ def editar_entidad_archivo(archivo, entidad, columna,columna_id, edicion):
         print(f"No se pudo editar {ent}:", error) 
     except AssertionError:
         print(f"{ent} ya se encuentra activo")
+    except IndexError:
+        print("Archivo vacío")
+    except:
+        print("Error!")
     finally:
         try:
             arch.close()

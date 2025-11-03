@@ -27,8 +27,12 @@ def eliminar_entidad_archivo(archivo, empleado, columna_id, columna):
     try:
         arch = open(archivo, 'rt', encoding='UTF-8') 
         cop = open(copia, 'wt', encoding='UTF-8') 
-
+        skip = True
         for linea in arch:
+            if skip:
+                skip = False
+                cop.write(linea)
+                continue
             datos = linea.strip().split(",")
             id = int(datos[columna_id])
 
@@ -55,6 +59,10 @@ def eliminar_entidad_archivo(archivo, empleado, columna_id, columna):
         print("No se pudo editar al empleado:", error)
     except AssertionError:
         print(f"{ent} ya se encontraba Inactivo")
+    except IndexError:
+        print("Archivo vacío")
+    except:
+        print("Error!")
     finally:
         try:
             arch.close()
@@ -84,8 +92,13 @@ def formateado_recursivo(lista, nl):
         return nl
 def Modificar_cantidad_area(operacion, area): #True : Sumar // False : Restar
     try: 
-        with open(r"matrices/areas.txt", 'r', encoding='UTF-8') as arch, open(r'matrices/copia2.txt', 'w', encoding='UTF-8') as copia:
+        with open(r"matrices/areas.csv", 'r', encoding='UTF-8') as arch, open(r'matrices/copia2.csv', 'w', encoding='UTF-8') as copia:
+            skip = True
             for linea in arch:
+                if skip:
+                    skip = False
+                    copia.write(linea)
+                    continue
                 datos = linea.strip().split(",")
                 id_area = int(datos[0])
                 if id_area == area:
@@ -108,9 +121,13 @@ def Modificar_cantidad_area(operacion, area): #True : Sumar // False : Restar
         print("No se encontró el archivo")
     except OSError as error:
         print("Ocurrió un error: ", error)
+    except IndexError:
+        print("Archivo vacío")
+    except:
+        print("Error!")
     try: 
-        os.remove(r"matrices/areas.txt")
-        os.rename(r'matrices/copia2.txt', r"matrices/areas.txt")
+        os.remove(r"matrices/areas.csv")
+        os.rename(r'matrices/copia2.csv', r"matrices/areas.csv")
     except OSError:
         print("No se pudo eliminar el archivo")
                     

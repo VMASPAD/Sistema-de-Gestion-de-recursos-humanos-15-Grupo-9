@@ -1,6 +1,6 @@
 id,nombre,cantidad,estado
-0,Staff,0,Activo
-1,Produccion,2,Activo
+0,Staff,2,Activo
+1,Produccion,3,Activo
 2,Mantenimiento,2,Activo
 3,Calidad,2,Activo
 4,Logistica y Deposito,2,Activo

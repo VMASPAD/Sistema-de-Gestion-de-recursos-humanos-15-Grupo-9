@@ -113,12 +113,17 @@ def impresion_recursiva(lista, i):
 def encontrar_elemento(valor, archivo, columna, encabezado):
     try:
         with open(archivo, 'r', encoding='UTF-8') as datos:
+            skip = True
             lineas = datos.readline().strip()
             encontrado = False
             print(AZUL + "="*185 + RESET)
             Imprimir_Encabezados(encabezado)
             print(AZUL + "-"*185 + RESET)
             while lineas:
+                if skip:
+                    skip = False
+                    lineas = datos.readline().strip()
+                    continue
                 columnas = lineas.strip().split(",")
                 valor = str(valor)
                 busqueda = str(columnas[columna]).lower()

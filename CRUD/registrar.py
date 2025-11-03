@@ -1,6 +1,6 @@
 
 import re
-from dataset import justificaciones, empleados, areas
+from dataset import justificaciones, empleados, areas, archivos
 from idGenerator import generar_id
 VERDE = '\033[92m'
 ROJO = '\033[91m'
@@ -110,11 +110,19 @@ def obtener_ultimo_codigo(archivo):
     ultimo_codigo = "0"
     try:
         with open(archivo, "rt", encoding="UTF-8") as arch:
+            skip = True
             for linea in arch:
+                if skip:
+                    skip = False
+                    continue
                 datos = linea.strip().split(",")
                 ultimo_codigo = datos[0]
     except FileNotFoundError:
         pass  # Si no existe el archivo, empezamos desde cero
+    except IndexError:
+        print("Archivo vacío")
+    except:
+        print("Error!")
     return ultimo_codigo
 
 
