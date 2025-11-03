@@ -57,7 +57,6 @@ def BuscarEmpleado():
             busqueda = busqueda.lower()
             encontrar_elemento(busqueda, archivos[0], 1, 0)
         case 3: 
-            Imprimir_Opciones(areas, 1)
             busqueda = Ingresar_Numero(MAGENTA + "Ingrese el numero de area a buscar: " + RESET)
             encontrar_elemento(busqueda, archivos[0], 4, 0)
         case 4:

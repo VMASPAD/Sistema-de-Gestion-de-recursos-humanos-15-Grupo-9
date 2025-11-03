@@ -167,6 +167,14 @@ def Mostrar_historial_operaciones(historial):
         print()
         print(AZUL + "-"*170 + RESET)
 
+def impresion_recursiva_formateada(columnas, encabezado, i=0):
+    if len(columnas) > 0:
+        impresion = Reemplazo_Id_Valor(columnas[0], i)
+        if encabezado == 0:
+            impresion = Formato(impresion)
+        print(str(impresion).ljust(23), end="\t")
+        impresion_recursiva_formateada(columnas[1:], encabezado, i + 1)
+
 def imprimir_archivo(archivo, encabezado):
     try:
         with open(archivo, 'r', encoding='UTF-8') as datos:
@@ -176,11 +184,12 @@ def imprimir_archivo(archivo, encabezado):
             print(AZUL + "-"*185 + RESET)
             while lineas:
                 columnas = lineas.strip().split(";")
-                for col in range(len(columnas)):
-                    impresion = Reemplazo_Id_Valor(columnas[col], col)
-                    if encabezado == 0:
-                        impresion = Formato(impresion)
-                    print(str(impresion).ljust(23), end="\t")
+                # for col in range(len(columnas)):
+                #     impresion = Reemplazo_Id_Valor(columnas[col], col)
+                #     if encabezado == 0:
+                #         impresion = Formato(impresion)
+                #     print(str(impresion).ljust(23), end="\t")
+                impresion_recursiva_formateada(columnas, encabezado)
 
                 print()
                 print(AZUL + "-"*185 + RESET)

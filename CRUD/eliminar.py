@@ -71,6 +71,14 @@ def eliminar_entidad_archivo(archivo, empleado, columna_id, columna):
             print("Error al eliminar el archivo")
     return encontrado
 
+def formateado_recursivo(lista, nl): 
+    if len(lista) > 0:
+        nl += ";" + str(lista[0])
+        nl = formateado_recursivo(lista[1:], nl)
+        return nl
+    else:
+        print(nl)
+        return nl
 def Modificar_cantidad_area(operacion, area): #True : Sumar // False : Restar
     try: 
         with open(r"matrices/areas.txt", 'r', encoding='UTF-8') as arch, open(r'matrices/copia2.txt', 'w', encoding='UTF-8') as copia:
@@ -83,11 +91,13 @@ def Modificar_cantidad_area(operacion, area): #True : Sumar // False : Restar
                     else:
                         datos[2] = int(datos[2]) - 1
                     nueva_linea = str(datos[0])
-                    for i in range(len(datos)):
-                        if i == 0:
-                            continue
-                        else:
-                            nueva_linea += ";" + str(datos[i])
+                    # for i in range(len(datos)):
+                    #     if i == 0:
+                    #         continue
+                    #     else:
+                    #         nueva_linea += ";" + str(datos[i])
+                    nueva_linea = formateado_recursivo(datos[1:], nueva_linea)
+                    print(nueva_linea)
                     nueva_linea += "\n"
                     copia.write(nueva_linea)
                 else:

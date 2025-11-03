@@ -100,6 +100,13 @@ def Encontrar_diccionario(busqueda, usuarios, clave, encabezado=None):
     print(AZUL + "="*170 + RESET)
     print()
 
+def impresion_recursiva(lista, i):
+    if len(lista)>0:
+        impresion = Reemplazo_Id_Valor(lista[0], i)
+        print(str(impresion).ljust(23), end="\t")
+        impresion_recursiva(lista[1:], i + 1)
+
+
 def encontrar_elemento(valor, archivo, columna, encabezado):
     try:
         with open(archivo, 'r', encoding='UTF-8') as datos:
@@ -116,9 +123,10 @@ def encontrar_elemento(valor, archivo, columna, encabezado):
                     busqueda = [busqueda]
                 if valor in busqueda:
                     encontrado = True
-                    for col in range(len(columnas)):
-                        impresion = Reemplazo_Id_Valor(columnas[col], col)
-                        print(str(impresion).ljust(23), end="\t")
+                    # for col in range(len(columnas)):
+                    #     impresion = Reemplazo_Id_Valor(columnas[col], col)
+                    #     print(str(impresion).ljust(23), end="\t")
+                    impresion_recursiva(columnas, 0)
                     print()
                 lineas = datos.readline().strip()
             if not encontrado:
