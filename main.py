@@ -124,7 +124,7 @@ def Menu():
                                     else: print(ROJO + "No tiene permisos para realizar esta accion" + RESET)
                                 case 3:
                                     if nivel_acceso == 2:
-                                        modulo_empleados.RegistrarEmpleado(r"matrices/empleados.txt")
+                                        modulo_empleados.RegistrarEmpleado(r"matrices/empleados.csv")
                                     else: print(ROJO + "No tiene permisos para realizar esta accion" + RESET)
                                 case 4:
                                     if nivel_acceso == 2:

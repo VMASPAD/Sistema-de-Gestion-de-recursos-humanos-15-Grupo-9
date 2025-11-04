@@ -98,8 +98,13 @@ def Buscar_id_archivo(archivo, id):
     try: 
         with open(archivo, 'r', encoding='UTF-8') as arch:
             encontrado = False
+            skip = True
             lineas = arch.readline().strip()
             while lineas:
+                if skip:
+                    skip = False
+                    lineas = arch.readline().strip()
+                    continue
                 columnas = lineas.strip().split(",")
                 if int(columnas[0]) == id:
                     impresion = columnas[1]
@@ -120,11 +125,11 @@ def Reemplazo_Id_Valor(id, reemplazar):
         columna = reemplazar
         match columna:
             case 1:
-                valor = Buscar_id_archivo(r'./matrices/empleados.txt', id)
+                valor = Buscar_id_archivo(r'./matrices/empleados.csv', id)
             case 3:
                 valor = justificaciones[id][1]
             case 4:
-                valor = Buscar_id_archivo(r'./matrices/areas.txt', id)
+                valor = Buscar_id_archivo(r'./matrices/areas.csv', id)
             case _:
                 valor = id
 
@@ -178,12 +183,17 @@ def impresion_recursiva_formateada(columnas, encabezado, i=0):
 
 def imprimir_archivo(archivo, encabezado):
     try:
+        skip = True
         with open(archivo, 'r', encoding='UTF-8') as datos:
             lineas = datos.readline().strip()
             print(AZUL + "="*185 + RESET)
             Imprimir_Encabezados(encabezado)
             print(AZUL + "-"*185 + RESET)
             while lineas:
+                if skip:
+                    skip = False
+                    lineas = datos.readline().strip()
+                    continue
                 columnas = lineas.strip().split(",")
                 # for col in range(len(columnas)):
                 #     impresion = Reemplazo_Id_Valor(columnas[col], col)

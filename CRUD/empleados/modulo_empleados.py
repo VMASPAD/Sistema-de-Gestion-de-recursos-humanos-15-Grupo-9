@@ -12,7 +12,7 @@ from estadisticas import cantidad_empleados, porcentaje_empleados_activos, canti
 from CRUD.registrar import Ingresar_Fecha, verificar_telefono, Ingresar_Numero, agregar_entidad_archivo, obtener_ultimo_codigo
 from CRUD.buscador import encontrar_elemento
 from CRUD.actualizar import editar_entidad_archivo
-from CRUD.eliminar import eliminar_entidad_archivo
+from CRUD.eliminar import eliminar_entidad_archivo, Modificar_cantidad_area
 from dataset import archivos
 #Funciones 
 
@@ -31,6 +31,7 @@ def RegistrarEmpleado(archivo):
     ok = agregar_entidad_archivo(archivo, fila)
     if ok:
         print(f"Se agrego el empleado {nombre_empleado + " " + apellido_empleado} exitosamente!")
+        Modificar_cantidad_area(True, num_area_empleado)
     else:
         print("No se pudo registrar al empleado")
 

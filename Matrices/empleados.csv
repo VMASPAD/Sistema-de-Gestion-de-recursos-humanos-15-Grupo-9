@@ -1,7 +1,7 @@
-id,nombre_apellido,telefono,posicion,area,estado,fecha_ingreso,fecha_nacimiento
-0,Juanceto01,+541112345678,Operario,1,Activo,2019-03-15,1987-06-12
-1,Juan Perez,+541187654321,Operario,1,Activo,2019-03-15,1987-06-12
-2,Maria Gonzalez,+541198765432,Tecnica,2,Activo,2020-07-01,1991-04-23
+id,N/A,Telefono,Posición,id_Area,Estado,F_ingreso,F_nacimiento
+0,Juanceto01,+541112345678,Operario,1,Activo,2019-3-15,1987-6-12
+1,Juan Perez,+541187654321,Operario,1,Activo,2019-3-15,1987-6-12
+2,Maria Gonzalez,+541198765432,Tecnica,2,Activo,2020-7-1,1991-4-23
 3,Lucas Fernandez,+541143216789,Analista,3,Activo,2021-01-10,1995-09-18
 4,Carla Rodriguez,+541154329876,Administrativa,5,Activo,2018-11-05,1989-11-02
 5,Martin Sosa,+541165498732,Operario,4,Activo,2022-02-20,1994-01-30
@@ -14,3 +14,5 @@ id,nombre_apellido,telefono,posicion,area,estado,fecha_ingreso,fecha_nacimiento
 12,Antonella Benitez,+541154329871,Especialista,3,Activo,2019-01-14,1993-02-28
 13,Julian Medina,+541165498721,Encargado,6,Activo,2018-05-22,1986-10-10
 14,Camila Torres,+541176543218,HR Generalist,8,Activo,2022-08-08,1997-03-03
+15,Carlos Tevez,+541110329093,Meh,0,Activo,2020-12-24,2000-11-26
+16,Lisandro Lopez,+541162172321,Ceo,0,Activo,2015-12-11,1981-1-10

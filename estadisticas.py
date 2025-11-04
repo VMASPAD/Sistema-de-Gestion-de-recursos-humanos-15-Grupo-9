@@ -32,8 +32,12 @@ def cantidad_empleados():
     activos = 0
     inactivos = 0
     try:
-        with open(r'matrices/empleados.txt', 'r', encoding='UTF-8') as arch:
+        with open(r'matrices/empleados.csv', 'r', encoding='UTF-8') as arch:
+            skip = True
             for lineas in arch:
+                if skip:
+                    skip = False
+                    continue
                 linea = lineas.strip().split(",")
                 estado = linea[5]
                 match estado:
@@ -71,8 +75,12 @@ def porcentaje_empleados_activos(activos, inactivos):
 
 def cantidad_empleados_area():
     try:
-        with open(r'matrices/areas.txt', 'r', encoding="UTF-8") as arch:
+        with open(r'matrices/areas.csv', 'r', encoding="UTF-8") as arch:
+            skip = True
             for lineas in arch:
+                if skip:
+                    skip = False
+                    continue
                 linea = lineas.strip().split(",")
                 nomArea = linea[1]
                 cantidad = linea[2]
@@ -91,7 +99,11 @@ def promedio_de_edad():
     fechas = []
     try:
         with open(archivos[0], 'r', encoding='UTF-8') as arch:
+            skip = True
             for lineas in arch:
+                if skip:
+                    skip = False
+                    continue
                 linea = lineas.strip().split(",")
                 fechas.append(linea[-1])
 
@@ -105,7 +117,7 @@ def promedio_de_edad():
     if edades:
         suma = reduce(lambda x, y: x + y, edades)
         promedio = suma / len(edades) 
-        print("El promedio de edad es de: ", promedio)
+        print(f"El promedio de edad es de: {promedio:.2f}")
     else:
         print("No se puede hacer promedio por falta de empleados")
 
