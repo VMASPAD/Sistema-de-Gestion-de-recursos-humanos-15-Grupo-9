@@ -1,10 +1,36 @@
 import pytest
+import json
 from idGenerator import generar_id
 from CRUD.registrar import Ingresar_Numero
 from CRUD.buscador import Id_Empleado
-from dataset import usuarios, empleados
 from account import userLog
 from sign_up import generar_contraseña
+
+# Funciones auxiliares para leer archivos
+def leer_usuarios():
+    try:
+        with open("dataset/usuarios.json", "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+
+def leer_empleados():
+    empleados = []
+    try:
+        with open("Matrices/empleados.csv", "r", encoding="utf-8") as f:
+            next(f, None)
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                datos = line.split(",")
+                if len(datos) >= 6:
+                    datos[0] = int(datos[0]) if datos[0].isdigit() else datos[0]
+                    datos[4] = int(datos[4]) if datos[4].isdigit() else datos[4]
+                empleados.append(datos)
+    except FileNotFoundError:
+        pass
+    return empleados
 
 @pytest.fixture
 def cuenta():
@@ -20,7 +46,7 @@ def cuenta2():
 
 def test_generar_id():
     #Arrange
-    matriz = usuarios
+    matriz = leer_usuarios()
     #Act
     id = generar_id(matriz)
     #Assert
@@ -35,6 +61,7 @@ def test_ingreso_num():
 
 def test_userlog(cuenta, cuenta2):
     #Arrange
+    usuarios = leer_usuarios()
     user, password = cuenta
     user2, password2 = cuenta2
 
@@ -56,9 +83,8 @@ def test_generar_contraseña():
 
 def test_id_empleado():
     #Arrange 
-    matriz = empleados
     empleado = "Martin Sosa"
     #Act 
-    id = Id_Empleado(matriz, empleado)
+    id = Id_Empleado(empleado)
     #Assert
     assert id == 5

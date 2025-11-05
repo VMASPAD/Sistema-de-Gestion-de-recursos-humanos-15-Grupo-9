@@ -8,7 +8,36 @@ CIAN = '\033[96m'
 RESET = '\033[0m'
 
 import re
-from dataset import empleados, areas, justificaciones, licencias, historial_operaciones, usuarios, archivos
+import json
+from config import CSV_EMPLEADOS, CSV_AREAS, CSV_LICENCIAS, CSV_JUSTIFICACIONES, JSON_USUARIOS
+
+# Funciones auxiliares para leer archivos
+
+def leer_justificaciones_csv():
+    """Lee el archivo justificaciones.csv y retorna una lista de listas."""
+    justificaciones = []
+    try:
+        with open(CSV_JUSTIFICACIONES, "r", encoding="utf-8") as f:
+            next(f, None)  # Saltar header
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                datos = line.split(",")
+                datos[0] = int(datos[0]) if datos[0].isdigit() else datos[0]
+                justificaciones.append(datos)
+    except FileNotFoundError:
+        pass
+    return justificaciones
+
+def leer_usuarios_json():
+    """Lee el archivo usuarios.json y retorna la lista de usuarios."""
+    try:
+        with open(JSON_USUARIOS, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+
 #Funciones 
 def Imprimir_Opciones(matriz, columna):
     print()
@@ -125,11 +154,12 @@ def Reemplazo_Id_Valor(id, reemplazar):
         columna = reemplazar
         match columna:
             case 1:
-                valor = Buscar_id_archivo(r'./matrices/empleados.csv', id)
+                valor = Buscar_id_archivo(CSV_EMPLEADOS, id)
             case 3:
-                valor = justificaciones[id][1]
+                justificaciones = leer_justificaciones_csv()
+                valor = justificaciones[id][1] if id < len(justificaciones) else str(id)
             case 4:
-                valor = Buscar_id_archivo(r'./matrices/areas.csv', id)
+                valor = Buscar_id_archivo(CSV_AREAS, id)
             case _:
                 valor = id
 
@@ -137,7 +167,11 @@ def Reemplazo_Id_Valor(id, reemplazar):
     else:
         return id
 
-def Imprimir_Diccionario_Ordenada(usuarios, clave):
+def Imprimir_Diccionario_Ordenada(clave):
+    usuarios = leer_usuarios_json()
+    if not usuarios:
+        print(AMARILLO + "No hay usuarios para mostrar" + RESET)
+        return
     usuarios.sort(key=lambda x: x[clave])
     print(AZUL + "="*170 + RESET)
     for i in usuarios[0].keys():
@@ -211,4 +245,5 @@ def imprimir_archivo(archivo, encabezado):
     return
 
 if __name__ == "__main__":
-    Imprimir_Matriz_Ordenada(empleados, 0, lambda fila: fila[0])
+    # Ejemplo: imprimir archivo de empleados
+    imprimir_archivo(CSV_EMPLEADOS, 0)

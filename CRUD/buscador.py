@@ -7,8 +7,24 @@ MAGENTA = '\033[95m'
 CIAN = '\033[96m'
 RESET = '\033[0m'
 
+import json
 from impresion import Imprimir_Encabezados, Reemplazo_Id_Valor
-from dataset import usuarios, empleados
+from CRUD.csv_utils import leer_csv
+
+# Funciones auxiliares locales
+
+def leer_usuarios_json():
+    """Lee el archivo usuarios.json y retorna la lista de usuarios."""
+    try:
+        with open("dataset/usuarios.json", "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print(AMARILLO + "Advertencia: dataset/usuarios.json no existe." + RESET)
+        return []
+
+def leer_empleados_csv():
+    """Lee el archivo empleados.csv y retorna una lista de listas."""
+    return leer_csv("Matrices/empleados.csv", skip_header=True, convertir_numeros=[0, 4])
 #Funciones 
 
 def Encontrar(valor, matriz, columna, encabezado):
@@ -36,7 +52,8 @@ def Encontrar(valor, matriz, columna, encabezado):
     if not existe: print(ROJO + "No se encontro" + RESET), print(AZUL + "-"*185 + RESET)
     print(AZUL + "="*185 + RESET)
 
-def Id_Empleado(empleados, empleado):
+def Id_Empleado(empleado):
+    empleados = leer_empleados_csv()
     emp = empleado.lower()
     id = bool([empleado[0] for empleado in empleados if emp in empleado[1].lower()])
     while not id:
@@ -46,7 +63,8 @@ def Id_Empleado(empleados, empleado):
     id = [empleado[0] for empleado in empleados if emp in empleado[1].lower()][0]
     return id
 
-def Encontrar_diccionario(busqueda, usuarios, clave, encabezado=None):
+def Encontrar_diccionario(busqueda, clave, encabezado=None):
+    usuarios = leer_usuarios_json()
     if not usuarios:
         print(ROJO + "No hay datos para buscar" + RESET)
         return

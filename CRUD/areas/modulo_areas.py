@@ -12,13 +12,58 @@ from impresion import Imprimir_Matriz_Ordenada
 from estadisticas import promedio_empleados_por_area
 from CRUD.registrar import Ingresar_Numero, verificar_area
 from CRUD.buscador import Encontrar
-from CRUD.eliminar import Eliminar_ClaveForanea
-from dataset import empleados, licencias
+from config import CSV_AREAS, CSV_EMPLEADOS, CSV_LICENCIAS
 
-# Constantes
-CSV_AREAS = "Matrices/areas.csv"
-CSV_EMPLEADOS = "Matrices/empleados.csv"
-CSV_LICENCIAS = "Matrices/licencias.csv"
+def obtener_ultimo_id_csv(archivo_csv):
+    """
+    Obtiene el último ID del archivo CSV sin cargar todo en memoria.
+    Lee línea por línea y retorna el ID máximo encontrado.
+    """
+    max_id = -1
+    try:
+        with open(archivo_csv, "r", encoding="utf-8") as f:
+            next(f, None)  # Saltar header
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                id_str = line.split(",")[0]
+                if id_str.isdigit():
+                    max_id = max(max_id, int(id_str))
+    except FileNotFoundError:
+        return -1
+    except (PermissionError, IOError, OSError):
+        return -1
+    return max_id
+
+
+def buscar_en_csv_linea_por_linea(archivo_csv, valor_busqueda, columna_index, skip_header=True):
+    """
+    Busca un valor en el CSV procesando línea por línea sin cargar todo.
+    Retorna la línea completa si la encuentra, None si no.
+    """
+    try:
+        with open(archivo_csv, "r", encoding="utf-8") as f:
+            if skip_header:
+                next(f, None)
+            
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                datos = line.split(",")
+                if len(datos) > columna_index:
+                    # Convertir a int si es numérico
+                    valor_col = int(datos[columna_index]) if datos[columna_index].isdigit() else datos[columna_index]
+                    if valor_col == valor_busqueda or str(valor_col).lower() == str(valor_busqueda).lower():
+                        # Convertir campos numéricos antes de retornar
+                        datos[0] = int(datos[0]) if datos[0].isdigit() else datos[0]
+                        if len(datos) > 2:
+                            datos[2] = int(datos[2]) if datos[2].isdigit() else datos[2]
+                        return datos
+    except (FileNotFoundError, PermissionError, IOError, OSError) as e:
+        print(ROJO + f"Error al buscar en {archivo_csv}: {e}" + RESET)
+    return None
 
 
 def leer_areas_csv(skip_header=True):
@@ -180,33 +225,45 @@ def escribir_licencias_csv(licencias_data, incluir_header=True):
         print(ROJO + f"Error al escribir en {CSV_LICENCIAS}: {e}" + RESET)
         raise
 
-#===============================================
-# Funciones CRUD
-#=============================================== 
 
 #Registrar Area
 def RegistrarArea():
-    """Registra una nueva área en el archivo CSV."""
+    """
+    Registra una nueva área en el archivo CSV.
+    Lee el archivo existente, agrega la nueva área y reescribe todo.
+    Usa solo modos 'r' y 'w' como se requiere.
+    """
     try:
-        # Leer áreas existentes
-        areas = leer_areas_csv(skip_header=True)
-        
         # Obtener datos de la nueva área
         nombre_area = verificar_area()
         cantidad_empleados = 0
         
-        # Generar ID y crear nueva área
-        nuevo_id = generar_id(areas)
-        nueva_area = [nuevo_id, nombre_area, cantidad_empleados, "Activo"]
-        areas.append(nueva_area)
+        # Generar ID obteniendo el último ID sin cargar todo el archivo
+        ultimo_id = obtener_ultimo_id_csv(CSV_AREAS)
+        nuevo_id = ultimo_id + 1
         
-        # Escribir todas las áreas de vuelta al CSV
-        escribir_areas_csv(areas, incluir_header=True)
+        # Crear nueva área
+        nueva_area = [nuevo_id, nombre_area, cantidad_empleados, "Activo"]
+        
+        # Leer contenido existente
+        lineas_existentes = []
+        try:
+            with open(CSV_AREAS, "r", encoding="utf-8") as f:
+                lineas_existentes = f.readlines()
+        except FileNotFoundError:
+            # Si no existe, crear con header
+            lineas_existentes = ["id,nombre,cantidad,estado\n"]
+        
+        # Escribir todo de vuelta incluyendo la nueva área
+        with open(CSV_AREAS, "w", encoding="utf-8") as f:
+            for linea in lineas_existentes:
+                f.write(linea)
+            f.write(f"{nueva_area[0]},{nueva_area[1]},{nueva_area[2]},{nueva_area[3]}\n")
         
         print(VERDE + f"Area {nombre_area} registrada con exito!" + RESET)
-        return areas
+        return nueva_area
         
-    except Exception as e:
+    except (PermissionError, IOError, OSError) as e:
         print(ROJO + f"Error al registrar área: {e}" + RESET)
         return None
 
@@ -214,6 +271,7 @@ def EstadisticasAreas():
     """Muestra estadísticas de áreas leyendo desde CSV."""
     try:
         areas = leer_areas_csv(skip_header=True)
+        empleados = leer_empleados_csv(skip_header=True)
         
         print(AZUL + "="*43 + RESET)
         print(AZUL + "MENU PRINCIPAL -> AREAS -> ESTADISTICAS" + RESET)
@@ -241,9 +299,6 @@ def EstadisticasAreas():
 def BuscarArea():
     """Busca áreas en el archivo CSV por diferentes criterios."""
     try:
-        # Leer áreas desde CSV
-        areas = leer_areas_csv(skip_header=True)
-        
         print(AZUL + "MENU PRINCIPAL -> AREAS -> BUSCADOR" + RESET)
         print(AZUL + "="*34 + RESET)
         print(CIAN + "| Opciones:".ljust(33) + "|" + RESET)
@@ -256,13 +311,25 @@ def BuscarArea():
         print()
         match opcion:
             case 1:
+                # Búsqueda optimizada línea por línea (sin cargar todo)
                 busqueda = Ingresar_Numero(MAGENTA + "Ingrese el Id a buscar: " + RESET)
-                Encontrar(busqueda, areas, 0, 1)
+                resultado = buscar_en_csv_linea_por_linea(CSV_AREAS, busqueda, 0, skip_header=True)
+                if resultado:
+                    print(VERDE + f"Área encontrada: ID={resultado[0]}, Nombre={resultado[1]}, Cantidad={resultado[2]}, Estado={resultado[3]}" + RESET)
+                else:
+                    print(AMARILLO + "Área no encontrada." + RESET)
             case 2:
+                # Búsqueda optimizada línea por línea (sin cargar todo)
                 busqueda = input(MAGENTA + "Ingrese el nombre a buscar: " + RESET)
                 busqueda = busqueda.lower()
-                Encontrar(busqueda, areas, 1, 1)
+                resultado = buscar_en_csv_linea_por_linea(CSV_AREAS, busqueda, 1, skip_header=True)
+                if resultado:
+                    print(VERDE + f"Área encontrada: ID={resultado[0]}, Nombre={resultado[1]}, Cantidad={resultado[2]}, Estado={resultado[3]}" + RESET)
+                else:
+                    print(AMARILLO + "Área no encontrada." + RESET)
             case 3:
+                # Para mostrar todas, necesitamos cargar en memoria (para ordenar)
+                areas = leer_areas_csv(skip_header=True)
                 key = lambda fila : fila[0]
                 Imprimir_Matriz_Ordenada(areas, 1, key)
             case 4:

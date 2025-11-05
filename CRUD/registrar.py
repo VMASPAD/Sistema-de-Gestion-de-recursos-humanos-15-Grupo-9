@@ -1,7 +1,9 @@
 
 import re
-from dataset import justificaciones, empleados, areas, archivos
 from idGenerator import generar_id
+from config import CSV_AREAS, CSV_EMPLEADOS, CSV_LICENCIAS, CSV_JUSTIFICACIONES
+from CRUD.csv_utils import leer_csv, obtener_ultimo_id, agregar_linea_csv
+
 VERDE = '\033[92m'
 ROJO = '\033[91m'
 AMARILLO = '\033[93m'
@@ -10,11 +12,36 @@ MAGENTA = '\033[95m'
 CIAN = '\033[96m'
 RESET = '\033[0m'
 
+# Funciones auxiliares para leer archivos
+
+def leer_justificaciones_csv():
+    """Lee el archivo justificaciones.csv y retorna una lista de listas."""
+    return leer_csv(CSV_JUSTIFICACIONES, skip_header=True, convertir_numeros=[0])
+
+def leer_areas_csv():
+    """Lee el archivo areas.csv y retorna una lista de listas."""
+    return leer_csv(CSV_AREAS, skip_header=True, convertir_numeros=[0, 2])
+
+def leer_empleados_csv():
+    """Lee el archivo empleados.csv y retorna una lista de listas."""
+    return leer_csv(CSV_EMPLEADOS, skip_header=True, convertir_numeros=[0, 4])
+
 
 # Funciones
 
 
 def Ingresar_Numero(mensaje, numero=None):
+    """
+    Solicita al usuario un número entero positivo.
+    Valida que sea un entero >= 0.
+    
+    Args:
+        mensaje: Texto a mostrar al usuario
+        numero: Número opcional para testing
+    
+    Returns:
+        int: Número entero positivo ingresado
+    """
     while True:
         try:
             #Esto es para poder probar la función en las pruebas unitarias
@@ -31,6 +58,14 @@ def Ingresar_Numero(mensaje, numero=None):
 
 
 def Eleccion_Justificacion():
+    """
+    Muestra las justificaciones disponibles y solicita al usuario que elija una.
+    Lee del archivo justificaciones.csv.
+    
+    Returns:
+        int: ID de la justificación seleccionada
+    """
+    justificaciones = leer_justificaciones_csv()
     print(AZUL + "Seleccione una justificacion:" + RESET)
     for justificacion in justificaciones:
         print(CIAN + f"{justificacion[0]} - {justificacion[1]}" + RESET)
@@ -39,6 +74,16 @@ def Eleccion_Justificacion():
 
 
 def Ingresar_Fecha(asunto):
+    """
+    Solicita al usuario una fecha válida (año, mes, día).
+    Valida el rango de cada componente y años bisiestos.
+    
+    Args:
+        asunto: Descripción de la fecha (ej: "el ingreso del empleado")
+    
+    Returns:
+        str: Fecha en formato AAAA-M-D
+    """
     año = Ingresar_Numero(MAGENTA + f"Ingrese el año (AAAA) de {asunto}: " + RESET)
     while año < 1930 or año > 2025:
         print("Ingrese un año valido")
@@ -66,7 +111,18 @@ def Ingresar_Fecha(asunto):
     return f"{año}-{mes}-{dia}"
 
 
-def Calcular_cantidad_empleados(empleados, area_id):
+def Calcular_cantidad_empleados(area_id):
+    """
+    Calcula la cantidad de empleados activos en un área específica.
+    Lee el archivo empleados.csv línea por línea.
+    
+    Args:
+        area_id: ID del área a consultar
+    
+    Returns:
+        int: Cantidad de empleados activos en el área
+    """
+    empleados = leer_empleados_csv()
     cantidad = 0
     for empleado in empleados:
         if empleado[4] == area_id and empleado[5] == "Activo":
@@ -75,6 +131,14 @@ def Calcular_cantidad_empleados(empleados, area_id):
 
 
 def verificar_area():
+    """
+    Solicita y valida el nombre de un área nueva.
+    Verifica que no exista ya en el sistema y que no esté vacío.
+    
+    Returns:
+        str: Nombre del área validado y capitalizado
+    """
+    areas = leer_areas_csv()
     nombres_areas = {areas[i][1].lower() for i in range(len(areas))}
     nombre_area = input(MAGENTA + "Ingrese el nombre del área: " + RESET).strip().lower()
     while nombre_area in nombres_areas or nombre_area == "":
@@ -88,6 +152,13 @@ def verificar_area():
 
 
 def verificar_telefono():
+    """
+    Solicita y valida un número de teléfono argentino.
+    Formato: +54 [código de área] [8 dígitos]
+    
+    Returns:
+        str: Teléfono formateado completo
+    """
     codigo_area = str(Ingresar_Numero(MAGENTA + "Ingrese el codigo de area (sin +54): " + RESET))
     telefono = str(Ingresar_Numero(MAGENTA + "Ingrese el telefono (los ultimos 8 digitos): " + RESET))
     patron = re.compile('[0-9]{8}')
@@ -107,41 +178,30 @@ def verificar_telefono():
     return telefono
 
 def obtener_ultimo_codigo(archivo):
-    ultimo_codigo = "0"
-    try:
-        with open(archivo, "rt", encoding="UTF-8") as arch:
-            skip = True
-            for linea in arch:
-                if skip:
-                    skip = False
-                    continue
-                datos = linea.strip().split(",")
-                ultimo_codigo = datos[0]
-    except FileNotFoundError:
-        pass  # Si no existe el archivo, empezamos desde cero
-    except IndexError:
-        print("Archivo vacío")
-    except:
-        print("Error!")
-    return ultimo_codigo
+    """
+    Obtiene el último código/ID del archivo CSV.
+    Usa csv_utils para evitar duplicación.
+    
+    Args:
+        archivo: Ruta del archivo CSV
+    
+    Returns:
+        str: Último código encontrado ("0" si no existe)
+    """
+    return str(obtener_ultimo_id(archivo))
 
 
 
 def agregar_entidad_archivo(archivo, columnas):
-    try:
-        with open(archivo, 'a', encoding='UTF-8') as arch:
-            nueva_fila = str(columnas[0])
-            for col in range(len(columnas)):
-                if col == 0:
-                    continue
-                else:
-                    nueva_fila += "," + str(columnas[col])
-            nueva_fila += "\n"
-            arch.write(nueva_fila)
-            ok = True
-            return ok
-    except OSError:
-        print("Error al registrar al empleado")
-        print(OSError)
-        ok = False
-        return ok
+    """
+    Agrega una nueva entidad al archivo CSV.
+    Usa csv_utils para reducir duplicación.
+    
+    Args:
+        archivo: Ruta del archivo CSV
+        columnas: Lista con los valores de cada columna de la nueva entidad
+    
+    Returns:
+        bool: True si se agregó exitosamente, False en caso de error
+    """
+    return agregar_linea_csv(archivo, columnas)

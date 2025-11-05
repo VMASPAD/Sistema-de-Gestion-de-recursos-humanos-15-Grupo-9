@@ -9,16 +9,24 @@ RESET = '\033[0m'
 
 from impresion import imprimir_archivo
 from estadisticas import cantidad_empleados, porcentaje_empleados_activos, cantidad_empleados_area, promedio_de_edad
-from CRUD.registrar import Ingresar_Fecha, verificar_telefono, Ingresar_Numero, agregar_entidad_archivo, obtener_ultimo_codigo
+from CRUD.registrar import Ingresar_Fecha, verificar_telefono, Ingresar_Numero, agregar_entidad_archivo
+from CRUD.csv_utils import obtener_ultimo_id
 from CRUD.buscador import encontrar_elemento
 from CRUD.actualizar import editar_entidad_archivo
 from CRUD.eliminar import eliminar_entidad_archivo, Modificar_cantidad_area
-from dataset import archivos
+from config import CSV_EMPLEADOS, CSV_AREAS, CSV_LICENCIAS
 #Funciones 
 
 #Registrar empleado
 def RegistrarEmpleado(archivo):
-    id = int(obtener_ultimo_codigo(archivo))
+    """
+    Registra un nuevo empleado en el sistema.
+    Solicita todos los datos necesarios y actualiza la cantidad del área.
+    
+    Args:
+        archivo: Ruta del archivo CSV donde se guardará el empleado
+    """
+    id = obtener_ultimo_id(archivo)
     id = id + 1 if id != 0 else 0
     nombre_empleado = input("Ingrese el nombre del empleado: ").strip().capitalize()
     apellido_empleado = input("Ingrese el apellido del empleado: ").strip().capitalize()
@@ -37,6 +45,10 @@ def RegistrarEmpleado(archivo):
 
 #Buscar empleado
 def BuscarEmpleado():
+    """
+    Menú interactivo para buscar empleados por diferentes criterios.
+    Permite buscar por ID, nombre/apellido, área, o mostrar todos los empleados.
+    """
     print(AZUL + "MENU PRINCIPAL -> EMPLEADOS -> BUSCADOR" + RESET)
     print(AZUL + "="*34 + RESET)
     print(CIAN + "| Opciones:".ljust(33) + "|" + RESET)
@@ -51,16 +63,16 @@ def BuscarEmpleado():
     match opcion: 
         case 1:
             busqueda = Ingresar_Numero(MAGENTA + "Ingrese el Id a buscar: " + RESET)
-            encontrar_elemento(busqueda, archivos[0], 0, 0)
+            encontrar_elemento(busqueda, CSV_EMPLEADOS, 0, 0)
         case 2:
             busqueda = input(MAGENTA + "Ingrese el nombre o apellido a buscar: " + RESET)
             busqueda = busqueda.lower()
-            encontrar_elemento(busqueda, archivos[0], 1, 0)
+            encontrar_elemento(busqueda, CSV_EMPLEADOS, 1, 0)
         case 3: 
             busqueda = Ingresar_Numero(MAGENTA + "Ingrese el numero de area a buscar: " + RESET)
-            encontrar_elemento(busqueda, archivos[0], 4, 0)
+            encontrar_elemento(busqueda, CSV_EMPLEADOS, 4, 0)
         case 4:
-            imprimir_archivo(archivos[0], 0)
+            imprimir_archivo(CSV_EMPLEADOS, 0)
 
             # print(CIAN + "="*34 + RESET)
             # print(CIAN + "| Opciones ascendentemente:".ljust(33) + "|" + RESET)
@@ -83,6 +95,13 @@ def BuscarEmpleado():
             #         Imprimir_Matriz_Ordenada(empleados, 0,  key)
 
 def EstadisticasEmpleados():
+    """
+    Muestra estadísticas sobre los empleados del sistema.
+    Incluye cantidad total, activos/inactivos, por área y promedio de edad.
+    
+    Returns:
+        int: 0 al finalizar
+    """
     print("="*43)
     print("MENU PRINCIPAL -> EMPLEADOS -> ESTADISTICAS")
     print("="*43)
@@ -117,6 +136,10 @@ def EstadisticasEmpleados():
     return 0
 #Editar empleado
 def EditarEmpleado():
+    """
+    Edita los datos de un empleado existente.
+    Permite modificar nombre, teléfono, posición, área, estado, o fechas.
+    """
     print("="*26)
     index = Ingresar_Numero("Escriba el id del empleado a editar:  ")
     print("Que campo quiere editar?")
@@ -132,26 +155,26 @@ def EditarEmpleado():
     match campo:
         case 1:
             nuevo_valor = input("Ingrese el nuevo nombre y apellido: ").strip().capitalize()
-            editar_entidad_archivo(archivos[0], index, campo, 0, nuevo_valor)
+            editar_entidad_archivo(CSV_EMPLEADOS, index, campo, 0, nuevo_valor)
         case 2:
             nuevo_valor = verificar_telefono()
-            editar_entidad_archivo(archivos[0], index, campo, 0, nuevo_valor)
+            editar_entidad_archivo(CSV_EMPLEADOS, index, campo, 0, nuevo_valor)
         case 3:
             nuevo_valor = input("Ingrese la nueva posición: ").strip().capitalize()
-            editar_entidad_archivo(archivos[0], index, campo, 0, nuevo_valor)
+            editar_entidad_archivo(CSV_EMPLEADOS, index, campo, 0, nuevo_valor)
         case 4:
             nuevo_valor = input("Ingrese la nueva area: ").strip().capitalize()
-            editar_entidad_archivo(archivos[0], index, campo, 0, nuevo_valor)
+            editar_entidad_archivo(CSV_EMPLEADOS, index, campo, 0, nuevo_valor)
         case 5:
-            editado = editar_entidad_archivo(archivos[0], index, campo, 0, "Activo")
+            editado = editar_entidad_archivo(CSV_EMPLEADOS, index, campo, 0, "Activo")
             if editado:
-                editar_entidad_archivo(archivos[2], index, 4, 1, "Activo")
+                editar_entidad_archivo(CSV_LICENCIAS, index, 4, 1, "Activo")
         case 6:
             nuevo_valor = Ingresar_Fecha("fecha de ingreso")
-            editar_entidad_archivo(archivos[0], index, campo, 0, nuevo_valor)
+            editar_entidad_archivo(CSV_EMPLEADOS, index, campo, 0, nuevo_valor)
         case 7:
             nuevo_valor = Ingresar_Fecha("fecha de nacimiento")
-            editar_entidad_archivo(archivos[0], index, campo, 0, nuevo_valor)
+            editar_entidad_archivo(CSV_EMPLEADOS, index, campo, 0, nuevo_valor)
         case 0:
             print("\n volviendo...")
         case _:
@@ -160,30 +183,23 @@ def EditarEmpleado():
     
 #Eliminar empleado
 def EliminarEmpleado():
+    """
+    Marca un empleado como "Inactivo" en el sistema.
+    También marca sus licencias como inactivas en cascada.
+    """
     print("="*26)
     empleadoEliminar = input("Escriba el id del empleado o escriba \"Lista\" para obtener la planilla: ").lower()
     if empleadoEliminar == "lista":
         print("Lista de empleados:")
-        imprimir_archivo(archivos[0], 0)
+        imprimir_archivo(CSV_EMPLEADOS, 0)
     elif empleadoEliminar.isnumeric():
         empleadoEliminar = int(empleadoEliminar)
-        eliminado = eliminar_entidad_archivo(archivos[0], empleadoEliminar, 0, 5)
+        eliminado = eliminar_entidad_archivo(CSV_EMPLEADOS, empleadoEliminar, 0, 5)
         if eliminado:
-            eliminar_entidad_archivo(archivos[2], empleadoEliminar, 1, 4)
+            eliminar_entidad_archivo(CSV_LICENCIAS, empleadoEliminar, 1, 4)
     else: 
         print("Ingrese una opción válida ")
         print()
              
-def obtener_ultimo_codigo(archivo):
-    ultimo_codigo = "0"
-    try:
-        with open(archivo, "rt", encoding="UTF-8") as arch:
-            for linea in arch:
-                datos = linea.strip().split(",")
-                ultimo_codigo = datos[0]
-    except FileNotFoundError:
-        pass  # Si no existe el archivo, empezamos desde cero
-    return ultimo_codigo
-
 if __name__ == "__main__":
     EstadisticasEmpleados()

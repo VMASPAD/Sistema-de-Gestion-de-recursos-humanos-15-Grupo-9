@@ -9,8 +9,8 @@ RESET = '\033[0m'
 
 import re 
 import json
-from dataset import usuarios
 from impresion import formato_dni
+from main import JSON_USUARIOS
 
 #Funciones
 def verificar_usuario(usuarios):
@@ -76,7 +76,7 @@ def asignar_nivel_acceso():
 
 def crear_usuario():
     try:
-        with open ("dataset/usuarios.json", "r", encoding="UTF-8") as usu:
+        with open (JSON_USUARIOS, "r", encoding="UTF-8") as usu:
             usuarios=json.load(usu)
         username = verificar_usuario(usuarios)
         password = generar_contraseña()
@@ -87,12 +87,11 @@ def crear_usuario():
         print(VERDE + f"Usuario creado exitosamente:\nID: {id}\nUsername: {username}\nPassword: {password}\nDNI: {formato_dni(dni)}\nNivel de acceso: {nivel_acceso}\nEmail: {email}" + RESET)
         usuarios.append({"id": id, "username": username, "password": password, "dni": dni, "nivel_acceso": nivel_acceso, "email": email, "estado": "Activo"})
         
-        with open("dataset/usuarios.json", "w", encoding="UTF-8") as usu:
+        with open(JSON_USUARIOS, "w", encoding="UTF-8") as usu:
             json.dump(usuarios, usu, ensure_ascii=False)
 
     except (OSError, FileNotFoundError) as error :
         print("error", error)
 
 if __name__ == "__main__":
-    crear_usuario(usuarios)
-    print(usuarios)
+    crear_usuario()

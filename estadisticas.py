@@ -7,9 +7,9 @@ MAGENTA = '\033[95m'
 CIAN = '\033[96m'
 RESET = '\033[0m'
 
-from dataset import archivos
 from datetime import datetime
 from functools import reduce
+from config import CSV_AREAS, CSV_EMPLEADOS
 
 #Funciones 
 
@@ -32,7 +32,7 @@ def cantidad_empleados():
     activos = 0
     inactivos = 0
     try:
-        with open(r'matrices/empleados.csv', 'r', encoding='UTF-8') as arch:
+        with open(CSV_EMPLEADOS, 'r', encoding='UTF-8') as arch:
             skip = True
             for lineas in arch:
                 if skip:
@@ -75,7 +75,7 @@ def porcentaje_empleados_activos(activos, inactivos):
 
 def cantidad_empleados_area():
     try:
-        with open(r'matrices/areas.csv', 'r', encoding="UTF-8") as arch:
+        with open(CSV_AREAS, 'r', encoding="UTF-8") as arch:
             skip = True
             for lineas in arch:
                 if skip:
@@ -98,7 +98,7 @@ def calcular_edad(fecha, hoy):
 def promedio_de_edad():
     fechas = []
     try:
-        with open(archivos[0], 'r', encoding='UTF-8') as arch:
+        with open(CSV_EMPLEADOS, 'r', encoding='UTF-8') as arch:
             skip = True
             for lineas in arch:
                 if skip:

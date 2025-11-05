@@ -7,8 +7,16 @@ MAGENTA = '\033[95m'
 CIAN = '\033[96m'
 RESET = '\033[0m'
 
+# Importar constantes de configuración y re-exportarlas para mantener compatibilidad
+from config import (
+    CSV_AREAS,
+    CSV_EMPLEADOS, 
+    CSV_LICENCIAS,
+    CSV_JUSTIFICACIONES,
+    JSON_USUARIOS
+)
+
 from account import userLog
-from dataset import empleados, areas, licencias, usuarios, historial_operaciones
 from sign_up import crear_usuario
 from impresion import Mostrar_historial_operaciones
 from CRUD.registrar import Ingresar_Numero
@@ -81,7 +89,7 @@ def Menu():
                                     modulo_areas.BuscarArea()
                                 case 2:
                                     if nivel_acceso >= 1:
-                                        modulo_areas.EstadisticasAreas(areas)
+                                        modulo_areas.EstadisticasAreas()
                                     else: print(ROJO + "No tiene permisos para realizar esta accion" + RESET)
                                 case 3:
                                     if nivel_acceso == 2:
@@ -156,14 +164,14 @@ def Menu():
                             tipo = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
                             match tipo:
                                 case 1:
-                                    modulo_licencias.BuscarLicencia(licencias, empleados)
+                                    modulo_licencias.BuscarLicencia()
                                 case 2:
                                     if nivel_acceso >= 1:
-                                        modulo_licencias.EstadisticasLicencias(licencias)
+                                        modulo_licencias.EstadisticasLicencias()
                                     else: print(ROJO + "No tiene permisos para realizar esta accion" + RESET)
                                 case 3:
                                     if nivel_acceso == 2:
-                                        modulo_licencias.RegistrarLicencia(licencias)
+                                        modulo_licencias.RegistrarLicencia()
                                     else: print(ROJO + "No tiene permisos para realizar esta accion" + RESET)
                                 case 4:
                                     if nivel_acceso == 2:
@@ -221,7 +229,8 @@ def Menu():
                             tipo = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
                             match tipo:
                                 case 1:
-                                    Mostrar_historial_operaciones(historial_operaciones)
+                                    # Nota: Mostrar_historial_operaciones necesitaría leer desde un archivo CSV
+                                    print(AMARILLO + "Funcionalidad de historial pendiente de implementación con archivos" + RESET)
                                 case 0:
                                     print(CIAN + "Volviendo al menu principal..." + RESET)
                                 case _:
