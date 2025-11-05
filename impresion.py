@@ -9,7 +9,7 @@ RESET = '\033[0m'
 
 import re
 import json
-from config import CSV_EMPLEADOS, CSV_AREAS, CSV_LICENCIAS, CSV_JUSTIFICACIONES, JSON_USUARIOS
+from main import CSV_EMPLEADOS, CSV_AREAS, CSV_LICENCIAS, CSV_JUSTIFICACIONES, JSON_USUARIOS
 
 # Funciones auxiliares para leer archivos
 

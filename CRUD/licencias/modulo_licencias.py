@@ -13,7 +13,7 @@ from estadisticas import promedio_licencias_por_empleado
 from CRUD.registrar import Eleccion_Justificacion, Ingresar_Fecha, Ingresar_Numero,agregar_entidad_archivo
 from CRUD.buscador import encontrar_elemento
 from CRUD.eliminar import eliminar_entidad_archivo
-from config import CSV_EMPLEADOS, CSV_LICENCIAS, CSV_JUSTIFICACIONES
+from main import CSV_EMPLEADOS, CSV_LICENCIAS, CSV_JUSTIFICACIONES
 #Funciones 
 
 #Registrar Licencia

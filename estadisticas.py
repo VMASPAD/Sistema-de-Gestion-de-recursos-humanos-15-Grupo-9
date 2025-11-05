@@ -9,7 +9,7 @@ RESET = '\033[0m'
 
 from datetime import datetime
 from functools import reduce
-from config import CSV_AREAS, CSV_EMPLEADOS
+from main import CSV_AREAS, CSV_EMPLEADOS
 
 #Funciones 
 

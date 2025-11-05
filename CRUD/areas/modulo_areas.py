@@ -12,7 +12,8 @@ from impresion import Imprimir_Matriz_Ordenada
 from estadisticas import promedio_empleados_por_area
 from CRUD.registrar import Ingresar_Numero, verificar_area
 from CRUD.buscador import Encontrar
-from config import CSV_AREAS, CSV_EMPLEADOS, CSV_LICENCIAS
+from CRUD.eliminar import Eliminar_ClaveForanea
+from main import CSV_AREAS, CSV_EMPLEADOS, CSV_LICENCIAS
 
 def obtener_ultimo_id_csv(archivo_csv):
     """
@@ -229,10 +230,11 @@ def escribir_licencias_csv(licencias_data, incluir_header=True):
 #Registrar Area
 def RegistrarArea():
     """
-    Registra una nueva área en el archivo CSV.
-    Lee el archivo existente, agrega la nueva área y reescribe todo.
+    Registra una nueva área en el archivo CSV usando archivo temporal.
+    Lee línea por línea, copia todo y agrega la nueva área al final.
     Usa solo modos 'r' y 'w' como se requiere.
     """
+    import os
     try:
         # Obtener datos de la nueva área
         nombre_area = verificar_area()
@@ -245,26 +247,40 @@ def RegistrarArea():
         # Crear nueva área
         nueva_area = [nuevo_id, nombre_area, cantidad_empleados, "Activo"]
         
-        # Leer contenido existente
-        lineas_existentes = []
+        # Usar archivo temporal
+        copia = "matrices/copia_area.csv"
+        
         try:
-            with open(CSV_AREAS, "r", encoding="utf-8") as f:
-                lineas_existentes = f.readlines()
+            # Copiar archivo existente línea por línea y agregar nueva área
+            with open(CSV_AREAS, "r", encoding="utf-8") as f, \
+                 open(copia, "w", encoding="utf-8") as cop:
+                # Copiar todo el contenido existente
+                for linea in f:
+                    cop.write(linea)
+                # Agregar la nueva área
+                cop.write(f"{nueva_area[0]},{nueva_area[1]},{nueva_area[2]},{nueva_area[3]}\n")
         except FileNotFoundError:
             # Si no existe, crear con header
-            lineas_existentes = ["id,nombre,cantidad,estado\n"]
+            with open(copia, "w", encoding="utf-8") as cop:
+                cop.write("id,nombre,cantidad,estado\n")
+                cop.write(f"{nueva_area[0]},{nueva_area[1]},{nueva_area[2]},{nueva_area[3]}\n")
         
-        # Escribir todo de vuelta incluyendo la nueva área
-        with open(CSV_AREAS, "w", encoding="utf-8") as f:
-            for linea in lineas_existentes:
-                f.write(linea)
-            f.write(f"{nueva_area[0]},{nueva_area[1]},{nueva_area[2]},{nueva_area[3]}\n")
+        # Reemplazar archivo original con el temporal
+        if os.path.exists(CSV_AREAS):
+            os.remove(CSV_AREAS)
+        os.rename(copia, CSV_AREAS)
         
         print(VERDE + f"Area {nombre_area} registrada con exito!" + RESET)
         return nueva_area
         
     except (PermissionError, IOError, OSError) as e:
         print(ROJO + f"Error al registrar área: {e}" + RESET)
+        # Limpiar archivo temporal si existe
+        if os.path.exists("matrices/copia_area.csv"):
+            try:
+                os.remove("matrices/copia_area.csv")
+            except:
+                pass
         return None
 
 def EstadisticasAreas():

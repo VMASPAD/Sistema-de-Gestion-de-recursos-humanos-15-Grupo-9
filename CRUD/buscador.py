@@ -9,7 +9,6 @@ RESET = '\033[0m'
 
 import json
 from impresion import Imprimir_Encabezados, Reemplazo_Id_Valor
-from CRUD.csv_utils import leer_csv
 
 # Funciones auxiliares locales
 
@@ -24,7 +23,22 @@ def leer_usuarios_json():
 
 def leer_empleados_csv():
     """Lee el archivo empleados.csv y retorna una lista de listas."""
-    return leer_csv("Matrices/empleados.csv", skip_header=True, convertir_numeros=[0, 4])
+    empleados = []
+    try:
+        with open("Matrices/empleados.csv", "r", encoding="utf-8") as f:
+            next(f, None)  # Saltar header
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                datos = line.split(",")
+                if len(datos) >= 6:
+                    datos[0] = int(datos[0]) if datos[0].isdigit() else datos[0]
+                    datos[4] = int(datos[4]) if datos[4].isdigit() else datos[4]
+                empleados.append(datos)
+    except FileNotFoundError:
+        print(AMARILLO + "Advertencia: Matrices/empleados.csv no existe." + RESET)
+    return empleados
 #Funciones 
 
 def Encontrar(valor, matriz, columna, encabezado):

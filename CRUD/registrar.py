@@ -1,8 +1,7 @@
 
 import re
 from idGenerator import generar_id
-from config import CSV_AREAS, CSV_EMPLEADOS, CSV_LICENCIAS, CSV_JUSTIFICACIONES
-from CRUD.csv_utils import leer_csv, obtener_ultimo_id, agregar_linea_csv
+from main import CSV_AREAS, CSV_EMPLEADOS, CSV_LICENCIAS, CSV_JUSTIFICACIONES
 
 VERDE = '\033[92m'
 ROJO = '\033[91m'
@@ -16,15 +15,60 @@ RESET = '\033[0m'
 
 def leer_justificaciones_csv():
     """Lee el archivo justificaciones.csv y retorna una lista de listas."""
-    return leer_csv(CSV_JUSTIFICACIONES, skip_header=True, convertir_numeros=[0])
+    justificaciones = []
+    try:
+        with open(CSV_JUSTIFICACIONES, "r", encoding="utf-8") as f:
+            next(f, None)  # Saltar header
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                datos = line.split(",")
+                # Convertir id a int
+                datos[0] = int(datos[0]) if datos[0].isdigit() else datos[0]
+                justificaciones.append(datos)
+    except FileNotFoundError:
+        print(AMARILLO + f"Advertencia: {CSV_JUSTIFICACIONES} no existe." + RESET)
+    return justificaciones
 
 def leer_areas_csv():
     """Lee el archivo areas.csv y retorna una lista de listas."""
-    return leer_csv(CSV_AREAS, skip_header=True, convertir_numeros=[0, 2])
+    areas = []
+    try:
+        with open(CSV_AREAS, "r", encoding="utf-8") as f:
+            next(f, None)  # Saltar header
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                datos = line.split(",")
+                # Convertir campos numéricos
+                datos[0] = int(datos[0]) if datos[0].isdigit() else datos[0]
+                datos[2] = int(datos[2]) if datos[2].isdigit() else datos[2]
+                areas.append(datos)
+    except FileNotFoundError:
+        print(AMARILLO + f"Advertencia: {CSV_AREAS} no existe." + RESET)
+    return areas
 
 def leer_empleados_csv():
     """Lee el archivo empleados.csv y retorna una lista de listas."""
-    return leer_csv(CSV_EMPLEADOS, skip_header=True, convertir_numeros=[0, 4])
+    empleados = []
+    try:
+        with open(CSV_EMPLEADOS, "r", encoding="utf-8") as f:
+            next(f, None)  # Saltar header
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                datos = line.split(",")
+                # Convertir campos numéricos
+                if len(datos) >= 6:
+                    datos[0] = int(datos[0]) if datos[0].isdigit() else datos[0]
+                    datos[4] = int(datos[4]) if datos[4].isdigit() else datos[4]
+                empleados.append(datos)
+    except FileNotFoundError:
+        print(AMARILLO + f"Advertencia: {CSV_EMPLEADOS} no existe." + RESET)
+    return empleados
 
 
 # Funciones
@@ -179,23 +223,40 @@ def verificar_telefono():
 
 def obtener_ultimo_codigo(archivo):
     """
-    Obtiene el último código/ID del archivo CSV.
-    Usa csv_utils para evitar duplicación.
+    Obtiene el último código/ID del archivo CSV sin cargar todo en memoria.
+    Lee línea por línea hasta el final.
     
     Args:
         archivo: Ruta del archivo CSV
     
     Returns:
-        str: Último código encontrado ("0" si no existe)
+        str: Último código encontrado ("0" si el archivo no existe o está vacío)
     """
-    return str(obtener_ultimo_id(archivo))
+    ultimo_codigo = "0"
+    try:
+        with open(archivo, 'r', encoding="UTF-8") as arch:
+            skip = True
+            for linea in arch:
+                if skip:
+                    skip = False
+                    continue
+                datos = linea.strip().split(",")
+                ultimo_codigo = datos[0]
+    except FileNotFoundError:
+        pass  # Si no existe el archivo, empezamos desde cero
+    except IndexError:
+        print("Archivo vacío")
+    except:
+        print("Error!")
+    return ultimo_codigo
 
 
 
 def agregar_entidad_archivo(archivo, columnas):
     """
-    Agrega una nueva entidad al archivo CSV.
-    Usa csv_utils para reducir duplicación.
+    Agrega una nueva entidad al archivo CSV usando archivo temporal.
+    Lee línea por línea el archivo original, copia todo al temporal y agrega la nueva línea.
+    Luego reemplaza el original con el temporal.
     
     Args:
         archivo: Ruta del archivo CSV
@@ -204,4 +265,62 @@ def agregar_entidad_archivo(archivo, columnas):
     Returns:
         bool: True si se agregó exitosamente, False en caso de error
     """
-    return agregar_linea_csv(archivo, columnas)
+    import os
+    copia = 'matrices/copia_agregar.csv'
+    
+    try:
+        # Construir la nueva fila
+        nueva_fila = str(columnas[0])
+        for col in range(len(columnas)):
+            if col == 0:
+                continue
+            else:
+                nueva_fila += "," + str(columnas[col])
+        nueva_fila += "\n"
+        
+        # Copiar archivo existente y agregar nueva línea
+        try:
+            with open(archivo, 'r', encoding='UTF-8') as arch, \
+                 open(copia, 'w', encoding='UTF-8') as cop:
+                # Copiar todo el contenido existente línea por línea
+                for linea in arch:
+                    cop.write(linea)
+                # Agregar la nueva fila
+                cop.write(nueva_fila)
+        except FileNotFoundError:
+            # Si el archivo no existe, crear uno nuevo con header básico
+            with open(copia, 'w', encoding='UTF-8') as cop:
+                # Detectar tipo de archivo y escribir header apropiado
+                if 'areas' in archivo:
+                    cop.write("id,nombre,cantidad,estado\n")
+                elif 'empleados' in archivo:
+                    cop.write("id,nombre,telefono,posicion,area,estado,fecha_ingreso,fecha_nacimiento\n")
+                elif 'licencias' in archivo:
+                    cop.write("id,id_empleado,fecha,id_justificacion,estado\n")
+                cop.write(nueva_fila)
+        
+        # Reemplazar archivo original con el temporal
+        if os.path.exists(archivo):
+            os.remove(archivo)
+        os.rename(copia, archivo)
+        
+        return True
+        
+    except OSError as e:
+        print(ROJO + f"Error al registrar la entidad: {e}" + RESET)
+        # Limpiar archivo temporal si existe
+        if os.path.exists(copia):
+            try:
+                os.remove(copia)
+            except:
+                pass
+        return False
+    except Exception as e:
+        print(ROJO + f"Error inesperado: {e}" + RESET)
+        # Limpiar archivo temporal si existe
+        if os.path.exists(copia):
+            try:
+                os.remove(copia)
+            except:
+                pass
+        return False

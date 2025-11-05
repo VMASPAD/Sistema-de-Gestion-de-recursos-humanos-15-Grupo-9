@@ -9,12 +9,11 @@ RESET = '\033[0m'
 
 from impresion import imprimir_archivo
 from estadisticas import cantidad_empleados, porcentaje_empleados_activos, cantidad_empleados_area, promedio_de_edad
-from CRUD.registrar import Ingresar_Fecha, verificar_telefono, Ingresar_Numero, agregar_entidad_archivo
-from CRUD.csv_utils import obtener_ultimo_id
+from CRUD.registrar import Ingresar_Fecha, verificar_telefono, Ingresar_Numero, agregar_entidad_archivo, obtener_ultimo_codigo
 from CRUD.buscador import encontrar_elemento
 from CRUD.actualizar import editar_entidad_archivo
 from CRUD.eliminar import eliminar_entidad_archivo, Modificar_cantidad_area
-from config import CSV_EMPLEADOS, CSV_AREAS, CSV_LICENCIAS
+from main import CSV_EMPLEADOS, CSV_AREAS, CSV_LICENCIAS
 #Funciones 
 
 #Registrar empleado
@@ -26,7 +25,7 @@ def RegistrarEmpleado(archivo):
     Args:
         archivo: Ruta del archivo CSV donde se guardará el empleado
     """
-    id = obtener_ultimo_id(archivo)
+    id = int(obtener_ultimo_codigo(archivo))
     id = id + 1 if id != 0 else 0
     nombre_empleado = input("Ingrese el nombre del empleado: ").strip().capitalize()
     apellido_empleado = input("Ingrese el apellido del empleado: ").strip().capitalize()
@@ -201,5 +200,26 @@ def EliminarEmpleado():
         print("Ingrese una opción válida ")
         print()
              
+def obtener_ultimo_codigo(archivo):
+    """
+    Obtiene el último código/ID del archivo CSV.
+    Lee línea por línea hasta el final.
+    
+    Args:
+        archivo: Ruta del archivo CSV
+    
+    Returns:
+        str: Último código encontrado ("0" si no existe el archivo)
+    """
+    ultimo_codigo = "0"
+    try:
+        with open(archivo, 'r', encoding="UTF-8") as arch:
+            for linea in arch:
+                datos = linea.strip().split(",")
+                ultimo_codigo = datos[0]
+    except FileNotFoundError:
+        pass  # Si no existe el archivo, empezamos desde cero
+    return ultimo_codigo
+
 if __name__ == "__main__":
     EstadisticasEmpleados()

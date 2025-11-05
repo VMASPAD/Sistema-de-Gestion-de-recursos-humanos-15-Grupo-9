@@ -7,14 +7,12 @@ MAGENTA = '\033[95m'
 CIAN = '\033[96m'
 RESET = '\033[0m'
 
-# Importar constantes de configuración y re-exportarlas para mantener compatibilidad
-from config import (
-    CSV_AREAS,
-    CSV_EMPLEADOS, 
-    CSV_LICENCIAS,
-    CSV_JUSTIFICACIONES,
-    JSON_USUARIOS
-)
+# Constantes de archivos CSV y JSON - Exportables a todos los módulos
+CSV_AREAS = "Matrices/areas.csv"
+CSV_EMPLEADOS = "Matrices/empleados.csv"
+CSV_LICENCIAS = "Matrices/licencias.csv"
+CSV_JUSTIFICACIONES = "Matrices/justificaciones.csv"
+JSON_USUARIOS = "dataset/usuarios.json"
 
 from account import userLog
 from sign_up import crear_usuario
