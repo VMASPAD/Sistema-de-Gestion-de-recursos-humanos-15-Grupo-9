@@ -366,9 +366,9 @@ def EditarArea():
         # Buscar el área por ID
         area_encontrada = None
         indice_area = -1
-        for i, area in enumerate(areas):
-            if area[0] == id_area:
-                area_encontrada = area
+        for i in range(len(areas)):
+            if areas[i][0] == id_area:
+                area_encontrada = areas[i]
                 indice_area = i
                 break
         
@@ -419,9 +419,9 @@ def EliminarArea():
         # Buscar área por nombre
         area_encontrada = None
         indice_area = -1
-        for i, area in enumerate(areas):
-            if area[1].lower() == areaEliminar:
-                area_encontrada = area
+        for i in range(len(areas)):
+            if areas[i][1].lower() == areaEliminar:
+                area_encontrada = areas[i]
                 indice_area = i
                 break
         
@@ -439,10 +439,10 @@ def EliminarArea():
         # Leer empleados y marcar como Inactivos los del área eliminada
         empleados_data = leer_empleados_csv(skip_header=True)
         id_empleados_afectados = []
-        for i, emp in enumerate(empleados_data):
-            if emp[4] == id_area:
+        for i in range(len(empleados_data)):
+            if empleados_data[i][4] == id_area:
                 empleados_data[i][5] = "Inactivo"
-                id_empleados_afectados.append(emp[0])
+                id_empleados_afectados.append(empleados_data[i][0])
         
         # Escribir cambios en empleados
         if id_empleados_afectados:
@@ -450,8 +450,8 @@ def EliminarArea():
         
         # Leer licencias y marcar como Inactivas las de empleados afectados
         licencias_data = leer_licencias_csv(skip_header=True)
-        for i, lic in enumerate(licencias_data):
-            if lic[1] in id_empleados_afectados:
+        for i in range(len(licencias_data)):
+            if licencias_data[i][1] in id_empleados_afectados:
                 licencias_data[i][4] = "Inactivo"
         
         # Escribir cambios en licencias
