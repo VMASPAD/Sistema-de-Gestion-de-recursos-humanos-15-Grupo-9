@@ -51,7 +51,7 @@ def verificar_dni(usuarios):
         dni=input(MAGENTA + "ingrese el dni: " + RESET)
     except ValueError:
         print(ROJO + "Entrada inválida. Por favor, ingrese un DNI válido." + RESET)
-        return verificar_dni()
+        return verificar_dni(usuarios)
     patron= re.compile('[0-9]{7,9}')
     while not patron.match(dni) or dni in dni_ensistema:
         if dni in dni_ensistema:

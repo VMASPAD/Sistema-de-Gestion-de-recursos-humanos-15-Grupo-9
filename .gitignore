@@ -4,3 +4,4 @@ test_system.py
 .venv
 .pytest_cache
 .vscode
+doc.md
