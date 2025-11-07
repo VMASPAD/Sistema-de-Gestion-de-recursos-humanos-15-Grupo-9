@@ -5,7 +5,7 @@ id,N/A,Telefono,Posición,id_Area,Estado,F_ingreso,F_nacimiento
 3,Lucas Fernandez,+541143216789,Analista,3,Activo,2021-01-10,1995-09-18
 4,Carla Rodriguez,+541154329876,Administrativa,5,Activo,2018-11-05,1989-11-02
 5,Martin Sosa,+541165498732,Operario,4,Activo,2022-02-20,1994-01-30
-6,Florencia Castro,+541176543219,Ingeniera,7,Activo,2017-06-12,1985-07-19
+6,Florencia Castro,+541176543219,Ingeniera,7,Inactivo,2017-06-12,1985-07-19
 7,Santiago Lopez,+541187654320,Jefe de area,1,Activo,2015-08-01,1982-03-11
 8,Jazmin Romero,+541132165498,Recepcionista,8,Activo,2023-04-01,2000-05-07
 9,Nicolas Herrera,+541154321987,Tecnico,2,Activo,2020-10-22,1992-08-14
@@ -16,3 +16,5 @@ id,N/A,Telefono,Posición,id_Area,Estado,F_ingreso,F_nacimiento
 14,Camila Torres,+541176543218,HR Generalist,8,Activo,2022-08-08,1997-03-03
 15,Carlos Tevez,+541110329093,Meh,0,Activo,2020-12-24,2000-11-26
 16,Lisandro Lopez,+541162172321,Ceo,0,Activo,2015-12-11,1981-1-10
+17,Laura benitez,+5411123213213,Ff,6,Activo,2020-12-11,2000-11-8
+18,Carlos Palacios,+54111221212133,Facha,7,Inactivo,2022-11-10,2006-10-11

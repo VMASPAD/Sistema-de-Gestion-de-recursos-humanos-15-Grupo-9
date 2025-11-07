@@ -21,61 +21,44 @@ def leer_usuarios_json():
         print(AMARILLO + "Advertencia: dataset/usuarios.json no existe." + RESET)
         return []
 
-def leer_empleados_csv():
-    """Lee el archivo empleados.csv y retorna una lista de listas."""
-    empleados = []
-    try:
-        with open("Matrices/empleados.csv", "r", encoding="utf-8") as f:
-            next(f, None)  # Saltar header
-            for line in f:
-                line = line.strip()
-                if not line:
-                    continue
-                datos = line.split(",")
-                if len(datos) >= 6:
-                    datos[0] = int(datos[0]) if datos[0].isdigit() else datos[0]
-                    datos[4] = int(datos[4]) if datos[4].isdigit() else datos[4]
-                empleados.append(datos)
-    except FileNotFoundError:
-        print(AMARILLO + "Advertencia: Matrices/empleados.csv no existe." + RESET)
-    return empleados
+
 #Funciones 
 
-def Encontrar(valor, matriz, columna, encabezado):
-    existe = False
-    print(AZUL + "="*185 + RESET)
-    Imprimir_Encabezados(encabezado)
-    print(AZUL + "-"*185 + RESET)
-    for i in range(len(matriz)):
-        valor = str(valor).lower()
-        busqueda = matriz[i][columna]
-        if valor.isnumeric():
-            valor = int(valor)
-            busqueda = [matriz[i][columna]]
-        else:
-            busqueda = busqueda.lower()
-        if valor in busqueda:
+# def Encontrar(valor, matriz, columna, encabezado):
+#     existe = False
+#     print(AZUL + "="*185 + RESET)
+#     Imprimir_Encabezados(encabezado)
+#     print(AZUL + "-"*185 + RESET)
+#     for i in range(len(matriz)):
+#         valor = str(valor).lower()
+#         busqueda = matriz[i][columna]
+#         if valor.isnumeric():
+#             valor = int(valor)
+#             busqueda = [matriz[i][columna]]
+#         else:
+#             busqueda = busqueda.lower()
+#         if valor in busqueda:
             
-            #mejorar impresion
-            for j in range(len(matriz[i])):
-                impresion = Reemplazo_Id_Valor(matriz[i][j], j)
-                print(str(impresion).ljust(21), end= "\t")
-            existe = True
-            print()
-            print(AZUL + "-"*185 + RESET)
-    if not existe: print(ROJO + "No se encontro" + RESET), print(AZUL + "-"*185 + RESET)
-    print(AZUL + "="*185 + RESET)
+#             #mejorar impresion
+#             for j in range(len(matriz[i])):
+#                 impresion = Reemplazo_Id_Valor(matriz[i][j], j)
+#                 print(str(impresion).ljust(21), end= "\t")
+#             existe = True
+#             print()
+#             print(AZUL + "-"*185 + RESET)
+#     if not existe: print(ROJO + "No se encontro" + RESET), print(AZUL + "-"*185 + RESET)
+#     print(AZUL + "="*185 + RESET)
 
-def Id_Empleado(empleado):
-    empleados = leer_empleados_csv()
-    emp = empleado.lower()
-    id = bool([empleado[0] for empleado in empleados if emp in empleado[1].lower()])
-    while not id:
-        print(ROJO + "Empleado no encontrado, intente nuevamente" + RESET)
-        emp = input(MAGENTA + "Ingrese el nombre o apellido del empleado: " + RESET).lower()
-        id = bool([empleado[0] for empleado in empleados if emp in empleado[1].lower()])
-    id = [empleado[0] for empleado in empleados if emp in empleado[1].lower()][0]
-    return id
+# def Id_Empleado(empleado):
+#     empleados = leer_empleados_csv()
+#     emp = empleado.lower()
+#     id = bool([empleado[0] for empleado in empleados if emp in empleado[1].lower()])
+#     while not id:
+#         print(ROJO + "Empleado no encontrado, intente nuevamente" + RESET)
+#         emp = input(MAGENTA + "Ingrese el nombre o apellido del empleado: " + RESET).lower()
+#         id = bool([empleado[0] for empleado in empleados if emp in empleado[1].lower()])
+#     id = [empleado[0] for empleado in empleados if emp in empleado[1].lower()][0]
+#     return id
 
 def Encontrar_diccionario(busqueda, clave, encabezado=None):
     usuarios = leer_usuarios_json()

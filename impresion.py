@@ -9,41 +9,41 @@ RESET = '\033[0m'
 
 import re
 import json
-from main import CSV_EMPLEADOS, CSV_AREAS, CSV_LICENCIAS, CSV_JUSTIFICACIONES, JSON_USUARIOS
+from dataset import archivos, justificaciones
 
 # Funciones auxiliares para leer archivos
 
-def leer_justificaciones_csv():
-    """Lee el archivo justificaciones.csv y retorna una lista de listas."""
-    justificaciones = []
-    try:
-        with open(CSV_JUSTIFICACIONES, "r", encoding="utf-8") as f:
-            next(f, None)  # Saltar header
-            for line in f:
-                line = line.strip()
-                if not line:
-                    continue
-                datos = line.split(",")
-                datos[0] = int(datos[0]) if datos[0].isdigit() else datos[0]
-                justificaciones.append(datos)
-    except FileNotFoundError:
-        pass
-    return justificaciones
+# def leer_justificaciones_csv():
+#     """Lee el archivo justificaciones.csv y retorna una lista de listas."""
+#     justificaciones = []
+#     try:
+#         with open(CSV_JUSTIFICACIONES, "r", encoding="utf-8") as f:
+#             next(f, None)  # Saltar header
+#             for line in f:
+#                 line = line.strip()
+#                 if not line:
+#                     continue
+#                 datos = line.split(",")
+#                 datos[0] = int(datos[0]) if datos[0].isdigit() else datos[0]
+#                 justificaciones.append(datos)
+#     except FileNotFoundError:
+#         pass
+#     return justificaciones
 
 def leer_usuarios_json():
     """Lee el archivo usuarios.json y retorna la lista de usuarios."""
     try:
-        with open(JSON_USUARIOS, "r", encoding="utf-8") as f:
+        with open(r'dataset/usuarios.json', "r", encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
         return []
 
 #Funciones 
-def Imprimir_Opciones(matriz, columna):
-    print()
-    print(AZUL + "Opciones: " + RESET)
-    for i in range(len(matriz)):
-        print(CIAN + f"{i} - {matriz[i][columna]}" + RESET)
+# def Imprimir_Opciones(matriz, columna):
+#     print()
+#     print(AZUL + "Opciones: " + RESET)
+#     for i in range(len(matriz)):
+#         print(CIAN + f"{i} - {matriz[i][columna]}" + RESET)
 
 def Imprimir_Encabezados(fila):
     encabezados = [
@@ -91,37 +91,30 @@ def Formato(nombre):
     nombre = nombre.ljust(20)
     return nombre
 
-def Imprimir_Matriz_Ordenada(matriz, encabezado, llave):
-    filas = len(matriz)
-    columnas = len(matriz[0])
+# def Imprimir_Matriz_Ordenada(matriz, encabezado, llave):
+#     filas = len(matriz)
+#     columnas = len(matriz[0])
 
-    matriz.sort(key=llave)
-    print(AZUL + "="*180 + RESET)
-    Imprimir_Encabezados(encabezado)
-    print(AZUL + "-"*180 + RESET)
-    for i in range(filas):
-        if "Inactivo" not in matriz[i]:
-            for j in range(columnas):
-                impresion = matriz[i][j]
-                impresion = Reemplazo_Id_Valor(impresion, j)
-                if encabezado == 0:
-                    impresion = Formato(impresion)
-                else:
-                    impresion = str(impresion).ljust(24)
-                print(impresion, end="\t")
-            print()
-            print(AZUL + "-"*180 + RESET)
-    print(AZUL + "="*180 + RESET)
-    print()
-    return
-
-def Encontrar_Id_Empleado(empleados, empleado):
-    id = list(filter(lambda x: empleado in x[1].lower(), empleados))    
-    if id:
-        return id[0][0]
-    else:
-        print(ROJO + "Empleado no encontrado" + RESET) 
-        return False
+#     matriz.sort(key=llave)
+#     print(AZUL + "="*180 + RESET)
+#     Imprimir_Encabezados(encabezado)
+#     print(AZUL + "-"*180 + RESET)
+#     for i in range(filas):
+#         if "Inactivo" not in matriz[i]:
+#             for j in range(columnas):
+#                 impresion = matriz[i][j]
+#                 impresion = Reemplazo_Id_Valor(impresion, j)
+#                 if encabezado == 0:
+#                     impresion = Formato(impresion)
+#                 else:
+#                     impresion = str(impresion).ljust(24)
+#                 print(impresion, end="\t")
+#             print()
+#             print(AZUL + "-"*180 + RESET)
+#     print(AZUL + "="*180 + RESET)
+#     print()
+#     return
+        
     
 def Buscar_id_archivo(archivo, id):
     try: 
@@ -154,12 +147,11 @@ def Reemplazo_Id_Valor(id, reemplazar):
         columna = reemplazar
         match columna:
             case 1:
-                valor = Buscar_id_archivo(CSV_EMPLEADOS, id)
+                valor = Buscar_id_archivo(archivos[0], id)
             case 3:
-                justificaciones = leer_justificaciones_csv()
-                valor = justificaciones[id][1] if id < len(justificaciones) else str(id)
+                valor = justificaciones[id][1]
             case 4:
-                valor = Buscar_id_archivo(CSV_AREAS, id)
+                valor = Buscar_id_archivo(archivos[1], id)
             case _:
                 valor = id
 
@@ -210,7 +202,7 @@ def Mostrar_historial_operaciones(historial):
 def impresion_recursiva_formateada(columnas, encabezado, i=0):
     if len(columnas) > 0:
         impresion = Reemplazo_Id_Valor(columnas[0], i)
-        if encabezado == 0:
+        if encabezado == 0 or encabezado == 1:
             impresion = Formato(impresion)
         print(str(impresion).ljust(23), end="\t")
         impresion_recursiva_formateada(columnas[1:], encabezado, i + 1)
@@ -246,4 +238,4 @@ def imprimir_archivo(archivo, encabezado):
 
 if __name__ == "__main__":
     # Ejemplo: imprimir archivo de empleados
-    imprimir_archivo(CSV_EMPLEADOS, 0)
+    imprimir_archivo(archivos[0], 0)

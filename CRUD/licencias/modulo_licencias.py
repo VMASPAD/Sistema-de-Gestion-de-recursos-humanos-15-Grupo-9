@@ -7,13 +7,14 @@ MAGENTA = '\033[95m'
 CIAN = '\033[96m'
 RESET = '\033[0m'
 
-from idGenerator import generar_id
-from impresion import Buscar_id_archivo,imprimir_archivo
-from estadisticas import promedio_licencias_por_empleado
-from CRUD.registrar import Eleccion_Justificacion, Ingresar_Fecha, Ingresar_Numero,agregar_entidad_archivo
+from impresion import Buscar_id_archivo,imprimir_archivo, Reemplazo_Id_Valor
+# from estadisticas import promedio_licencias_por_empleado
+from CRUD.registrar import Eleccion_Justificacion, Ingresar_Fecha, Ingresar_Numero,agregar_entidad_archivo, obtener_ultimo_codigo
 from CRUD.buscador import encontrar_elemento
 from CRUD.eliminar import eliminar_entidad_archivo
-from main import CSV_EMPLEADOS, CSV_LICENCIAS, CSV_JUSTIFICACIONES
+from CRUD.actualizar import editar_entidad_archivo
+from estadisticas import cantidad_entidad, promedio_licencias_por_empleado
+from dataset import archivos, justificaciones
 #Funciones 
 
 #Registrar Licencia
@@ -22,15 +23,16 @@ def RegistrarLicencia():
     Registra una nueva licencia para un empleado.
     Solicita datos del empleado, fecha y justificación, luego agrega al archivo CSV.
     """
-    empleado = Ingresar_Numero(MAGENTA + "Ingrese el nombre y apellido del empleado: " + RESET)
-    id_empleado = encontrar_elemento(empleado, CSV_EMPLEADOS, 0, 0)
+    id = int(obtener_ultimo_codigo(archivos[2]))
+    id = id + 1 if id != 0 else 0
+    id_empleado = Ingresar_Numero(MAGENTA + "Ingrese el id del empleado: " + RESET)
     fecha_licencia = Ingresar_Fecha("la licencia")
     justificacion_licencia = Eleccion_Justificacion()
 
-    fila = [generar_id(CSV_LICENCIAS), id_empleado, fecha_licencia, justificacion_licencia, "Activo"]
-    ok = agregar_entidad_archivo(CSV_JUSTIFICACIONES, fila)
+    fila = [id, id_empleado, fecha_licencia, justificacion_licencia, "Activo"]
+    ok = agregar_entidad_archivo(archivos[2], fila)
     if ok:
-        print(f"Se agrego el la justificacion {justificacion_licencia} para el empleado {empleado}!")
+        print(f"Se agrego el la justificacion {justificacion_licencia} para el empleado {Reemplazo_Id_Valor(id_empleado, 1)}!")
     else:
         print("No se pudo registrar la justificacion")
 
@@ -55,18 +57,15 @@ def BuscarLicencia():
     match opcion:
         case 1:
             busqueda = Ingresar_Numero(MAGENTA + "Ingrese el Id a buscar: " + RESET)
-            encontrar_elemento(busqueda, CSV_LICENCIAS, 0, 0)
+            encontrar_elemento(busqueda, archivos[2], 0, 2)
         case 2:
-            busqueda = input("Ingrese el nombre y apellido del empleado a buscar: ")
-            busqueda = busqueda.lower()
-            busqueda = Buscar_id_archivo(CSV_EMPLEADOS, busqueda)
-            if busqueda:
-                encontrar_elemento(busqueda, CSV_LICENCIAS, 1, 0)
+            busqueda = input("Ingrese el id del empleado a buscar: ")
+            encontrar_elemento(busqueda, archivos[2], 1, 2)
         case 3:
             busqueda = Ingresar_Fecha("la licencia a buscar")
-            encontrar_elemento(busqueda, CSV_LICENCIAS, 2, 0)
+            encontrar_elemento(busqueda, archivos[2], 2, 2)
         case 4:
-            imprimir_archivo(CSV_LICENCIAS, 0)
+            imprimir_archivo(archivos[2], 2)
         case 5:
             return
 
@@ -85,12 +84,16 @@ def EstadisticasLicencias():
     print("| 0 - Volver".ljust(45) + "|")
     print("="*46)
     opcion = Ingresar_Numero("Seleccione una opcion: ")
+    print()
+    licencias, licencias_inactivas = cantidad_entidad(2, -1)
     match opcion:
         case 1:
-            # Nota: Se necesitaría leer el archivo CSV para contar licencias activas
-            print(f"La cantidad total de licencias es: [Requiere leer CSV_LICENCIAS]")
+            print(f"La cantidad total de licencias es: {licencias + licencias_inactivas}")
+            print(VERDE + f"La cantidad de licencias activas es: {licencias}" + RESET)
+            print(AMARILLO + f"La cantidad de licencias inactivas es: {licencias_inactivas}" + RESET)
         case 2:
-            promedio_licencias_por_empleado(CSV_LICENCIAS, CSV_EMPLEADOS)
+            empleados, empleados_inactivos = cantidad_entidad(0, 5)
+            promedio_licencias_por_empleado(licencias, empleados) ##########################################################   
         case 0:
             return
         case _:
@@ -107,27 +110,35 @@ def EditarLicencia():
     Edita los datos de una licencia existente.
     Permite modificar la fecha o el empleado asociado a la licencia.
     """
-    from CRUD.actualizar import editar_entidad_archivo
-    
+
     print("="*26)
     index = int(input('Escriba el id de la licencia a editar: '))
     
     print("Que campo quiere editar?")
     print('1. Fecha')
     print('2. Empleado')
+    print('3. Justificacion')
+    print('4. Alta Lógica')
     valueTochange = Ingresar_Numero('Seleccione una opcion: ')
     
     if valueTochange == 1:
         newFecha = Ingresar_Fecha("la licencia")
-        editado = editar_entidad_archivo(CSV_LICENCIAS, index, 2, 0, newFecha)
+        editado = editar_entidad_archivo(archivos[2], index, 2, 0, newFecha)
         if editado:
             print(f"Licencia actualizada con nueva fecha: {newFecha}")
     elif valueTochange == 2:
-        newEmpleado = input(f'Ingrese el nombre y apellido del empleado: ')
-        id_empleado = encontrar_elemento(newEmpleado, CSV_EMPLEADOS, 0, 0)
-        editado = editar_entidad_archivo(CSV_LICENCIAS, index, 1, 0, id_empleado)
+        id_empleado = Ingresar_Numero(MAGENTA + "Ingrese el id del empleado: " + RESET)
+        editado = editar_entidad_archivo(archivos[2], index, 1, 0, id_empleado)
         if editado:
-            print(f"Licencia actualizada con nuevo empleado: {newEmpleado}")
+            print(f"Licencia actualizada con nuevo empleado: {Reemplazo_Id_Valor(id_empleado, 1)}")
+    elif valueTochange == 3:
+        justificacion = Eleccion_Justificacion()
+        editado = editar_entidad_archivo(archivos[2], index, 3, 0, justificacion)
+        if editado:
+            print(f"Licencia actualizada con nueva justificacion: {justificaciones[justificacion][1]}")
+
+    elif valueTochange == 4:
+        editar_entidad_archivo(archivos[2], index, 4, 0, "Activo")
     else:
         print('Opción inválida')
 
@@ -141,11 +152,11 @@ def EliminarLicencia():
     licenciaEliminar = input("Escriba el id de la licencia a eliminar del empleado o escriba \"Lista\" para obtener la planilla: ")
     if licenciaEliminar == "Lista":
         print("Lista de licencias:")
-        imprimir_archivo(CSV_LICENCIAS, 2)
+        imprimir_archivo(archivos[2], 2)
 
     elif licenciaEliminar.isnumeric():
         licenciaEliminar = int(licenciaEliminar)
-        eliminar_entidad_archivo(CSV_LICENCIAS, licenciaEliminar, 1, 4)
+        eliminar_entidad_archivo(archivos[2], licenciaEliminar, 0, 4)
         print(f"Licencia con id {licenciaEliminar} eliminada.")
     else: 
         print(f"Licencia con id {licenciaEliminar} no encontrada.")

@@ -1,36 +1,10 @@
 import pytest
-import json
-from idGenerator import generar_id
-from CRUD.registrar import Ingresar_Numero
-from CRUD.buscador import Id_Empleado
+from CRUD.registrar import Ingresar_Numero, verificar_telefono
+from impresion import Reemplazo_Id_Valor
 from account import userLog
-from sign_up import generar_contraseña
+from sign_up import generar_contraseña 
 
 # Funciones auxiliares para leer archivos
-def leer_usuarios():
-    try:
-        with open("dataset/usuarios.json", "r", encoding="utf-8") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return []
-
-def leer_empleados():
-    empleados = []
-    try:
-        with open("Matrices/empleados.csv", "r", encoding="utf-8") as f:
-            next(f, None)
-            for line in f:
-                line = line.strip()
-                if not line:
-                    continue
-                datos = line.split(",")
-                if len(datos) >= 6:
-                    datos[0] = int(datos[0]) if datos[0].isdigit() else datos[0]
-                    datos[4] = int(datos[4]) if datos[4].isdigit() else datos[4]
-                empleados.append(datos)
-    except FileNotFoundError:
-        pass
-    return empleados
 
 @pytest.fixture
 def cuenta():
@@ -44,13 +18,16 @@ def cuenta2():
     password = "mg2024"
     return user, password
 
-def test_generar_id():
+def test_verificar_telefono():
     #Arrange
-    matriz = leer_usuarios()
+    codigo_area = "11"
+    telefono = "62112344"
+
     #Act
-    id = generar_id(matriz)
+    tel = verificar_telefono(codigo_area, telefono)
+
     #Assert
-    assert id == len(matriz)
+    assert tel == "+541162112344"
 
 def test_ingreso_num():
     #Arrange
@@ -61,13 +38,12 @@ def test_ingreso_num():
 
 def test_userlog(cuenta, cuenta2):
     #Arrange
-    usuarios = leer_usuarios()
     user, password = cuenta
     user2, password2 = cuenta2
 
     #Act
-    nivel_acceso = userLog(usuarios, user, password)
-    nivel_acceso2 = userLog(usuarios, user2, password2)
+    nivel_acceso = userLog(user, password)
+    nivel_acceso2 = userLog(user2, password2)
 
     #Assert
     assert nivel_acceso == 2
@@ -81,10 +57,10 @@ def test_generar_contraseña():
     assert generar_contraseña(password) == password 
 
 
-def test_id_empleado():
+def test_Reemplazo_Id_Valor():
     #Arrange 
-    empleado = "Martin Sosa"
+    area = 6
     #Act 
-    id = Id_Empleado(empleado)
+    nombre = Reemplazo_Id_Valor(6, 4)
     #Assert
-    assert id == 5
+    assert nombre == "Compras"

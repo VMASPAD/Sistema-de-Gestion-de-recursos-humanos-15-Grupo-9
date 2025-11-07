@@ -135,7 +135,7 @@
         "estado": "Activo"
     },
     {
-        "id": 21,
+        "id": 15,
         "username": "maria.g",
         "password": "mg2024",
         "dni": "38987456",
@@ -145,11 +145,29 @@
     },
     {
         "id": 16,
-        "username": "facumat",
+        "username": "pepe",
         "password": "fnaisfA232",
         "dni": "42431434",
-        "nivel_acceso": "admin",
+        "nivel_acceso": "user",
         "email": "facumat@empresa.com",
+        "estado": "Activo"
+    },
+    {
+        "id": 17,
+        "username": "meme",
+        "password": "meme112A",
+        "dni": "445566774",
+        "nivel_acceso": "admin",
+        "email": "meme@empresa.com",
+        "estado": "Activo"
+    },
+    {
+        "id": 18,
+        "username": "papa",
+        "password": "peepaspdAA11",
+        "dni": "44555666",
+        "nivel_acceso": "guest",
+        "email": "papa@empresa.com",
         "estado": "Inactivo"
     }
 ]

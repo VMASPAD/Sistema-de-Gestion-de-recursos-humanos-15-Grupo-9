@@ -1,5 +1,5 @@
 import os
-from main import CSV_AREAS, CSV_EMPLEADOS, CSV_LICENCIAS
+from dataset import archivos 
 
 VERDE = '\033[92m'
 ROJO = '\033[91m'
@@ -11,87 +11,6 @@ RESET = '\033[0m'
 
 
 #Funciones 
-def Eliminar_ClaveForanea(id_area):
-    """
-    Elimina en cascada todas las dependencias de un área.
-    Marca como Inactivo: área, empleados del área, y licencias de esos empleados.
-    Utiliza archivos temporales para cada operación sin cargar en memoria.
-    
-    Args:
-        id_area: ID del área a eliminar en cascada
-    
-    Returns:
-        tuple: (empleados_afectados, licencias_afectadas)
-    """
-    empleados_afectados = []
-    
-    # 1. Marcar empleados del área como Inactivo
-    copia_emp = 'matrices/copia_empleados_temp.csv'
-    try:
-        with open(CSV_EMPLEADOS, 'r', encoding='UTF-8') as arch, \
-             open(copia_emp, 'w', encoding='UTF-8') as copia:
-            
-            # Copiar header
-            header = arch.readline()
-            copia.write(header)
-            
-            # Procesar cada empleado
-            for linea in arch:
-                datos = linea.strip().split(",")
-                if len(datos) >= 6:
-                    emp_area = int(datos[4]) if datos[4].isdigit() else datos[4]
-                    if emp_area == id_area and datos[5] == "Activo":
-                        # Marcar como Inactivo y guardar ID
-                        datos[5] = "Inactivo"
-                        empleados_afectados.append(int(datos[0]) if datos[0].isdigit() else datos[0])
-                
-                # Escribir línea (modificada o no)
-                copia.write(",".join(map(str, datos)) + "\n")
-        
-        # Reemplazar archivo original
-        os.remove(CSV_EMPLEADOS)
-        os.rename(copia_emp, CSV_EMPLEADOS)
-        
-    except (FileNotFoundError, OSError) as e:
-        print(ROJO + f"Error al eliminar empleados: {e}" + RESET)
-        if os.path.exists(copia_emp):
-            os.remove(copia_emp)
-    
-    # 2. Marcar licencias de empleados afectados como Inactivo
-    licencias_afectadas = 0
-    if empleados_afectados:
-        copia_lic = 'matrices/copia_licencias_temp.csv'
-        try:
-            with open(CSV_LICENCIAS, 'r', encoding='UTF-8') as arch, \
-                 open(copia_lic, 'w', encoding='UTF-8') as copia:
-                
-                # Copiar header
-                header = arch.readline()
-                copia.write(header)
-                
-                # Procesar cada licencia
-                for linea in arch:
-                    datos = linea.strip().split(",")
-                    if len(datos) >= 5:
-                        id_emp = int(datos[1]) if datos[1].isdigit() else datos[1]
-                        if id_emp in empleados_afectados and datos[4] == "Activo":
-                            datos[4] = "Inactivo"
-                            licencias_afectadas += 1
-                    
-                    # Escribir línea (modificada o no)
-                    copia.write(",".join(map(str, datos)) + "\n")
-            
-            # Reemplazar archivo original
-            os.remove(CSV_LICENCIAS)
-            os.rename(copia_lic, CSV_LICENCIAS)
-            
-        except (FileNotFoundError, OSError) as e:
-            print(ROJO + f"Error al eliminar licencias: {e}" + RESET)
-            if os.path.exists(copia_lic):
-                os.remove(copia_lic)
-    
-    return (len(empleados_afectados), licencias_afectadas)
-
 def eliminar_entidad_archivo(archivo, empleado, columna_id, columna):
     """
     Marca una entidad como "Inactivo" en el archivo CSV sin cargar todo en memoria.
@@ -106,16 +25,16 @@ def eliminar_entidad_archivo(archivo, empleado, columna_id, columna):
     Returns:
         bool: True si se encontró y eliminó la entidad, False en caso contrario
     """
-    copia = 'matrices/copia.csv'
     encontrado = False
     cantidad = False
-    if archivo == CSV_EMPLEADOS:
+    if archivo == archivos[0]:
         ent = "empleado"
         cantidad = True
-    elif archivo == CSV_AREAS:
+    elif archivo == archivos[1]:
         ent = "area"
-    elif archivo == CSV_LICENCIAS:
+    elif archivo == archivos[2]:
         ent = "licencia"
+    copia = f'matrices/copia{ent}.csv'
     try:
         arch = open(archivo, 'r', encoding='UTF-8') 
         cop = open(copia, 'w', encoding='UTF-8') 
@@ -134,6 +53,7 @@ def eliminar_entidad_archivo(archivo, empleado, columna_id, columna):
                 datos[columna] = "Inactivo"
                 if cantidad:
                     Modificar_cantidad_area(operacion= False, area=int(datos[4]))
+                    eliminar_entidad_archivo(archivos[2], empleado, 1, 4)
                 nueva_linea = str(datos[0])
                 for dato in range(len(datos)):
                     if dato == 0:
@@ -206,7 +126,7 @@ def Modificar_cantidad_area(operacion, area):
     """ 
     #True : Sumar // False : Restar
     try: 
-        with open(CSV_AREAS, 'r', encoding='UTF-8') as arch, open(r'matrices/copia2.csv', 'w', encoding='UTF-8') as copia:
+        with open(archivos[1], 'r', encoding='UTF-8') as arch, open(r'matrices/copia2.csv', 'w', encoding='UTF-8') as copia:
             skip = True
             for linea in arch:
                 if skip:
@@ -242,12 +162,12 @@ def Modificar_cantidad_area(operacion, area):
     
     # Reemplazar archivo original con el temporal
     try:
-        os.remove(CSV_AREAS)
-        os.rename(r'matrices/copia2.csv', CSV_AREAS)
+        os.remove(archivos[1])
+        os.rename(r'matrices/copia2.csv', archivos[1])
     except OSError as e:
         print(ROJO + f"Error al reemplazar archivo de áreas: {e}" + RESET)
                     
 
 if __name__ == "__main__":
-    # Ejemplo de uso: eliminar_entidad_archivo(CSV_EMPLEADOS, 15, 0, 5)
+    # Ejemplo de uso: eliminar_entidad_archivo(archivos[0], 15, 0, 5)
     pass

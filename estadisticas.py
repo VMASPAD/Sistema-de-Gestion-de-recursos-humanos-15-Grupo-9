@@ -9,37 +9,37 @@ RESET = '\033[0m'
 
 from datetime import datetime
 from functools import reduce
-from main import CSV_AREAS, CSV_EMPLEADOS
+from dataset import archivos
+
 
 #Funciones 
 
 def promedio_empleados_por_area(empleados, areas):
-    empleados_activos = len([emp for emp in empleados if emp[5] == "Activo"])
-    areas_activas = len([area for area in areas if area[3] == "Activo"])
-    if areas_activas == 0 or empleados_activos == 0:
-        if areas_activas == 0:
+    if areas == 0 or empleados == 0:
+        if areas == 0:
             print(AMARILLO + "No hay áreas activas." + RESET)
-        if empleados_activos == 0:
+        if empleados == 0:
             print(AMARILLO + "No hay empleados activos." + RESET)
         return 0
     else:
-        promedio = empleados_activos / areas_activas
+        promedio = empleados / areas
         print(CIAN + f"El promedio de empleados por área activa es: {promedio:.2f}" + RESET)
         return 0
 
 
-def cantidad_empleados():
+    
+def cantidad_entidad(num_archivo, columna_activo):
     activos = 0
     inactivos = 0
     try:
-        with open(CSV_EMPLEADOS, 'r', encoding='UTF-8') as arch:
+        with open(archivos[num_archivo], 'r', encoding='UTF-8') as arch:
             skip = True
             for lineas in arch:
                 if skip:
                     skip = False
                     continue
                 linea = lineas.strip().split(",")
-                estado = linea[5]
+                estado = linea[columna_activo]
                 match estado:
                     case "Activo":
                         activos += 1
@@ -50,15 +50,13 @@ def cantidad_empleados():
     except (OSError, FileNotFoundError):
         print("Error!")
     return activos, inactivos
-    
+
 def promedio_licencias_por_empleado(licencias, empleados):
-    empleados_activos = [emp for emp in empleados if emp[5] == "Activo"]
-    licencias_activas = [lic for lic in licencias if lic[4] == "Activo"]
-    if len(empleados_activos) == 0:
+    if empleados == 0:
         print(AMARILLO + "No hay empleados activos." + RESET)
         return 0
     else:
-        promedio = len(licencias_activas) / len(empleados_activos)
+        promedio = licencias / empleados
         print(CIAN + f"El promedio de licencias por empleado activo es: {promedio:.2f}" + RESET)
         return 0
 
@@ -75,7 +73,7 @@ def porcentaje_empleados_activos(activos, inactivos):
 
 def cantidad_empleados_area():
     try:
-        with open(CSV_AREAS, 'r', encoding="UTF-8") as arch:
+        with open(archivos[1], 'r', encoding="UTF-8") as arch:
             skip = True
             for lineas in arch:
                 if skip:
@@ -98,7 +96,7 @@ def calcular_edad(fecha, hoy):
 def promedio_de_edad():
     fechas = []
     try:
-        with open(CSV_EMPLEADOS, 'r', encoding='UTF-8') as arch:
+        with open(archivos[0], 'r', encoding='UTF-8') as arch:
             skip = True
             for lineas in arch:
                 if skip:

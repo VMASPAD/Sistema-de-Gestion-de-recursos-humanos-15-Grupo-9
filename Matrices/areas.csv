@@ -5,8 +5,10 @@ id,nombre,cantidad,estado
 3,Calidad,2,Activo
 4,Logistica y Deposito,2,Activo
 5,Administracion y Finanzas,2,Activo
-6,Compras,1,Activo
-7,Ingenieria y Desarrollo,1,Activo
+6,Compras,2,Activo
+7,Ingenieria y Desarrollo,0,Inactivo
 8,Recursos Humanos,2,Activo
 9,Ventas y Atencion al Cliente,0,Activo
 10,Direccion General,0,Activo
+11,Platea Plus,0,Activo
+12,Platea San Martin,0,Activo

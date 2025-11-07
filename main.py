@@ -8,10 +8,6 @@ CIAN = '\033[96m'
 RESET = '\033[0m'
 
 # Constantes de archivos CSV y JSON - Exportables a todos los módulos
-CSV_AREAS = "Matrices/areas.csv"
-CSV_EMPLEADOS = "Matrices/empleados.csv"
-CSV_LICENCIAS = "Matrices/licencias.csv"
-CSV_JUSTIFICACIONES = "Matrices/justificaciones.csv"
 JSON_USUARIOS = "dataset/usuarios.json"
 
 from account import userLog
@@ -44,13 +40,13 @@ def Menu():
                 nivel_acceso = userLog()
                 opcion = -1
                 if nivel_acceso == -1:
-                    opcion = 6
+                    opcion = 5
                     print()
                 else:
                     print()
                     print(VERDE + "Ingreso exitoso" + RESET)
                     print()
-                while opcion != 6:
+                while opcion != 5:
                     print()
                     print(AZUL + "="*34 + RESET)
                     print(AZUL + "MENU PRINCIPAL" + RESET)
@@ -60,8 +56,7 @@ def Menu():
                     print(CIAN + "| 2 - Empleados".ljust(33) + "|" + RESET)
                     print(CIAN + "| 3 - Licencias".ljust(33) + "|" + RESET)
                     print(CIAN + "| 4 - Usuarios".ljust(33) + "|" + RESET)
-                    print(CIAN + "| 5 - Historial de Operaciones".ljust(33) + "|" + RESET)
-                    print(CIAN + "| 6 - Cerrar Sesion".ljust(33) + "|" + RESET)
+                    print(CIAN + "| 5 - Cerrar Sesion".ljust(33) + "|" + RESET)
                     print(CIAN + "| 0 - Salir".ljust(33) + "|" + RESET)
                     print(AZUL + "="*34 + RESET)
                     opcion = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
@@ -216,25 +211,6 @@ def Menu():
                                     print(AMARILLO + "Opcion no existente" + RESET)
                                     print(AZUL + "="*130 + RESET)
                         case 5:
-                            print()
-                            print(AZUL + "="*34 + RESET)
-                            print(AZUL + "MENU PRINCIPAL -> HISTORIAL DE OPERACIONES" + RESET)
-                            print(AZUL + "="*34 + RESET)
-                            print(CIAN + "| Opciones:".ljust(33) + "|" + RESET)
-                            print(CIAN + "| 1 - Historial de Operaciones".ljust(33) + "|" + RESET)
-                            print(CIAN + "| 0 - Volver".ljust(33) + "|" + RESET)
-                            print(AZUL + "="*34 + RESET)
-                            tipo = Ingresar_Numero(MAGENTA + "Seleccione una opcion: " + RESET)
-                            match tipo:
-                                case 1:
-                                    # Nota: Mostrar_historial_operaciones necesitaría leer desde un archivo CSV
-                                    print(AMARILLO + "Funcionalidad de historial pendiente de implementación con archivos" + RESET)
-                                case 0:
-                                    print(CIAN + "Volviendo al menu principal..." + RESET)
-                                case _:
-                                    print(AMARILLO + "Opcion no existente" + RESET)
-                            
-                        case 6:
                             print(VERDE + "Cerrando sesion..." + RESET)
                         case 0:
                             print()

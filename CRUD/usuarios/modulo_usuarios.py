@@ -11,7 +11,7 @@ import re
 import json
 from CRUD.registrar import Ingresar_Numero
 from CRUD.buscador import Encontrar_diccionario
-from impresion import Imprimir_Diccionario_Ordenada, Imprimir_Matriz_Ordenada, formato_dni   
+from impresion import Imprimir_Diccionario_Ordenada, formato_dni   
 from sign_up import verificar_usuario, generar_contraseña, asignar_nivel_acceso, verificar_dni
 from main import JSON_USUARIOS
 
@@ -106,6 +106,7 @@ def editar_usuario():
         print(CIAN + '2. password' + RESET)
         print(CIAN + '3. dni' + RESET)
         print(CIAN + '4. nivel acceso' + RESET)
+        print(CIAN + '5. alta lógica')
         campo = Ingresar_Numero(MAGENTA + "Seleccione el campo a editar (1-4): " + RESET)
 
         if campo == 1:
@@ -131,6 +132,9 @@ def editar_usuario():
             usuarios[index]["nivel_acceso"]=asignar_nivel_acceso()
             print(VERDE + f"el nivel de acceso de {usuarios[index]['username']} ha sido modificado de {nivel_acceso_pasado} a {usuarios[index]['nivel_acceso']}" + RESET)
         
+        if campo == 5:
+            usuarios[index]["estado"] = "Activo"
+            print(VERDE + f"El usuario {usuarios[index]['username']} esta activo" + RESET)
         guardar_usuarios(usuarios)
     else:
         print(ROJO + "Usuario no encontrado" + RESET)

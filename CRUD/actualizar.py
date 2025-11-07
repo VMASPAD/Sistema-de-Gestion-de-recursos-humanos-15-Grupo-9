@@ -1,6 +1,6 @@
 import os 
 from CRUD.eliminar import Modificar_cantidad_area
-from main import CSV_AREAS, CSV_EMPLEADOS, CSV_LICENCIAS
+from dataset import archivos 
 
 #Funciones 
 def editar_entidad_archivo(archivo, entidad, columna, columna_id, edicion):
@@ -22,12 +22,12 @@ def editar_entidad_archivo(archivo, entidad, columna, columna_id, edicion):
     copia = r'matrices/copia.csv'
     encontrado = False
     cantidad = False
-    if archivo == CSV_EMPLEADOS:
+    if archivo == archivos[0]:
         ent = "empleado"
         cantidad = True
-    elif archivo == CSV_AREAS:
+    elif archivo == archivos[1]:
         ent = "area"
-    elif archivo == CSV_LICENCIAS:
+    elif archivo == archivos[2]:
         ent = "licencia"
     try:
         arch = open(archivo, 'r', encoding='UTF-8') 
