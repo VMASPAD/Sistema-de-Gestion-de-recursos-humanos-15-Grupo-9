@@ -42,6 +42,9 @@ def editar_entidad_archivo(archivo, entidad, columna, columna_id, edicion):
             id = int(datos[columna_id])
 
             if entidad == id:
+                if cantidad and columna == 4:
+                    Modificar_cantidad_area(operacion=False, area=int(datos[4]))
+                    Modificar_cantidad_area(operacion=True, area=int(edicion))
                 if cantidad and columna == 5:
                     assert datos[columna] == "Inactivo"
                     Modificar_cantidad_area(operacion=True, area=int(datos[4]))
@@ -86,6 +89,10 @@ def editar_entidad_archivo(archivo, entidad, columna, columna_id, edicion):
             os.remove(copia)
     
     return encontrado
+
+
+
+
 #Programa principal  
 if __name__ == '__main__':
     editar_entidad_archivo('matrices/empleados.txt', 15, 1, 'Juan Lopez')
