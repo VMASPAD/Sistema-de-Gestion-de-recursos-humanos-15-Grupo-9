@@ -12,7 +12,6 @@ JSON_USUARIOS = "dataset/usuarios.json"
 
 from account import userLog
 from sign_up import crear_usuario
-from impresion import Mostrar_historial_operaciones
 from CRUD.registrar import Ingresar_Numero
 from CRUD.areas import modulo_areas
 from CRUD.licencias import modulo_licencias
